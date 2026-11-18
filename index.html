@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Identity Services (OAuth 2.0 Client-Side) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Master Data Eksternal (File Terpisah di Repo) -->
+    <script src="modules-data.js"></script>
 
     <script>
         tailwind.config = {
@@ -144,13 +146,13 @@
             <div class="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
                 <!-- Admin-Only Controls (Ringkas di Mobile, Lengkap di Desktop) -->
                 <div id="admin-only-actions" class="hidden items-center gap-1.5 shrink-0">
+                    <button type="button" onclick="openMasterDataManagerModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center gap-1.5 transition" title="Manajemen Master Data Modul">
+                        <i class="fa-solid fa-database text-xs"></i>
+                        <span class="hidden md:inline">Master Data</span>
+                    </button>
                     <button type="button" onclick="openExamGuideModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition" title="Info PIN & Exam Mode">
                         <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i>
-                        <span class="hidden md:inline">Info PIN</span>
-                    </button>
-                    <button type="button" onclick="openPathConfigModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-medium flex items-center gap-1.5 transition" title="Atur Tautan File HTML">
-                        <i class="fa-solid fa-link text-xs"></i>
-                        <span class="hidden md:inline">Tautan</span>
+                        <span class="hidden lg:inline">Info PIN</span>
                     </button>
                 </div>
 
@@ -536,140 +538,211 @@
                     </div>
 
                     <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <label for="md-file-input" class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                                <i class="fa-solid fa-file-code text-amber-400"></i>
-                                <span>Target File HTML Modul:</span>
-                            </label>
-                            <button type="button" onclick="copyModuleLink()" class="text-xs text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1">
-                                <i class="fa-regular fa-copy"></i> <span id="copy-btn-text">Salin Nama File</span>
-                            </button>
-                        </div>
-                        <div class="flex gap-2">
-                            <input type="text" id="md-file-input" class="flex-grow bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
-                            <button type="button" onclick="saveCustomFilePath()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition">
-                                Simpan
-                            </button>
-                        </div>
-                    </div>
-                    <p id="md-hint" class="text-[11px] text-slate-400"></p>
+            <!-- Toolbar Aksi Cepat (Tambah Baru, Push GitHub API, Export JS, Import, Reset) -->
+            <div class="px-4 sm:px-6 py-3 bg-slate-900/80 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 shrink-0">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" onclick="openMasterFormEditor(null)" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Tambah Modul</span>
+                    </button>
+                    <button type="button" onclick="toggleGithubApiPanel()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-semibold text-xs flex items-center gap-1.5 transition" title="Atur Koneksi Repositori GitHub">
+                        <i class="fa-brands fa-github text-sm"></i>
+                        <span>Koneksi GitHub</span>
+                        <span id="gh-conn-dot" class="w-2 h-2 rounded-full bg-rose-400"></span>
+                    </button>
+                    <button type="button" id="btn-push-github" onclick="pushMasterDataToGithub()" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition" title="Commit & Push langsung ke file modules-data.js di GitHub">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Simpan & Push ke GitHub</span>
+                    </button>
+                    <button type="button" onclick="downloadModulesDataJs()" class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-emerald-300 border border-emerald-500/35 font-semibold text-xs flex items-center gap-1.5 transition" title="Unduh cadangan file modules-data.js">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="hidden sm:inline">Unduh .js</span>
+                    </button>
+                    <label class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition" title="Impor file JSON/JS master data">
+                        <i class="fa-solid fa-file-import text-cyan-400"></i>
+                        <span class="hidden sm:inline">Impor</span>
+                        <input type="file" id="import-master-file" accept=".json,.js" onchange="handleImportMasterFile(event)" class="hidden">
+                    </label>
                 </div>
-            </div>
 
-            <!-- Modal Footer Actions -->
-            <div class="p-5 sm:p-6 border-t border-slate-800 bg-slate-900/50 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <button type="button" onclick="closeDetailModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
-                    Tutup Preview
-                </button>
-                <a id="md-launch-btn" href="#" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 transition">
-                    <span>Buka Modul Pembelajaran</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===================================================================== -->
-    <!-- MODAL 2: INFORMASI PIN & SECURE EXAM BROWSER                          -->
-    <!-- ===================================================================== -->
-    <div id="modal-exam-guide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
-        <div class="glass-panel rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
-            <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center">
-                        <i class="fa-solid fa-shield-halved text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-display text-base sm:text-lg font-bold text-white">Panduan Secure Exam Mode</h3>
-                        <p class="text-xs text-slate-400">Sistem Keamanan Evaluasi & PIN Akses</p>
-                    </div>
-                </div>
-                <button type="button" onclick="closeExamGuideModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
+                <button type="button" onclick="resetMasterDataToRepoDefault()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-rose-300 border border-slate-700 hover:border-rose-500/40 text-xs font-semibold transition" title="Ambil ulang data terbaru dari file modules-data.js di repo">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Muat Ulang Repo
                 </button>
             </div>
 
-            <div class="p-5 sm:p-6 space-y-4 text-xs sm:text-sm text-slate-300">
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
-                    <div class="font-bold text-amber-300 mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-key"></i> PIN Default Pembuka & Reset Guru:
+            <!-- Body: Panel Konfigurasi GitHub API, Daftar Item, atau Form Tambah/Edit -->
+            <div class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
+                <!-- PANEL KONFIGURASI GITHUB REST API (Tersimpan lokal di perangkat Admin saja) -->
+                <div id="github-api-config-panel" class="hidden bg-slate-950/95 border border-slate-700 rounded-2xl p-4 sm:p-5 space-y-3.5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-brands fa-github text-white text-base"></i>
+                            <h4 class="font-display text-xs sm:text-sm font-bold text-white">Pengaturan GitHub REST API (Auto-Commit)</h4>
+                        </div>
+                        <button type="button" onclick="toggleGithubApiPanel()" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800">
+                            Tutup
+                        </button>
                     </div>
-                    <p class="text-slate-300 text-xs leading-relaxed">
-                        Tab <strong>Soal Latihan</strong> pada modul terkunci secara default agar siswa mempelajari materi terlebih dahulu. Gunakan PIN standar berikut saat praktikum/evaluasi:
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        Kredensial disimpan <strong>hanya di browser perangkat ini</strong> (tidak ikut ter-upload ke kode repo). Gunakan <em>Fine-grained Personal Access Token</em> dengan izin <strong>Contents: Read & Write</strong> khusus pada repositori portal Anda.
                     </p>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-950 border border-amber-500/40 font-mono text-amber-300 font-bold">PIN Akses: 1234 / 4646</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-950 border border-cyan-500/40 font-mono text-cyan-300 font-bold">PIN Pengawas: 4570</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2.5">
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider">Mekanisme Perlindungan Ujian:</h4>
-                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-expand text-cyan-400 mt-0.5"></i>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <div>
-                            <strong class="text-white block">Auto Fullscreen Lock</strong>
-                            <span class="text-xs text-slate-400">Memaksa layar penuh saat masuk tab kuis, termasuk saat halaman di-refresh oleh siswa.</span>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username / Pemilik Repo *</label>
+                            <input type="text" id="gh-owner" placeholder="contoh: username-anda" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Nama Repositori *</label>
+                            <input type="text" id="gh-repo" placeholder="contoh: portal-otomotif" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Branch & Path File *</label>
+                            <div class="flex gap-1.5">
+                                <input type="text" id="gh-branch" value="main" placeholder="main" class="w-20 bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500" title="Nama Branch">
+                                <input type="text" id="gh-filepath" value="modules-data.js" placeholder="modules-data.js" class="flex-1 min-w-0 bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500" title="Path File di Repo">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">GitHub Personal Access Token *</label>
+                            <input type="password" id="gh-token" placeholder="github_pat_... / ghp_..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-amber-300 focus:outline-none focus:border-cyan-500">
                         </div>
                     </div>
-                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-eye-slash text-rose-400 mt-0.5"></i>
-                        <div>
-                            <strong class="text-white block">Anti-Tab Switch & Split Screen</strong>
-                            <span class="text-xs text-slate-400">Mendeteksi perpindahan tab/aplikasi. Maksimal 3 kali pelanggaran sebelum ujian dikunci otomatis.</span>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-shuffle text-emerald-400 mt-0.5"></i>
-                        <div>
-                            <strong class="text-white block">Pengacakan Soal & Opsi Jawaban</strong>
-                            <span class="text-xs text-slate-400">Urutan 20 soal dan pilihan A–D diacak unik untuk setiap sesi pengerjaan siswa.</span>
+                    <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                        <button type="button" onclick="clearGithubApiConfig()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-500/20 text-rose-300 border border-slate-700 text-xs font-semibold transition">
+                            Hapus Token Tersimpan
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="saveGithubApiConfig(true)" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition">
+                                <i class="fa-solid fa-plug-circle-check mr-1"></i> Simpan & Uji Koneksi
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="p-5 border-t border-slate-800 text-right">
-                <button type="button" onclick="closeExamGuideModal()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition">
-                    Mengerti
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===================================================================== -->
-    <!-- MODAL 3: PENGATURAN NAMA FILE / TAUTAN MODUL                          -->
-    <!-- ===================================================================== -->
-    <div id="modal-path-config" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
-        <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
-            <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
-                <div>
-                    <h3 class="font-display text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-folder-tree text-cyan-400"></i> Konfigurasi Tautan File HTML
-                    </h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Sesuaikan path/nama file HTML apabila berada di sub-folder berbeda.</p>
+                <!-- Info Sinkronisasi -->
+                <div id="master-sync-banner" class="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-3.5 text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5">
+                        <i class="fa-solid fa-cloud-arrow-up text-cyan-400 mt-0.5 sm:mt-0"></i>
+                        <span id="master-sync-status-text">Atur <strong>Koneksi GitHub</strong> sekali saja, lalu klik <strong>Simpan & Push ke GitHub</strong> setiap kali selesai mengubah modul agar langsung live untuk semua siswa.</span>
+                    </div>
+                    <span id="master-total-badge" class="px-2.5 py-1 rounded-lg bg-slate-950 border border-cyan-500/30 font-display font-bold text-cyan-300 shrink-0 self-start sm:self-auto">
+                        8 Item
+                    </span>
                 </div>
-                <button type="button" onclick="closePathConfigModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
 
-            <div id="path-config-list" class="p-5 sm:p-6 space-y-3 max-h-[55vh] overflow-y-auto">
-                <!-- Inputs rendered via JS -->
-            </div>
+                <!-- FORM TAMBAH / EDIT MODUL (Tersembunyi secara default) -->
+                <form id="master-item-form" onsubmit="submitMasterItemForm(event)" class="hidden bg-slate-900/95 border border-amber-500/40 rounded-2xl p-4 sm:p-5 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h4 id="master-form-title" class="font-display text-sm sm:text-base font-bold text-amber-300 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-to-square"></i> Tambah Modul Baru
+                        </h4>
+                        <button type="button" onclick="closeMasterFormEditor()" class="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800">
+                            Batal
+                        </button>
+                    </div>
 
-            <div class="p-5 border-t border-slate-800 bg-slate-900/50 flex flex-wrap items-center justify-between gap-3">
-                <button type="button" onclick="resetDefaultPaths()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-300 border border-slate-700 text-xs font-semibold transition">
-                    <i class="fa-solid fa-rotate-left mr-1"></i> Reset Default
-                </button>
-                <div class="flex gap-2">
-                    <button type="button" onclick="closePathConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
-                        Batal
-                    </button>
-                    <button type="button" onclick="saveAllPaths()" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition">
-                        Simpan Perubahan
-                    </button>
+                    <input type="hidden" id="mf-original-id">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Kategori / Penempatan *</label>
+                            <select id="mf-group" onchange="syncFormCategoryDefaults()" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                                <option value="x-oto">Slide 1 • Tab Kelas X OTO</option>
+                                <option value="xi-tkr">Slide 1 • Tab Kelas XI TKR</option>
+                                <option value="simulasi">Slide 2 • Simulasi Interaktif</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Label Lencana Kartu *</label>
+                            <input type="text" id="mf-classLabel" required placeholder="Contoh: Kelas X OTO" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Warna Tema Kartu *</label>
+                            <select id="mf-badgeColor" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                                <option value="cyan">Cyan (Biru Kehijauan - X OTO)</option>
+                                <option value="amber">Amber (Kuning Emas - XI TKR)</option>
+                                <option value="emerald">Emerald (Hijau - Simulasi)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Judul Modul / Simulasi *</label>
+                            <input type="text" id="mf-title" required placeholder="Contoh: Sistem Rem Hidrolik & ABS" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Subjudul Singkat *</label>
+                            <input type="text" id="mf-subtitle" required placeholder="Contoh: Konstruksi Master Silinder & Booster" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Target File HTML *</label>
+                            <input type="text" id="mf-defaultFile" required placeholder="sistem-rem.html" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ikon FontAwesome</label>
+                            <input type="text" id="mf-icon" placeholder="fa-gears" value="fa-gears" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tipe Aksi Tombol</label>
+                            <select id="mf-actionType" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                                <option value="link">Buka Tautan File HTML</option>
+                                <option value="exam-guide">Buka Panduan PIN Ujian</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">URL Gambar Thumbnail *</label>
+                        <input type="url" id="mf-thumbnail" required placeholder="https://images.unsplash.com/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Deskripsi Ringkas *</label>
+                        <textarea id="mf-desc" rows="2" required placeholder="Jelaskan ringkasan materi atau simulasi yang dipelajari..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tag / Lencana Fitur (pisahkan dengan koma)</label>
+                            <input type="text" id="mf-badges" placeholder="12 Komponen, Animasi 3D, 20 Soal CBT" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Catatan / Petunjuk File (Opsional)</label>
+                            <input type="text" id="mf-hint" placeholder="Pastikan file berada satu folder dengan index.html" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Daftar Topik / Kompetensi (1 baris = 1 poin silabus)</label>
+                        <textarea id="mf-topics" rows="4" placeholder="Konstruksi Master Cylinder & Booster Rem&#10;Mekanisme Rem Cakram & Tromol&#10;Prosedur Bleeding Minyak Rem" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-2 pt-2">
+                        <button type="button" onclick="closeMasterFormEditor()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+                            Batal
+                        </button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan ke Master Data
+                        </button>
+                    </div>
+                </form>
+
+                <!-- DAFTAR ITEM MASTER DATA -->
+                <div id="master-items-list" class="space-y-2.5">
+                    <!-- Rendered dynamically via JS -->
                 </div>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-4 sm:px-6 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between gap-3 shrink-0">
+                <span class="text-[11px] text-slate-400">Hanya dapat diakses oleh akun Guru/Admin terdaftar.</span>
+                <button type="button" onclick="closeMasterDataManagerModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition">
+                    Selesai & Tutup
+                </button>
             </div>
         </div>
     </div>
@@ -729,13 +802,14 @@
         ];
 
         const AUTH_STORAGE_KEY = "otolab_google_user_v1";
+        const MASTER_DATA_STORAGE_KEY = "otolab_master_data_override_v1";
+        const GITHUB_CONFIG_STORAGE_KEY = "otolab_github_api_cfg_v1";
         let currentUser = null;
 
         // =========================================================================
-        // MASTER DATA MODUL MATERI & SIMULASI INTERAKTIF
+        // FALLBACK MASTER DATA (DIGUNAKAN JIKA modules-data.js BELUM DITEMUKAN)
         // =========================================================================
-        const modulesData = [
-            // ================= TAB 1: KELAS X OTO =================
+        const fallbackModulesData = [
             {
                 id: 'x-common-tools',
                 section: 'materi',
@@ -763,207 +837,11 @@
                     'Prosedur Aspek K3 Penggunaan Peralatan Bengkel'
                 ],
                 hint: 'Pastikan file common-tools.html berada dalam satu direktori yang sama dengan index.html.'
-            },
-            {
-                id: 'x-workshop-equip',
-                section: 'materi',
-                group: 'x-oto',
-                classLabel: 'Kelas X OTO',
-                badgeColor: 'cyan',
-                icon: 'fa-car-burst',
-                thumbnail: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80',
-                title: 'Alat Perlengkapan Bengkel (Workshop Equipment)',
-                subtitle: 'Lifting, Pressing & Supporting Equipment',
-                defaultFile: 'perlengkapan-bengkel.html',
-                desc: 'Mempelajari perlengkapan berat bengkel otomotif mulai dari pengganjal ban, dongkrak, jack stand, empat tipe car lift, bike lift, engine crane, sling, press hidrolik, hingga engine stand.',
-                badges: ['10 Perlengkapan', 'Swipe Galeri', '20 Soal CBT'],
-                highlights: [
-                    { label: 'Perlengkapan', value: '10 Unit Utama' },
-                    { label: 'Visual', value: 'Swipe Galeri' },
-                    { label: 'Evaluasi', value: '20 Soal Exam' }
-                ],
-                topics: [
-                    'Wheel Chock, Dongkrak Mekanik & Hidrolik, Jack Stand',
-                    'Car Lift (Single Post, Two Post, Four Post & Scissor)',
-                    'Bike Lift & Engine Crane (Pengangkat Mesin)',
-                    'Sling Rantai/Sintetis & Hydraulic Press',
-                    'Engine Stand & Pistol Stamped (Grease Gun)',
-                    '20 Soal Pilihan Ganda dengan Secure Exam Browser'
-                ],
-                hint: 'Dilengkapi penguncian layar penuh otomatis & reset token pengawas.'
-            },
-            {
-                id: 'x-komponen-oto',
-                section: 'materi',
-                group: 'x-oto',
-                classLabel: 'Kelas X OTO',
-                badgeColor: 'cyan',
-                icon: 'fa-microchip',
-                thumbnail: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80',
-                title: 'Komponen Otomotif Dasar',
-                subtitle: 'Bab 3 Dasar Teknik Otomotif (ICE & EV)',
-                defaultFile: 'materi-komponen-otomotif.html',
-                desc: 'Pemetaan menyeluruh konstruksi kendaraan bermotor berdasarkan kurikulum SMK Kelas X Bab 3: komponen utama motor bakar & motor listrik (EV), perlengkapan mesin, sasis, bodi, kelistrikan, hingga IoV.',
-                badges: ['10 Kelompok Sistem', 'Motor Bakar & EV', '20 Soal CBT'],
-                highlights: [
-                    { label: 'Cakupan', value: '10 Sistem Utama' },
-                    { label: 'Teknologi', value: 'ICE & EV / IoV' },
-                    { label: 'Evaluasi', value: '20 Soal Exam' }
-                ],
-                topics: [
-                    'Komponen Utama Mesin Motor Bakar (Blok, Piston, Crankshaft)',
-                    'Komponen Utama Motor Listrik EV (Stator, Rotor, Inverter)',
-                    'Sistem Perlengkapan Mesin (Bahan Bakar, Pelumas, Radiator)',
-                    'Pemindah Tenaga, Sasis, Kemudi, Roda & Rem',
-                    'Rangka Monocoque/Ladder Frame & Kelistrikan Otomotif',
-                    'Komponen Tambahan (Sistem AC, Immobilizer & Internet of Vehicle)'
-                ],
-                hint: 'Mengacu langsung pada buku Dasar-Dasar Teknik Otomotif Semester 2 Bab 3.'
-            },
-
-            // ================= TAB 2: KELAS XI TKR =================
-            {
-                id: 'xi-pemindah-tenaga',
-                section: 'materi',
-                group: 'xi-tkr',
-                classLabel: 'Kelas XI TKR',
-                badgeColor: 'amber',
-                icon: 'fa-gears',
-                thumbnail: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80',
-                title: 'Sistem Pemindah Tenaga',
-                subtitle: '16 Komponen Power Train System',
-                defaultFile: 'materi-pemindah-tenaga.html',
-                desc: 'Pembahasan mendalam 16 unit sistem pemindah tenaga kendaraan ringan mulai dari kopling, transmisi manual/otomatis/CVT, poros propeller, gardan/differensial, LSD, hingga sistem penggerak 4WD.',
-                badges: ['16 Komponen Power Train', 'Prosedur Servis TKR', '20 Soal CBT'],
-                highlights: [
-                    { label: 'Unit Materi', value: '16 Komponen' },
-                    { label: 'Fokus', value: 'Konstruksi & Servis' },
-                    { label: 'Evaluasi', value: '20 Soal Exam' }
-                ],
-                topics: [
-                    'Kopling Manual Gesek & Sistem Aktuasi Hidrolik',
-                    'Transmisi Manual Synchromesh, Planetary AT & CVT',
-                    'Torque Converter, Poros Propeller, U-Joint & Center Bearing',
-                    'Gardan / Differensial (Hypoid Gear), LSD & Diff Lock',
-                    'Poros Axle Belakang (Rigid) & CV Joint Penggerak Depan',
-                    'Tata Letak FR, FF, MR, RR, Transfer Case 4WD & Prosedur DTI'
-                ],
-                hint: 'Disusun khusus sesuai capaian pembelajaran Teknik Kendaraan Ringan (XI-TKR).'
-            },
-            {
-                id: 'xi-sistem-kopling',
-                section: 'materi',
-                group: 'xi-tkr',
-                classLabel: 'Kelas XI TKR',
-                badgeColor: 'amber',
-                icon: 'fa-compact-disc',
-                thumbnail: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=900&q=80',
-                title: 'Sistem Kopling Lengkap',
-                subtitle: '16 Komponen + Mekanisme & Simulator 3D',
-                defaultFile: 'sistem-kopling.html',
-                desc: 'Modul komprehensif sistem kopling kendaraan ringan yang memuat katalog 16 komponen detail, video animasi 3D mekanisme kerja, simulator fisika CAD 3D terintegrasi, serta 20 soal ujian mode aman.',
-                badges: ['16 Komponen Detail', 'Video & CAD 3D', '20 Soal CBT'],
-                highlights: [
-                    { label: 'Komponen', value: '16 Bagian Kopling' },
-                    { label: 'Lab Virtual', value: 'CAD 3D & Video' },
-                    { label: 'Evaluasi', value: '20 Soal Exam' }
-                ],
-                topics: [
-                    '16 Komponen Kopling (Flywheel, Clutch Disc, Torsion Damper, Diaphragm)',
-                    'Master Cylinder, Slave Cylinder, Release Fork, Release & Pilot Bearing',
-                    'Prosedur Pemeriksaan Keausan Paku Keling, Run-out & Free Play Pedal',
-                    'Mekanisme Posisi Engaged & Disengaged + Video Animasi 3D',
-                    'Simulator Interaktif CAD 3D Kopling Hidrolik & Gearbox',
-                    '20 Soal Evaluasi Sistem Kopling dengan Secure Exam Browser'
-                ],
-                hint: 'Gunakan tab "Mekanisme" di dalam modul ini untuk meluncurkan Simulator CAD 3D layar penuh.'
-            },
-
-            // ================= BAGIAN 2: SIMULASI INTERAKTIF =================
-            {
-                id: 'sim-cad-3d',
-                section: 'simulasi',
-                group: 'simulasi',
-                classLabel: 'Simulasi CAD 3D',
-                badgeColor: 'emerald',
-                icon: 'fa-cube',
-                thumbnail: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=900&q=80',
-                title: 'Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan',
-                subtitle: 'Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow',
-                defaultFile: 'sistem-kopling.html#mekanisme',
-                desc: 'Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.',
-                badges: ['8 Mode View', '10 Skenario Kerusakan', 'Three.js WebGL'],
-                highlights: [
-                    { label: 'Engine 3D', value: 'Three.js WebGL' },
-                    { label: 'Mode View', value: '8 Mode Tampilan' },
-                    { label: 'Analisis', value: '10 Fault Scenarios' }
-                ],
-                topics: [
-                    'Hukum Pascal Real-Time (Tekanan, Gaya Pedal, Diameter Master/Slave)',
-                    'Kinematika Pegas Diafragma, Pressure Plate & Clutch Disc Slip',
-                    'Transmisi Manual 5-Percepatan Constant-Mesh + Tuas H-Pattern',
-                    '8 Mode View: Normal, Cutaway Hidrolik/Mekanik, Fluid & Torque Flow',
-                    'Exploded View & Inspeksi Synchronizer Ring',
-                    '10 Skenario Kerusakan (Masuk Angin, Kebocoran Pipa, Kampas Aus, dll)'
-                ],
-                hint: 'Buka modul sistem-kopling.html lalu pilih sub-tab "Mekanisme" untuk meluncurkan Simulator CAD 3D layar penuh.'
-            },
-            {
-                id: 'sim-katalog-swipe',
-                section: 'simulasi',
-                group: 'simulasi',
-                classLabel: 'Eksplorasi 3D / Swipe',
-                badgeColor: 'emerald',
-                icon: 'fa-hand-pointer',
-                thumbnail: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
-                title: 'Katalog Visual Interaktif 3D/Swipe & Lightbox Inspeksi Komponen',
-                subtitle: 'Interactive Swipeable Deck & High-Res Lightbox Zoom',
-                defaultFile: 'materi-pemindah-tenaga.html',
-                desc: 'Antarmuka eksplorasi visual berbasis kartu geser sentuh (touch/drag carousel) dan lightbox zoom resolusi tinggi untuk mengamati konstruksi detail komponen pemindah tenaga & peralatan bengkel.',
-                badges: ['Swipe Carousel', 'Lightbox Zoom', 'Android & Desktop'],
-                highlights: [
-                    { label: 'Navigasi', value: 'Gesture Swipe' },
-                    { label: 'Inspeksi', value: 'Lightbox Zoom' },
-                    { label: 'Kompatibilitas', value: 'Android & Desktop' }
-                ],
-                topics: [
-                    'Gestur Usap Kiri-Kanan (Swipe Carousel) dengan Indikator Interaktif',
-                    'Pencarian Komponen Instan Berdasarkan Nama & Fungsi',
-                    'Lightbox Fullscreen Zoom untuk Mengamati Detail Konstruksi',
-                    'Struktur Pembelajaran Terstandar: Pengertian, Fungsi, Cara Kerja & Servis'
-                ],
-                hint: 'Tersedia pada seluruh modul materi Kelas X OTO maupun Kelas XI TKR.'
-            },
-            {
-                id: 'sim-exam-browser',
-                section: 'simulasi',
-                group: 'simulasi',
-                classLabel: 'Secure Exam CBT',
-                badgeColor: 'emerald',
-                icon: 'fa-shield-halved',
-                thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
-                title: 'Portal Evaluasi & Simulasi Ujian Aman (Secure Exam Browser Mode)',
-                subtitle: 'PIN Otorisasi Guru • Anti-Tab Switch & Pengacakan Soal',
-                defaultFile: 'sistem-kopling.html',
-                actionType: 'exam-guide',
-                desc: 'Lingkungan evaluasi mandiri dan ulangan harian berbasis web dengan penguncian layar penuh otomatis, deteksi perpindahan aplikasi/tab, pengacakan soal per siswa, serta otorisasi PIN guru.',
-                badges: ['PIN Pengawas', 'Anti-Tab Switch (3x)', 'Pengacakan Soal'],
-                highlights: [
-                    { label: 'Batas Pelanggaran', value: 'Maks. 3 Kali' },
-                    { label: 'Auto-Lock', value: 'Mode CBT Aman' },
-                    { label: 'Otorisasi', value: 'Akun Guru / Admin' }
-                ],
-                topics: [
-                    'Penguncian Tab Soal dengan PIN Akses Guru',
-                    'Paksa Mode Layar Penuh (Fullscreen) Otomatis Saat Masuk & Refresh',
-                    'Deteksi Kecurangan Pindah Tab / Split Screen di HP Android',
-                    'Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas'
-                ],
-                hint: 'Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian.'
             }
         ];
 
         // State Management
+        let modulesData = [];
         let customPaths = {};
         let customThumbs = {};
         let activeMainSlide = 'materi'; // 'materi' | 'simulasi'
@@ -971,7 +849,32 @@
         let currentSearch = '';
         let activeModalModuleId = null;
 
+        function getRepoBaseMasterData() {
+            if (Array.isArray(window.OTOLAB_MASTER_DATA) && window.OTOLAB_MASTER_DATA.length > 0) {
+                return JSON.parse(JSON.stringify(window.OTOLAB_MASTER_DATA));
+            }
+            return JSON.parse(JSON.stringify(fallbackModulesData));
+        }
+
         function loadSavedSettings() {
+            // 1. Muat master data (prioritas override admin di localStorage, lalu file eksternal modules-data.js)
+            try {
+                const overrideRaw = localStorage.getItem(MASTER_DATA_STORAGE_KEY);
+                if (overrideRaw) {
+                    const parsed = JSON.parse(overrideRaw);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        modulesData = parsed;
+                    } else {
+                        modulesData = getRepoBaseMasterData();
+                    }
+                } else {
+                    modulesData = getRepoBaseMasterData();
+                }
+            } catch (e) {
+                modulesData = getRepoBaseMasterData();
+            }
+
+            // 2. Muat kustomisasi path & thumbnail cepat
             try {
                 const savedPaths = localStorage.getItem('otolab_custom_paths_v2');
                 if (savedPaths) customPaths = JSON.parse(savedPaths);
@@ -980,6 +883,14 @@
                 if (savedThumbs) customThumbs = JSON.parse(savedThumbs);
             } catch (e) {
                 console.warn('Gagal membaca localStorage:', e);
+            }
+        }
+
+        function persistMasterData() {
+            try {
+                localStorage.setItem(MASTER_DATA_STORAGE_KEY, JSON.stringify(modulesData));
+            } catch (e) {
+                console.warn('Gagal menyimpan master data ke localStorage:', e);
             }
         }
 
@@ -1284,6 +1195,14 @@
             const xiItems = modulesData.filter(m => m.group === 'xi-tkr' && matchesQuery(m, currentSearch));
             const simItems = modulesData.filter(m => m.group === 'simulasi' && matchesQuery(m, currentSearch));
 
+            // Update Hero Stats dynamically
+            const totalMateriCount = modulesData.filter(m => m.section === 'materi').length;
+            const totalSimCount = modulesData.filter(m => m.section === 'simulasi').length;
+            const statModulesEl = document.getElementById('stat-modules');
+            const statSimsEl = document.getElementById('stat-sims');
+            if (statModulesEl) statModulesEl.textContent = totalMateriCount;
+            if (statSimsEl) statSimsEl.textContent = totalSimCount;
+
             document.getElementById('count-badge-x-oto').textContent = `${xItems.length} Modul`;
             document.getElementById('count-badge-xi-tkr').textContent = `${xiItems.length} Modul`;
 
@@ -1489,13 +1408,22 @@
             `).join('');
 
             const adminEditor = document.getElementById('md-admin-editor');
+            const editMasterBtn = document.getElementById('md-edit-master-btn');
             if (isUserAdmin(currentUser)) {
                 adminEditor.classList.remove('hidden');
+                if (editMasterBtn) {
+                    editMasterBtn.classList.remove('hidden');
+                    editMasterBtn.classList.add('flex');
+                }
                 document.getElementById('md-thumb-input').value = getModuleThumb(mod);
                 document.getElementById('md-file-input').value = getModuleFile(mod);
                 document.getElementById('md-hint').textContent = mod.hint || '';
             } else {
                 adminEditor.classList.add('hidden');
+                if (editMasterBtn) {
+                    editMasterBtn.classList.add('hidden');
+                    editMasterBtn.classList.remove('flex');
+                }
             }
 
             const launchBtn = document.getElementById('md-launch-btn');
@@ -1578,79 +1506,536 @@
         // =====================================================================
         // MODAL 3: PATH & THUMBNAIL CONFIGURATION HANDLERS (DILINDUNGI ROLE ADMIN)
         // =====================================================================
-        function openPathConfigModal() {
+        // MODAL 3: MANAJEMEN MASTER DATA MODUL (KHUSUS GURU / ADMIN)
+        // =====================================================================
+        function openMasterDataManagerModal() {
             if (!isUserAdmin(currentUser)) {
-                showToast("Akses ditolak: Hanya akun guru terdaftar yang dapat mengatur tautan.");
+                showToast("Akses ditolak: Hanya akun guru terdaftar yang dapat mengelola master data.");
                 openLoginModal();
                 return;
             }
-            const list = document.getElementById('path-config-list');
-            list.innerHTML = modulesData.map(mod => `
-                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 space-y-2">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs font-bold text-white">${mod.title}</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 shrink-0">${mod.classLabel}</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <div>
-                            <label class="text-[10px] text-slate-400 block mb-1">File HTML Tujuan</label>
-                            <input type="text" data-mod-id="${mod.id}" value="${getModuleFile(mod)}" class="path-config-input w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 block mb-1">URL Gambar Thumbnail</label>
-                            <input type="text" data-thumb-id="${mod.id}" value="${getModuleThumb(mod)}" class="thumb-config-input w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500">
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            const modal = document.getElementById('modal-path-config');
+            loadGithubApiConfig();
+            closeMasterFormEditor();
+            renderMasterManagerList();
+            const modal = document.getElementById('modal-master-manager');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
+        function generateModulesDataJsString() {
+            const cleanExportData = modulesData.map(mod => {
+                const copy = { ...mod };
+                copy.defaultFile = getModuleFile(mod);
+                copy.thumbnail = getModuleThumb(mod);
+                return copy;
+            });
 
-        function closePathConfigModal() {
-            const modal = document.getElementById('modal-path-config');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            return `// =========================================================================
+// MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
+// Diperbarui pada: ${new Date().toLocaleString('id-ID')}
+// =========================================================================
+
+window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
+`;
         }
 
-        function saveAllPaths() {
-            const pathInputs = document.querySelectorAll('.path-config-input');
-            pathInputs.forEach(inp => {
-                const id = inp.getAttribute('data-mod-id');
-                const val = inp.value.trim();
-                if (val) customPaths[id] = val;
-            });
+        function downloadModulesDataJs() {
+            if (!isUserAdmin(currentUser)) return;
+            const fileContent = generateModulesDataJsString();
+            const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'modules-data.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('File modules-data.js berhasil diunduh!');
+        }
 
-            const thumbInputs = document.querySelectorAll('.thumb-config-input');
-            thumbInputs.forEach(inp => {
-                const id = inp.getAttribute('data-thumb-id');
-                const val = inp.value.trim();
-                if (val) customThumbs[id] = val;
-            });
+        // =========================================================================
+        // INTEGRASI GITHUB REST API (AUTO-COMMIT KE REPOSITORI)
+        // =========================================================================
+        function getGithubApiConfig() {
+            try {
+                const raw = localStorage.getItem(GITHUB_CONFIG_STORAGE_KEY);
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                return null;
+            }
+        }
 
+        function loadGithubApiConfig() {
+            const cfg = getGithubApiConfig();
+            const dot = document.getElementById('gh-conn-dot');
+            const statusText = document.getElementById('master-sync-status-text');
+
+            if (cfg && cfg.owner && cfg.repo && cfg.token) {
+                document.getElementById('gh-owner').value = cfg.owner;
+                document.getElementById('gh-repo').value = cfg.repo;
+                document.getElementById('gh-branch').value = cfg.branch || 'main';
+                document.getElementById('gh-filepath').value = cfg.filepath || 'modules-data.js';
+                document.getElementById('gh-token').value = cfg.token;
+                if (dot) dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+                if (statusText) {
+                    statusText.innerHTML = `Terhubung ke repo <code class="text-cyan-300 font-bold">${cfg.owner}/${cfg.repo}</code> (${cfg.branch || 'main'} → <code>${cfg.filepath || 'modules-data.js'}</code>). Klik <strong>Simpan & Push ke GitHub</strong> untuk memperbarui repo langsung.`;
+                }
+            } else {
+                // Otomatis deteksi username & nama repo jika diakses via *.github.io/nama-repo/
+                if (window.location.hostname.endsWith('.github.io')) {
+                    const detectedOwner = window.location.hostname.split('.')[0];
+                    const pathParts = window.location.pathname.split('/').filter(Boolean);
+                    if (detectedOwner && !document.getElementById('gh-owner').value) {
+                        document.getElementById('gh-owner').value = detectedOwner;
+                    }
+                    if (pathParts.length > 0 && !document.getElementById('gh-repo').value) {
+                        document.getElementById('gh-repo').value = pathParts[0];
+                    }
+                }
+                if (dot) dot.className = "w-2 h-2 rounded-full bg-rose-400";
+            }
+        }
+
+        function toggleGithubApiPanel() {
+            const panel = document.getElementById('github-api-config-panel');
+            if (!panel) return;
+            const willShow = panel.classList.contains('hidden');
+            if (willShow) {
+                loadGithubApiConfig();
+                panel.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        async function saveGithubApiConfig(testConnection = false) {
+            if (!isUserAdmin(currentUser)) return;
+            const owner = document.getElementById('gh-owner').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const branch = document.getElementById('gh-branch').value.trim() || 'main';
+            const filepath = document.getElementById('gh-filepath').value.trim().replace(/^\/+/, '') || 'modules-data.js';
+            const token = document.getElementById('gh-token').value.trim();
+
+            if (!owner || !repo || !token) {
+                showToast('Lengkapi Username, Nama Repo, dan Personal Access Token GitHub.');
+                return;
+            }
+
+            const cfg = { owner, repo, branch, filepath, token };
+            try {
+                localStorage.setItem(GITHUB_CONFIG_STORAGE_KEY, JSON.stringify(cfg));
+            } catch (e) {}
+
+            loadGithubApiConfig();
+
+            if (testConnection) {
+                try {
+                    showToast('Menguji koneksi ke repositori GitHub...');
+                    const res = await fetch(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Accept': 'application/vnd.github+json'
+                        }
+                    });
+                    if (!res.ok) {
+                        const errData = await res.json().catch(() => ({}));
+                        throw new Error(errData.message || `HTTP ${res.status}`);
+                    }
+                    showToast(`Koneksi berhasil ke ${owner}/${repo}!`);
+                    document.getElementById('github-api-config-panel').classList.add('hidden');
+                } catch (err) {
+                    document.getElementById('gh-conn-dot').className = "w-2 h-2 rounded-full bg-rose-400";
+                    showToast(`Gagal terhubung ke GitHub: ${err.message}`);
+                }
+            }
+        }
+
+        function clearGithubApiConfig() {
+            try {
+                localStorage.removeItem(GITHUB_CONFIG_STORAGE_KEY);
+            } catch (e) {}
+            document.getElementById('gh-token').value = '';
+            document.getElementById('gh-conn-dot').className = "w-2 h-2 rounded-full bg-rose-400";
+            document.getElementById('master-sync-status-text').innerHTML = 'Koneksi GitHub dihapus dari browser ini.';
+            showToast('Token GitHub dihapus dari penyimpanan lokal browser.');
+        }
+
+        function encodeUtf8ToBase64(str) {
+            const bytes = new TextEncoder().encode(str);
+            let binString = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binString += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binString);
+        }
+
+        async function pushMasterDataToGithub() {
+            if (!isUserAdmin(currentUser)) return;
+            const cfg = getGithubApiConfig();
+            if (!cfg || !cfg.owner || !cfg.repo || !cfg.token) {
+                const panel = document.getElementById('github-api-config-panel');
+                if (panel) panel.classList.remove('hidden');
+                showToast('Isi pengaturan Koneksi GitHub terlebih dahulu sebelum push.');
+                return;
+            }
+
+            const btn = document.getElementById('btn-push-github');
+            const originalHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Menyimpan ke Repo...</span>';
+            }
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${cfg.filepath}`;
+                const headers = {
+                    'Authorization': `Bearer ${cfg.token}`,
+                    'Accept': 'application/vnd.github+json',
+                    'Content-Type': 'application/json'
+                };
+
+                // 1. Ambil SHA file saat ini (jika file modules-data.js sudah ada di repo)
+                let currentSha = null;
+                const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(cfg.branch || 'main')}`, { headers });
+                if (getRes.ok) {
+                    const fileInfo = await getRes.json();
+                    currentSha = fileInfo.sha;
+                } else if (getRes.status !== 404) {
+                    const errJson = await getRes.json().catch(() => ({}));
+                    throw new Error(errJson.message || `Gagal membaca file repo (${getRes.status})`);
+                }
+
+                // 2. Encode isi terbaru modules-data.js ke Base64 UTF-8 dan lakukan commit (PUT)
+                const contentJs = generateModulesDataJsString();
+                const payload = {
+                    message: `Update master data modul via Admin Portal (${currentUser?.email || 'Admin'})`,
+                    content: encodeUtf8ToBase64(contentJs),
+                    branch: cfg.branch || 'main'
+                };
+                if (currentSha) {
+                    payload.sha = currentSha;
+                }
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers,
+                    body: JSON.stringify(payload)
+                });
+
+                if (!putRes.ok) {
+                    const errPut = await putRes.json().catch(() => ({}));
+                    throw new Error(errPut.message || `Commit gagal (${putRes.status})`);
+                }
+
+                // Sinkronkan juga cache lokal agar selaras dengan repo
+                customPaths = {};
+                customThumbs = {};
+                persistMasterData();
+                localStorage.removeItem('otolab_custom_paths_v2');
+                localStorage.removeItem('otolab_custom_thumbs_v2');
+
+                showToast('Berhasil! File modules-data.js di GitHub telah ter-update.');
+            } catch (err) {
+                showToast(`Push GitHub gagal: ${err.message}`);
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                }
+            }
+        }
+
+        function renderMasterManagerList() {
+            const listEl = document.getElementById('master-items-list');
+            const totalBadge = document.getElementById('master-total-badge');
+            if (totalBadge) totalBadge.textContent = `${modulesData.length} Item`;
+            if (!listEl) return;
+
+            const groupColors = {
+                'x-oto': 'bg-cyan-500/15 text-cyan-300 border-cyan-500/35',
+                'xi-tkr': 'bg-amber-500/15 text-amber-300 border-amber-500/35',
+                'simulasi': 'bg-emerald-500/15 text-emerald-300 border-emerald-500/35'
+            };
+
+            listEl.innerHTML = modulesData.map((mod, idx) => `
+                <div class="bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-2xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <img src="${getModuleThumb(mod)}" alt="${mod.title}" onerror="this.onerror=null;this.src='https://placehold.co/160x100/0f172a/38bdf8?text=OTO';" class="w-16 h-12 rounded-xl object-cover border border-slate-700 shrink-0">
+                        <div class="min-w-0">
+                            <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${groupColors[mod.group] || groupColors['x-oto']}">${mod.classLabel}</span>
+                                <code class="text-[10px] text-cyan-400 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800 truncate max-w-[180px]">${getModuleFile(mod)}</code>
+                            </div>
+                            <h5 class="text-xs sm:text-sm font-bold text-white truncate">${mod.title}</h5>
+                            <p class="text-[11px] text-slate-400 truncate">${mod.subtitle}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 self-end sm:self-center shrink-0">
+                        <button type="button" onclick="moveMasterItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-35 text-slate-300 flex items-center justify-center text-xs transition" title="Geser Naik">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                        <button type="button" onclick="moveMasterItem(${idx}, 1)" ${idx === modulesData.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-35 text-slate-300 flex items-center justify-center text-xs transition" title="Geser Turun">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                        <button type="button" onclick="openMasterFormEditor('${mod.id}')" class="px-3 h-8 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Edit</span>
+                        </button>
+                        <button type="button" onclick="deleteMasterItem('${mod.id}')" class="w-8 h-8 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/35 flex items-center justify-center text-xs transition" title="Hapus Modul">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function syncFormCategoryDefaults() {
+            const grp = document.getElementById('mf-group').value;
+            const labelInp = document.getElementById('mf-classLabel');
+            const colorSel = document.getElementById('mf-badgeColor');
+            if (grp === 'x-oto') {
+                labelInp.value = 'Kelas X OTO';
+                colorSel.value = 'cyan';
+            } else if (grp === 'xi-tkr') {
+                labelInp.value = 'Kelas XI TKR';
+                colorSel.value = 'amber';
+            } else {
+                labelInp.value = 'Simulasi Interaktif';
+                colorSel.value = 'emerald';
+            }
+        }
+
+        function openMasterFormEditor(modId) {
+            const form = document.getElementById('master-item-form');
+            const formTitle = document.getElementById('master-form-title');
+            form.classList.remove('hidden');
+
+            if (!modId) {
+                formTitle.innerHTML = '<i class="fa-solid fa-plus-circle"></i> Tambah Modul / Simulasi Baru';
+                document.getElementById('mf-original-id').value = '';
+                document.getElementById('mf-group').value = 'x-oto';
+                document.getElementById('mf-classLabel').value = 'Kelas X OTO';
+                document.getElementById('mf-badgeColor').value = 'cyan';
+                document.getElementById('mf-title').value = '';
+                document.getElementById('mf-subtitle').value = '';
+                document.getElementById('mf-defaultFile').value = '';
+                document.getElementById('mf-icon').value = 'fa-gears';
+                document.getElementById('mf-actionType').value = 'link';
+                document.getElementById('mf-thumbnail').value = 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80';
+                document.getElementById('mf-desc').value = '';
+                document.getElementById('mf-badges').value = 'Materi Interaktif, Visual Komponen, 20 Soal CBT';
+                document.getElementById('mf-hint').value = '';
+                document.getElementById('mf-topics').value = '';
+            } else {
+                const mod = modulesData.find(m => m.id === modId);
+                if (!mod) return;
+                formTitle.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit: ${mod.title}`;
+                document.getElementById('mf-original-id').value = mod.id;
+                document.getElementById('mf-group').value = mod.group;
+                document.getElementById('mf-classLabel').value = mod.classLabel;
+                document.getElementById('mf-badgeColor').value = mod.badgeColor || 'cyan';
+                document.getElementById('mf-title').value = mod.title;
+                document.getElementById('mf-subtitle').value = mod.subtitle;
+                document.getElementById('mf-defaultFile').value = getModuleFile(mod);
+                document.getElementById('mf-icon').value = mod.icon || 'fa-gears';
+                document.getElementById('mf-actionType').value = mod.actionType || 'link';
+                document.getElementById('mf-thumbnail').value = getModuleThumb(mod);
+                document.getElementById('mf-desc').value = mod.desc;
+                document.getElementById('mf-badges').value = (mod.badges || []).join(', ');
+                document.getElementById('mf-hint').value = mod.hint || '';
+                document.getElementById('mf-topics').value = (mod.topics || []).join('\n');
+            }
+
+            form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function closeMasterFormEditor() {
+            const form = document.getElementById('master-item-form');
+            if (form) form.classList.add('hidden');
+        }
+
+        function submitMasterItemForm(e) {
+            e.preventDefault();
+            if (!isUserAdmin(currentUser)) return;
+
+            const origId = document.getElementById('mf-original-id').value.trim();
+            const group = document.getElementById('mf-group').value;
+            const section = group === 'simulasi' ? 'simulasi' : 'materi';
+            const classLabel = document.getElementById('mf-classLabel').value.trim();
+            const badgeColor = document.getElementById('mf-badgeColor').value;
+            const title = document.getElementById('mf-title').value.trim();
+            const subtitle = document.getElementById('mf-subtitle').value.trim();
+            const defaultFile = document.getElementById('mf-defaultFile').value.trim();
+            const icon = document.getElementById('mf-icon').value.trim() || 'fa-gears';
+            const actionType = document.getElementById('mf-actionType').value;
+            const thumbnail = document.getElementById('mf-thumbnail').value.trim();
+            const desc = document.getElementById('mf-desc').value.trim();
+            const hint = document.getElementById('mf-hint').value.trim();
+
+            const badges = document.getElementById('mf-badges').value
+                .split(',')
+                .map(s => s.trim())
+                .filter(Boolean);
+
+            const topics = document.getElementById('mf-topics').value
+                .split('\n')
+                .map(s => s.trim())
+                .filter(Boolean);
+
+            const generatedId = origId || `${group}-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 24)}-${Date.now().toString().slice(-4)}`;
+
+            const existingMod = origId ? modulesData.find(m => m.id === origId) : null;
+            const itemPayload = {
+                id: generatedId,
+                section,
+                group,
+                classLabel,
+                badgeColor,
+                icon,
+                thumbnail,
+                title,
+                subtitle,
+                defaultFile,
+                desc,
+                badges: badges.length > 0 ? badges : ['Modul Interaktif'],
+                highlights: existingMod?.highlights || [
+                    { label: 'Kategori', value: classLabel },
+                    { label: 'Topik', value: `${topics.length || 6} Materi` },
+                    { label: 'Format', value: section === 'simulasi' ? 'Lab Virtual' : 'Web Interaktif' }
+                ],
+                topics: topics.length > 0 ? topics : ['Materi & Visualisasi Interaktif'],
+                hint
+            };
+
+            if (actionType === 'exam-guide') {
+                itemPayload.actionType = 'exam-guide';
+            }
+
+            if (origId) {
+                const idx = modulesData.findIndex(m => m.id === origId);
+                if (idx !== -1) modulesData[idx] = itemPayload;
+                delete customPaths[origId];
+                delete customThumbs[origId];
+            } else {
+                modulesData.push(itemPayload);
+            }
+
+            persistMasterData();
             try {
                 localStorage.setItem('otolab_custom_paths_v2', JSON.stringify(customPaths));
                 localStorage.setItem('otolab_custom_thumbs_v2', JSON.stringify(customThumbs));
-            } catch (e) {}
+            } catch (err) {}
 
+            closeMasterFormEditor();
+            renderMasterManagerList();
             renderAllSections();
-            closePathConfigModal();
-            showToast('Semua tautan & thumbnail berhasil disimpan!');
+            showToast(origId ? 'Data modul berhasil diperbarui!' : 'Modul baru berhasil ditambahkan!');
         }
 
-        function resetDefaultPaths() {
+        function deleteMasterItem(modId) {
+            if (!isUserAdmin(currentUser)) return;
+            modulesData = modulesData.filter(m => m.id !== modId);
+            delete customPaths[modId];
+            delete customThumbs[modId];
+            persistMasterData();
+            renderMasterManagerList();
+            renderAllSections();
+            showToast('Item dihapus dari master data.');
+        }
+
+        function moveMasterItem(index, direction) {
+            if (!isUserAdmin(currentUser)) return;
+            const targetIdx = index + direction;
+            if (targetIdx < 0 || targetIdx >= modulesData.length) return;
+            const temp = modulesData[index];
+            modulesData[index] = modulesData[targetIdx];
+            modulesData[targetIdx] = temp;
+            persistMasterData();
+            renderMasterManagerList();
+            renderAllSections();
+        }
+
+        function downloadModulesDataJs() {
+            if (!isUserAdmin(currentUser)) return;
+            // Gabungkan kustomisasi path/thumbnail ke objek ekspor agar bersih
+            const cleanExportData = modulesData.map(mod => {
+                const copy = { ...mod };
+                copy.defaultFile = getModuleFile(mod);
+                copy.thumbnail = getModuleThumb(mod);
+                return copy;
+            });
+
+            const fileContent = `// =========================================================================
+// MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
+// Diperbarui pada: ${new Date().toLocaleString('id-ID')}
+// =========================================================================
+
+window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
+`;
+            const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'modules-data.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('File modules-data.js berhasil diunduh! Siap di-upload ke repo.');
+        }
+
+        function handleImportMasterFile(event) {
+            if (!isUserAdmin(currentUser)) return;
+            const file = event.target.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    let text = e.target.result.trim();
+                    // Dukung impor dari file .js (window.OTOLAB_MASTER_DATA = [...]) maupun .json murni
+                    const eqIdx = text.indexOf('[');
+                    const lastBracketIdx = text.lastIndexOf(']');
+                    if (eqIdx !== -1 && lastBracketIdx !== -1) {
+                        text = text.slice(eqIdx, lastBracketIdx + 1);
+                    }
+                    const imported = JSON.parse(text);
+                    if (!Array.isArray(imported) || imported.length === 0) {
+                        throw new Error('Format array tidak valid');
+                    }
+                    modulesData = imported;
+                    customPaths = {};
+                    customThumbs = {};
+                    persistMasterData();
+                    localStorage.removeItem('otolab_custom_paths_v2');
+                    localStorage.removeItem('otolab_custom_thumbs_v2');
+                    renderMasterManagerList();
+                    renderAllSections();
+                    showToast(`Berhasil mengimpor ${imported.length} item master data!`);
+                } catch (err) {
+                    showToast('Gagal membaca file: pastikan format modules-data.js atau JSON valid.');
+                }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        function resetMasterDataToRepoDefault() {
+            if (!isUserAdmin(currentUser)) return;
             customPaths = {};
             customThumbs = {};
             try {
+                localStorage.removeItem(MASTER_DATA_STORAGE_KEY);
                 localStorage.removeItem('otolab_custom_paths_v2');
                 localStorage.removeItem('otolab_custom_thumbs_v2');
             } catch (e) {}
 
-            openPathConfigModal();
+            modulesData = getRepoBaseMasterData();
+            closeMasterFormEditor();
+            renderMasterManagerList();
             renderAllSections();
-            showToast('Tautan & thumbnail dikembalikan ke default');
+            showToast('Master data disinkronkan ulang dengan file modules-data.js di repo!');
         }
 
         // Toast Helper
@@ -1672,7 +2057,7 @@
         window.addEventListener('click', (e) => {
             if (e.target.id === 'modal-detail') closeDetailModal();
             if (e.target.id === 'modal-exam-guide') closeExamGuideModal();
-            if (e.target.id === 'modal-path-config') closePathConfigModal();
+            if (e.target.id === 'modal-master-manager') closeMasterDataManagerModal();
             if (e.target.id === 'modal-google-login') closeLoginModal();
         });
     </script>
