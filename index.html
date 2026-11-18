@@ -146,11 +146,11 @@
             <div class="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
                 <!-- Admin-Only Controls (Ringkas di Mobile, Lengkap di Desktop) -->
                 <div id="admin-only-actions" class="hidden items-center gap-1.5 shrink-0">
-                    <button type="button" onclick="openMasterDataManagerModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center gap-1.5 transition" title="Manajemen Master Data Modul">
+                    <button type="button" onclick="openMasterDataManagerModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Manajemen Master Data Modul">
                         <i class="fa-solid fa-database text-xs"></i>
                         <span class="hidden md:inline">Master Data</span>
                     </button>
-                    <button type="button" onclick="openExamGuideModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition" title="Info PIN & Exam Mode">
+                    <button type="button" onclick="openExamGuideModal()" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition cursor-pointer" title="Info PIN & Exam Mode">
                         <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i>
                         <span class="hidden lg:inline">Info PIN</span>
                     </button>
@@ -158,7 +158,7 @@
 
                 <!-- Guest State: Tombol Login Google -->
                 <div id="auth-logged-out" class="flex items-center shrink-0">
-                    <button type="button" onclick="openLoginModal()" class="h-8 sm:h-9 px-3 sm:px-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-xs flex items-center gap-2 shadow-md transition">
+                    <button type="button" onclick="openLoginModal()" class="h-8 sm:h-9 px-3 sm:px-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-xs flex items-center gap-2 shadow-md transition cursor-pointer">
                         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-3.5 h-3.5 sm:w-4 sm:h-4">
                         <span>Masuk<span class="hidden sm:inline"> Google</span></span>
                     </button>
@@ -174,7 +174,7 @@
                         </div>
                         <p id="user-email" class="hidden sm:block text-[10px] text-slate-400 truncate">email@gmail.com</p>
                     </div>
-                    <button type="button" onclick="handleLogout()" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg sm:rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 flex items-center justify-center transition shrink-0" title="Keluar Akun">
+                    <button type="button" onclick="handleLogout()" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg sm:rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 flex items-center justify-center transition shrink-0 cursor-pointer" title="Keluar Akun">
                         <i class="fa-solid fa-right-from-bracket text-[11px] sm:text-xs"></i>
                     </button>
                 </div>
@@ -249,7 +249,7 @@
                 <div class="relative w-full md:w-96">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <input type="text" id="live-search" oninput="handleSearchInput()" placeholder="Cari komponen, sistem, alat, atau simulasi..." class="w-full pl-10 pr-9 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
-                    <button type="button" id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs" title="Hapus pencarian">
+                    <button type="button" id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer" title="Hapus pencarian">
                         <i class="fa-solid fa-circle-xmark"></i>
                     </button>
                 </div>
@@ -258,7 +258,7 @@
             <!-- PRIMARY SLIDE SWITCHER (SLIDE 1: MATERI vs SLIDE 2: SIMULASI INTERAKTIF) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
                 <!-- Slide 1 Trigger: Materi Pembelajaran -->
-                <button type="button" id="main-slide-btn-materi" onclick="switchMainSlide('materi')" class="group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border-2 border-cyan-500/60 text-left transition-all shadow-lg shadow-cyan-500/10">
+                <button type="button" id="main-slide-btn-materi" onclick="switchMainSlide('materi')" class="group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border-2 border-cyan-500/60 text-left transition-all shadow-lg shadow-cyan-500/10 cursor-pointer">
                     <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
                         <div id="main-slide-icon-materi" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center shrink-0 transition">
                             <i class="fa-solid fa-book-open-reader text-sm sm:text-base"></i>
@@ -281,7 +281,7 @@
                 </button>
 
                 <!-- Slide 2 Trigger: Simulasi Interaktif -->
-                <button type="button" id="main-slide-btn-simulasi" onclick="switchMainSlide('simulasi')" class="group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-emerald-500/50 text-left transition-all">
+                <button type="button" id="main-slide-btn-simulasi" onclick="switchMainSlide('simulasi')" class="group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-emerald-500/50 text-left transition-all cursor-pointer">
                     <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
                         <div id="main-slide-icon-simulasi" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 transition">
                             <i class="fa-solid fa-cube text-sm sm:text-base"></i>
@@ -309,13 +309,13 @@
                     <span>Hasil <strong id="search-term-display" class="text-white">""</strong>:</span>
                 </div>
                 <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                    <button type="button" onclick="navigateToResult('materi', 'x-oto')" class="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 font-semibold transition">
+                    <button type="button" onclick="navigateToResult('materi', 'x-oto')" class="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 font-semibold transition cursor-pointer">
                         Kelas X OTO: <strong id="breakdown-count-x" class="text-white">3</strong>
                     </button>
-                    <button type="button" onclick="navigateToResult('materi', 'xi-tkr')" class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35 font-semibold transition">
+                    <button type="button" onclick="navigateToResult('materi', 'xi-tkr')" class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35 font-semibold transition cursor-pointer">
                         Kelas XI TKR: <strong id="breakdown-count-xi" class="text-white">2</strong>
                     </button>
-                    <button type="button" onclick="navigateToResult('simulasi', null)" class="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 font-semibold transition">
+                    <button type="button" onclick="navigateToResult('simulasi', null)" class="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 font-semibold transition cursor-pointer">
                         Simulasi: <strong id="breakdown-count-sim" class="text-white">3</strong>
                     </button>
                 </div>
@@ -329,7 +329,7 @@
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-1">Modul atau Simulasi Tidak Ditemukan</h3>
             <p class="text-sm text-slate-400 max-w-md mx-auto mb-5">Tidak ada modul pembelajaran atau simulasi yang cocok dengan kata kunci pencarian Anda.</p>
-            <button type="button" onclick="clearSearch()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-sm transition">
+            <button type="button" onclick="clearSearch()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-sm transition cursor-pointer">
                 Reset Pencarian
             </button>
         </div>
@@ -354,7 +354,7 @@
                                 <span>Modul Materi Pembelajaran Interaktif</span>
                             </h2>
                         </div>
-                        <button type="button" onclick="switchMainSlide('simulasi')" class="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 text-xs font-semibold flex items-center gap-2 transition">
+                        <button type="button" onclick="switchMainSlide('simulasi')" class="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 text-xs font-semibold flex items-center gap-2 transition cursor-pointer">
                             <span>Geser ke Simulasi Interaktif</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
@@ -363,7 +363,7 @@
                     <!-- TAB NAVIGATION KELAS (X OTO vs XI TKR) -->
                     <div class="glass-panel rounded-2xl p-2 border border-slate-800/90 grid grid-cols-1 sm:grid-cols-2 gap-2" role="tablist" aria-label="Pilih Kelas Materi">
                         <!-- Tab 1: Kelas X OTO -->
-                        <button type="button" role="tab" aria-selected="true" id="class-tab-x-oto" onclick="switchClassTab('x-oto')" class="class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border border-cyan-500/50 text-left transition-all shadow-lg shadow-cyan-500/10">
+                        <button type="button" role="tab" aria-selected="true" id="class-tab-x-oto" onclick="switchClassTab('x-oto')" class="class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border border-cyan-500/50 text-left transition-all shadow-lg shadow-cyan-500/10 cursor-pointer">
                             <div class="flex items-center gap-3">
                                 <div id="tab-icon-x-oto" class="w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition">
                                     X
@@ -381,7 +381,7 @@
                         </button>
 
                         <!-- Tab 2: Kelas XI TKR -->
-                        <button type="button" role="tab" aria-selected="false" id="class-tab-xi-tkr" onclick="switchClassTab('xi-tkr')" class="class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all">
+                        <button type="button" role="tab" aria-selected="false" id="class-tab-xi-tkr" onclick="switchClassTab('xi-tkr')" class="class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all cursor-pointer">
                             <div class="flex items-center gap-3">
                                 <div id="tab-icon-xi-tkr" class="w-10 h-10 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition">
                                     XI
@@ -423,10 +423,10 @@
                         <div id="empty-tab-search" class="hidden glass-panel rounded-2xl p-8 text-center border border-slate-800">
                             <p class="text-sm text-slate-300 mb-3">Tidak ada modul pada tab kelas ini yang cocok dengan pencarian Anda.</p>
                             <div class="flex flex-wrap items-center justify-center gap-2">
-                                <button type="button" id="switch-other-tab-btn" onclick="switchToOtherClassTab()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-xs font-semibold transition">
+                                <button type="button" id="switch-other-tab-btn" onclick="switchToOtherClassTab()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-xs font-semibold transition cursor-pointer">
                                     Cek Tab Kelas Lainnya
                                 </button>
-                                <button type="button" onclick="switchMainSlide('simulasi')" class="px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 text-xs font-semibold transition">
+                                <button type="button" onclick="switchMainSlide('simulasi')" class="px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 text-xs font-semibold transition cursor-pointer">
                                     Cek Slide Simulasi Interaktif
                                 </button>
                             </div>
@@ -447,7 +447,7 @@
                                 <span>Simulasi Interaktif & Praktikum Virtual</span>
                             </h2>
                         </div>
-                        <button type="button" onclick="switchMainSlide('materi')" class="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold flex items-center gap-2 transition">
+                        <button type="button" onclick="switchMainSlide('materi')" class="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold flex items-center gap-2 transition cursor-pointer">
                             <i class="fa-solid fa-arrow-left"></i>
                             <span>Kembali ke Materi Pembelajaran</span>
                         </button>
@@ -461,7 +461,7 @@
                     <!-- Empty state khusus jika slide simulasi kosong akibat filter pencarian -->
                     <div id="empty-simulasi-search" class="hidden glass-panel rounded-2xl p-8 text-center border border-slate-800">
                         <p class="text-sm text-slate-300 mb-3">Tidak ada simulasi interaktif yang cocok dengan pencarian Anda.</p>
-                        <button type="button" onclick="switchMainSlide('materi')" class="px-4 py-2 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold transition">
+                        <button type="button" onclick="switchMainSlide('materi')" class="px-4 py-2 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold transition cursor-pointer">
                             Lihat Hasil di Slide Materi Pembelajaran
                         </button>
                     </div>
@@ -502,7 +502,7 @@
                         <h3 id="md-title" class="font-display text-base sm:text-xl font-bold text-white mt-1"></h3>
                     </div>
                 </div>
-                <button type="button" onclick="closeDetailModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition shrink-0">
+                <button type="button" onclick="closeDetailModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition shrink-0 cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -528,7 +528,7 @@
                 </div>
 
                 <!-- File Path & Thumbnail Editor (Hanya aktif untuk Admin) -->
-                <div id="md-admin-editor" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
+                <div id="md-admin-editor" class="hidden bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
                     <div>
                         <label for="md-thumb-input" class="text-xs font-semibold text-slate-300 flex items-center gap-1.5 mb-1.5">
                             <i class="fa-regular fa-image text-cyan-400"></i>
@@ -538,23 +538,151 @@
                     </div>
 
                     <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label for="md-file-input" class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-code text-amber-400"></i>
+                                <span>Target File HTML Modul:</span>
+                            </label>
+                            <button type="button" onclick="copyModuleLink()" class="text-xs text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1 cursor-pointer">
+                                <i class="fa-regular fa-copy"></i> <span>Salin Nama File</span>
+                            </button>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="md-file-input" class="flex-grow bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
+                            <button type="button" onclick="saveCustomFilePath()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition cursor-pointer">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                    <p id="md-hint" class="text-[11px] text-slate-400"></p>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="p-5 sm:p-6 border-t border-slate-800 bg-slate-900/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <button type="button" onclick="closeDetailModal()" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition cursor-pointer">
+                        Tutup Preview
+                    </button>
+                    <button type="button" id="md-edit-master-btn" onclick="openMasterEditorFromDetail()" class="hidden flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35 text-xs font-semibold items-center justify-center gap-1.5 transition cursor-pointer">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Edit Master</span>
+                    </button>
+                </div>
+                <a id="md-launch-btn" href="#" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 transition">
+                    <span>Buka Modul Pembelajaran</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: INFORMASI PIN & SECURE EXAM BROWSER                          -->
+    <!-- ===================================================================== -->
+    <div id="modal-exam-guide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="glass-panel rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
+            <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-base sm:text-lg font-bold text-white">Panduan Secure Exam Mode</h3>
+                        <p class="text-xs text-slate-400">Sistem Keamanan Evaluasi & PIN Akses</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeExamGuideModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-5 sm:p-6 space-y-4 text-xs sm:text-sm text-slate-300">
+                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
+                    <div class="font-bold text-amber-300 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-key"></i> PIN Default Pembuka & Reset Guru:
+                    </div>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        Tab <strong>Soal Latihan</strong> pada modul terkunci secara default agar siswa mempelajari materi terlebih dahulu. Gunakan PIN standar berikut saat praktikum/evaluasi:
+                    </p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-950 border border-amber-500/40 font-mono text-amber-300 font-bold">PIN Akses: 1234 / 4646</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-950 border border-cyan-500/40 font-mono text-cyan-300 font-bold">PIN Pengawas: 4570</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5">
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider">Mekanisme Perlindungan Ujian:</h4>
+                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-expand text-cyan-400 mt-0.5"></i>
+                        <div>
+                            <strong class="text-white block">Auto Fullscreen Lock</strong>
+                            <span class="text-xs text-slate-400">Memaksa layar penuh saat masuk tab kuis, termasuk saat halaman di-refresh oleh siswa.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-eye-slash text-rose-400 mt-0.5"></i>
+                        <div>
+                            <strong class="text-white block">Anti-Tab Switch & Split Screen</strong>
+                            <span class="text-xs text-slate-400">Mendeteksi perpindahan tab/aplikasi. Maksimal 3 kali pelanggaran sebelum ujian dikunci otomatis.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-shuffle text-emerald-400 mt-0.5"></i>
+                        <div>
+                            <strong class="text-white block">Pengacakan Soal & Opsi Jawaban</strong>
+                            <span class="text-xs text-slate-400">Urutan 20 soal dan pilihan A–D diacak unik untuk setiap sesi pengerjaan siswa.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-5 border-t border-slate-800 text-right">
+                <button type="button" onclick="closeExamGuideModal()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition cursor-pointer">
+                    Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 3: MANAJEMEN MASTER DATA MODUL & GITHUB API (KHUSUS ADMIN)      -->
+    <!-- ===================================================================== -->
+    <div id="modal-master-manager" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-3 sm:p-4">
+        <div class="glass-panel rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col border border-slate-700 shadow-2xl overflow-hidden">
+            <!-- Header Modal -->
+            <div class="p-4 sm:p-6 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/35 text-amber-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-database text-lg"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="font-display text-sm sm:text-lg font-bold text-white truncate">Manajemen Master Data Modul</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400 truncate">Kelola daftar modul, simulasi, dan sinkronisasi langsung ke <code class="text-cyan-400">modules-data.js</code></p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeMasterDataManagerModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
             <!-- Toolbar Aksi Cepat (Tambah Baru, Push GitHub API, Export JS, Import, Reset) -->
             <div class="px-4 sm:px-6 py-3 bg-slate-900/80 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 shrink-0">
                 <div class="flex flex-wrap items-center gap-2">
-                    <button type="button" onclick="openMasterFormEditor(null)" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition">
+                    <button type="button" onclick="openMasterFormEditor(null)" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
                         <i class="fa-solid fa-plus"></i>
                         <span>Tambah Modul</span>
                     </button>
-                    <button type="button" onclick="toggleGithubApiPanel()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-semibold text-xs flex items-center gap-1.5 transition" title="Atur Koneksi Repositori GitHub">
+                    <button type="button" onclick="toggleGithubApiPanel()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer" title="Atur Koneksi Repositori GitHub">
                         <i class="fa-brands fa-github text-sm"></i>
                         <span>Koneksi GitHub</span>
                         <span id="gh-conn-dot" class="w-2 h-2 rounded-full bg-rose-400"></span>
                     </button>
-                    <button type="button" id="btn-push-github" onclick="pushMasterDataToGithub()" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition" title="Commit & Push langsung ke file modules-data.js di GitHub">
+                    <button type="button" id="btn-push-github" onclick="pushMasterDataToGithub()" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow transition cursor-pointer" title="Commit & Push langsung ke file modules-data.js di GitHub">
                         <i class="fa-solid fa-cloud-arrow-up"></i>
                         <span>Simpan & Push ke GitHub</span>
                     </button>
-                    <button type="button" onclick="downloadModulesDataJs()" class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-emerald-300 border border-emerald-500/35 font-semibold text-xs flex items-center gap-1.5 transition" title="Unduh cadangan file modules-data.js">
+                    <button type="button" onclick="downloadModulesDataJs()" class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-emerald-300 border border-emerald-500/35 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer" title="Unduh cadangan file modules-data.js">
                         <i class="fa-solid fa-download"></i>
                         <span class="hidden sm:inline">Unduh .js</span>
                     </button>
@@ -565,7 +693,7 @@
                     </label>
                 </div>
 
-                <button type="button" onclick="resetMasterDataToRepoDefault()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-rose-300 border border-slate-700 hover:border-rose-500/40 text-xs font-semibold transition" title="Ambil ulang data terbaru dari file modules-data.js di repo">
+                <button type="button" onclick="resetMasterDataToRepoDefault()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-rose-300 border border-slate-700 hover:border-rose-500/40 text-xs font-semibold transition cursor-pointer" title="Ambil ulang data terbaru dari file modules-data.js di repo">
                     <i class="fa-solid fa-rotate-left mr-1"></i> Muat Ulang Repo
                 </button>
             </div>
@@ -579,7 +707,7 @@
                             <i class="fa-brands fa-github text-white text-base"></i>
                             <h4 class="font-display text-xs sm:text-sm font-bold text-white">Pengaturan GitHub REST API (Auto-Commit)</h4>
                         </div>
-                        <button type="button" onclick="toggleGithubApiPanel()" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800">
+                        <button type="button" onclick="toggleGithubApiPanel()" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800 cursor-pointer">
                             Tutup
                         </button>
                     </div>
@@ -608,11 +736,11 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-                        <button type="button" onclick="clearGithubApiConfig()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-500/20 text-rose-300 border border-slate-700 text-xs font-semibold transition">
+                        <button type="button" onclick="clearGithubApiConfig()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-500/20 text-rose-300 border border-slate-700 text-xs font-semibold transition cursor-pointer">
                             Hapus Token Tersimpan
                         </button>
                         <div class="flex items-center gap-2">
-                            <button type="button" onclick="saveGithubApiConfig(true)" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition">
+                            <button type="button" onclick="saveGithubApiConfig(true)" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition cursor-pointer">
                                 <i class="fa-solid fa-plug-circle-check mr-1"></i> Simpan & Uji Koneksi
                             </button>
                         </div>
@@ -636,7 +764,7 @@
                         <h4 id="master-form-title" class="font-display text-sm sm:text-base font-bold text-amber-300 flex items-center gap-2">
                             <i class="fa-solid fa-pen-to-square"></i> Tambah Modul Baru
                         </h4>
-                        <button type="button" onclick="closeMasterFormEditor()" class="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800">
+                        <button type="button" onclick="closeMasterFormEditor()" class="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 cursor-pointer">
                             Batal
                         </button>
                     </div>
@@ -722,10 +850,10 @@
                     </div>
 
                     <div class="flex items-center justify-end gap-2 pt-2">
-                        <button type="button" onclick="closeMasterFormEditor()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+                        <button type="button" onclick="closeMasterFormEditor()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition cursor-pointer">
                             Batal
                         </button>
-                        <button type="submit" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition">
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition cursor-pointer">
                             <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan ke Master Data
                         </button>
                     </div>
@@ -740,7 +868,7 @@
             <!-- Footer Modal -->
             <div class="p-4 sm:px-6 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between gap-3 shrink-0">
                 <span class="text-[11px] text-slate-400">Hanya dapat diakses oleh akun Guru/Admin terdaftar.</span>
-                <button type="button" onclick="closeMasterDataManagerModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition">
+                <button type="button" onclick="closeMasterDataManagerModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition cursor-pointer">
                     Selesai & Tutup
                 </button>
             </div>
@@ -762,14 +890,14 @@
                         <p class="text-xs text-slate-400">Identitas Profil & Hak Akses Pengelola</p>
                     </div>
                 </div>
-                <button type="button" onclick="closeLoginModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center shrink-0">
+                <button type="button" onclick="closeLoginModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center shrink-0 cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <div class="p-5 sm:p-6 space-y-4 text-xs text-slate-300">
                 <p class="leading-relaxed">
-                    Masuk menggunakan akun Google Anda untuk menampilkan identitas profil. Fitur <strong>Info PIN Ujian</strong> dan <strong>Atur Tautan</strong> otomatis terbuka bagi akun guru/pengajar yang terdaftar.
+                    Masuk menggunakan akun Google Anda untuk menampilkan identitas profil. Fitur <strong>Master Data</strong> dan <strong>Info PIN Ujian</strong> otomatis terbuka bagi akun guru/pengajar yang terdaftar.
                 </p>
 
                 <!-- Tombol Resmi Google Identity Services -->
@@ -784,8 +912,8 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast-notif" class="fixed bottom-5 right-5 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 border border-cyan-500/40 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs font-medium">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+    <div id="toast-notif" class="fixed bottom-5 right-5 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 border border-cyan-500/40 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs font-medium max-w-[90vw]">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base shrink-0"></i>
         <span id="toast-message">Perubahan berhasil disimpan!</span>
     </div>
 
@@ -807,7 +935,7 @@
         let currentUser = null;
 
         // =========================================================================
-        // FALLBACK MASTER DATA (DIGUNAKAN JIKA modules-data.js BELUM DITEMUKAN)
+        // FALLBACK MASTER DATA LENGKAP (DIGUNAKAN JIKA modules-data.js BELUM ADA)
         // =========================================================================
         const fallbackModulesData = [
             {
@@ -837,6 +965,199 @@
                     'Prosedur Aspek K3 Penggunaan Peralatan Bengkel'
                 ],
                 hint: 'Pastikan file common-tools.html berada dalam satu direktori yang sama dengan index.html.'
+            },
+            {
+                id: 'x-workshop-equip',
+                section: 'materi',
+                group: 'x-oto',
+                classLabel: 'Kelas X OTO',
+                badgeColor: 'cyan',
+                icon: 'fa-car-burst',
+                thumbnail: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80',
+                title: 'Alat Perlengkapan Bengkel (Workshop Equipment)',
+                subtitle: 'Lifting, Pressing & Supporting Equipment',
+                defaultFile: 'perlengkapan-bengkel.html',
+                desc: 'Mempelajari perlengkapan berat bengkel otomotif mulai dari pengganjal ban, dongkrak, jack stand, empat tipe car lift, bike lift, engine crane, sling, press hidrolik, hingga engine stand.',
+                badges: ['10 Perlengkapan', 'Swipe Galeri', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Perlengkapan', value: '10 Unit Utama' },
+                    { label: 'Visual', value: 'Swipe Galeri' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    'Wheel Chock, Dongkrak Mekanik & Hidrolik, Jack Stand',
+                    'Car Lift (Single Post, Two Post, Four Post & Scissor)',
+                    'Bike Lift & Engine Crane (Pengangkat Mesin)',
+                    'Sling Rantai/Sintetis & Hydraulic Press',
+                    'Engine Stand & Pistol Stamped (Grease Gun)',
+                    '20 Soal Pilihan Ganda dengan Secure Exam Browser'
+                ],
+                hint: 'Dilengkapi penguncian layar penuh otomatis & reset token pengawas.'
+            },
+            {
+                id: 'x-komponen-oto',
+                section: 'materi',
+                group: 'x-oto',
+                classLabel: 'Kelas X OTO',
+                badgeColor: 'cyan',
+                icon: 'fa-microchip',
+                thumbnail: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80',
+                title: 'Komponen Otomotif Dasar',
+                subtitle: 'Bab 3 Dasar Teknik Otomotif (ICE & EV)',
+                defaultFile: 'materi-komponen-otomotif.html',
+                desc: 'Pemetaan menyeluruh konstruksi kendaraan bermotor berdasarkan kurikulum SMK Kelas X Bab 3: komponen utama motor bakar & motor listrik (EV), perlengkapan mesin, sasis, bodi, kelistrikan, hingga IoV.',
+                badges: ['10 Kelompok Sistem', 'Motor Bakar & EV', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Cakupan', value: '10 Sistem Utama' },
+                    { label: 'Teknologi', value: 'ICE & EV / IoV' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    'Komponen Utama Mesin Motor Bakar (Blok, Piston, Crankshaft)',
+                    'Komponen Utama Motor Listrik EV (Stator, Rotor, Inverter)',
+                    'Sistem Perlengkapan Mesin (Bahan Bakar, Pelumas, Radiator)',
+                    'Pemindah Tenaga, Sasis, Kemudi, Roda & Rem',
+                    'Rangka Monocoque/Ladder Frame & Kelistrikan Otomotif',
+                    'Komponen Tambahan (Sistem AC, Immobilizer & Internet of Vehicle)'
+                ],
+                hint: 'Mengacu langsung pada buku Dasar-Dasar Teknik Otomotif Semester 2 Bab 3.'
+            },
+            {
+                id: 'xi-pemindah-tenaga',
+                section: 'materi',
+                group: 'xi-tkr',
+                classLabel: 'Kelas XI TKR',
+                badgeColor: 'amber',
+                icon: 'fa-gears',
+                thumbnail: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80',
+                title: 'Sistem Pemindah Tenaga',
+                subtitle: '16 Komponen Power Train System',
+                defaultFile: 'materi-pemindah-tenaga.html',
+                desc: 'Pembahasan mendalam 16 unit sistem pemindah tenaga kendaraan ringan mulai dari kopling, transmisi manual/otomatis/CVT, poros propeller, gardan/differensial, LSD, hingga sistem penggerak 4WD.',
+                badges: ['16 Komponen Power Train', 'Prosedur Servis TKR', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Unit Materi', value: '16 Komponen' },
+                    { label: 'Fokus', value: 'Konstruksi & Servis' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    'Kopling Manual Gesek & Sistem Aktuasi Hidrolik',
+                    'Transmisi Manual Synchromesh, Planetary AT & CVT',
+                    'Torque Converter, Poros Propeller, U-Joint & Center Bearing',
+                    'Gardan / Differensial (Hypoid Gear), LSD & Diff Lock',
+                    'Poros Axle Belakang (Rigid) & CV Joint Penggerak Depan',
+                    'Tata Letak FR, FF, MR, RR, Transfer Case 4WD & Prosedur DTI'
+                ],
+                hint: 'Disusun khusus sesuai capaian pembelajaran Teknik Kendaraan Ringan (XI-TKR).'
+            },
+            {
+                id: 'xi-sistem-kopling',
+                section: 'materi',
+                group: 'xi-tkr',
+                classLabel: 'Kelas XI TKR',
+                badgeColor: 'amber',
+                icon: 'fa-compact-disc',
+                thumbnail: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=900&q=80',
+                title: 'Sistem Kopling Lengkap',
+                subtitle: '16 Komponen + Mekanisme & Simulator 3D',
+                defaultFile: 'sistem-kopling.html',
+                desc: 'Modul komprehensif sistem kopling kendaraan ringan yang memuat katalog 16 komponen detail, video animasi 3D mekanisme kerja, simulator fisika CAD 3D terintegrasi, serta 20 soal ujian mode aman.',
+                badges: ['16 Komponen Detail', 'Video & CAD 3D', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Komponen', value: '16 Bagian Kopling' },
+                    { label: 'Lab Virtual', value: 'CAD 3D & Video' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    '16 Komponen Kopling (Flywheel, Clutch Disc, Torsion Damper, Diaphragm)',
+                    'Master Cylinder, Slave Cylinder, Release Fork, Release & Pilot Bearing',
+                    'Prosedur Pemeriksaan Keausan Paku Keling, Run-out & Free Play Pedal',
+                    'Mekanisme Posisi Engaged & Disengaged + Video Animasi 3D',
+                    'Simulator Interaktif CAD 3D Kopling Hidrolik & Gearbox',
+                    '20 Soal Evaluasi Sistem Kopling dengan Secure Exam Browser'
+                ],
+                hint: 'Gunakan tab "Mekanisme" di dalam modul ini untuk meluncurkan Simulator CAD 3D layar penuh.'
+            },
+            {
+                id: 'sim-cad-3d',
+                section: 'simulasi',
+                group: 'simulasi',
+                classLabel: 'Simulasi CAD 3D',
+                badgeColor: 'emerald',
+                icon: 'fa-cube',
+                thumbnail: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=900&q=80',
+                title: 'Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan',
+                subtitle: 'Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow',
+                defaultFile: 'sistem-kopling.html#mekanisme',
+                desc: 'Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.',
+                badges: ['8 Mode View', '10 Skenario Kerusakan', 'Three.js WebGL'],
+                highlights: [
+                    { label: 'Engine 3D', value: 'Three.js WebGL' },
+                    { label: 'Mode View', value: '8 Mode Tampilan' },
+                    { label: 'Analisis', value: '10 Fault Scenarios' }
+                ],
+                topics: [
+                    'Hukum Pascal Real-Time (Tekanan, Gaya Pedal, Diameter Master/Slave)',
+                    'Kinematika Pegas Diafragma, Pressure Plate & Clutch Disc Slip',
+                    'Transmisi Manual 5-Percepatan Constant-Mesh + Tuas H-Pattern',
+                    '8 Mode View: Normal, Cutaway Hidrolik/Mekanik, Fluid & Torque Flow',
+                    'Exploded View & Inspeksi Synchronizer Ring',
+                    '10 Skenario Kerusakan (Masuk Angin, Kebocoran Pipa, Kampas Aus, dll)'
+                ],
+                hint: 'Buka modul sistem-kopling.html lalu pilih sub-tab "Mekanisme" untuk meluncurkan Simulator CAD 3D layar penuh.'
+            },
+            {
+                id: 'sim-katalog-swipe',
+                section: 'simulasi',
+                group: 'simulasi',
+                classLabel: 'Eksplorasi 3D / Swipe',
+                badgeColor: 'emerald',
+                icon: 'fa-hand-pointer',
+                thumbnail: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
+                title: 'Katalog Visual Interaktif 3D/Swipe & Lightbox Inspeksi Komponen',
+                subtitle: 'Interactive Swipeable Deck & High-Res Lightbox Zoom',
+                defaultFile: 'materi-pemindah-tenaga.html',
+                desc: 'Antarmuka eksplorasi visual berbasis kartu geser sentuh (touch/drag carousel) dan lightbox zoom resolusi tinggi untuk mengamati konstruksi detail komponen pemindah tenaga & peralatan bengkel.',
+                badges: ['Swipe Carousel', 'Lightbox Zoom', 'Android & Desktop'],
+                highlights: [
+                    { label: 'Navigasi', value: 'Gesture Swipe' },
+                    { label: 'Inspeksi', value: 'Lightbox Zoom' },
+                    { label: 'Kompatibilitas', value: 'Android & Desktop' }
+                ],
+                topics: [
+                    'Gestur Usap Kiri-Kanan (Swipe Carousel) dengan Indikator Interaktif',
+                    'Pencarian Komponen Instan Berdasarkan Nama & Fungsi',
+                    'Lightbox Fullscreen Zoom untuk Mengamati Detail Konstruksi',
+                    'Struktur Pembelajaran Terstandar: Pengertian, Fungsi, Cara Kerja & Servis'
+                ],
+                hint: 'Tersedia pada seluruh modul materi Kelas X OTO maupun Kelas XI TKR.'
+            },
+            {
+                id: 'sim-exam-browser',
+                section: 'simulasi',
+                group: 'simulasi',
+                classLabel: 'Secure Exam CBT',
+                badgeColor: 'emerald',
+                icon: 'fa-shield-halved',
+                thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
+                title: 'Portal Evaluasi & Simulasi Ujian Aman (Secure Exam Browser Mode)',
+                subtitle: 'PIN Otorisasi Guru • Anti-Tab Switch & Pengacakan Soal',
+                defaultFile: 'sistem-kopling.html',
+                actionType: 'exam-guide',
+                desc: 'Lingkungan evaluasi mandiri dan ulangan harian berbasis web dengan penguncian layar penuh otomatis, deteksi perpindahan aplikasi/tab, pengacakan soal per siswa, serta otorisasi PIN guru.',
+                badges: ['PIN Pengawas', 'Anti-Tab Switch (3x)', 'Pengacakan Soal'],
+                highlights: [
+                    { label: 'Batas Pelanggaran', value: 'Maks. 3 Kali' },
+                    { label: 'Auto-Lock', value: 'Mode CBT Aman' },
+                    { label: 'Otorisasi', value: 'Akun Guru / Admin' }
+                ],
+                topics: [
+                    'Penguncian Tab Soal dengan PIN Akses Guru',
+                    'Paksa Mode Layar Penuh (Fullscreen) Otomatis Saat Masuk & Refresh',
+                    'Deteksi Kecurangan Pindah Tab / Split Screen di HP Android',
+                    'Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas'
+                ],
+                hint: 'Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian.'
             }
         ];
 
@@ -857,7 +1178,6 @@
         }
 
         function loadSavedSettings() {
-            // 1. Muat master data (prioritas override admin di localStorage, lalu file eksternal modules-data.js)
             try {
                 const overrideRaw = localStorage.getItem(MASTER_DATA_STORAGE_KEY);
                 if (overrideRaw) {
@@ -874,7 +1194,6 @@
                 modulesData = getRepoBaseMasterData();
             }
 
-            // 2. Muat kustomisasi path & thumbnail cepat
             try {
                 const savedPaths = localStorage.getItem('otolab_custom_paths_v2');
                 if (savedPaths) customPaths = JSON.parse(savedPaths);
@@ -1042,12 +1361,14 @@
 
         function openLoginModal() {
             const modal = document.getElementById('modal-google-login');
+            if (!modal) return;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
 
         function closeLoginModal() {
             const modal = document.getElementById('modal-google-login');
+            if (!modal) return;
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
@@ -1065,17 +1386,17 @@
 
             if (slideKey === 'materi') {
                 track.style.transform = 'translateX(0%)';
-                btnMateri.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border-2 border-cyan-500/60 text-left transition-all shadow-lg shadow-cyan-500/10";
+                btnMateri.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border-2 border-cyan-500/60 text-left transition-all shadow-lg shadow-cyan-500/10 cursor-pointer";
                 iconMateri.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center shrink-0 transition";
 
-                btnSim.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-emerald-500/50 text-left transition-all";
+                btnSim.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-emerald-500/50 text-left transition-all cursor-pointer";
                 iconSim.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 transition";
             } else {
                 track.style.transform = 'translateX(-50%)';
-                btnSim.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-600/15 border-2 border-emerald-500/60 text-left transition-all shadow-lg shadow-emerald-500/10";
+                btnSim.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-600/15 border-2 border-emerald-500/60 text-left transition-all shadow-lg shadow-emerald-500/10 cursor-pointer";
                 iconSim.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0 transition";
 
-                btnMateri.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-cyan-500/50 text-left transition-all";
+                btnMateri.className = "group flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-cyan-500/50 text-left transition-all cursor-pointer";
                 iconMateri.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0 transition";
             }
         }
@@ -1107,11 +1428,11 @@
                 tabX.setAttribute('aria-selected', 'true');
                 tabXI.setAttribute('aria-selected', 'false');
 
-                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border border-cyan-500/50 text-left transition-all shadow-lg shadow-cyan-500/10";
+                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border border-cyan-500/50 text-left transition-all shadow-lg shadow-cyan-500/10 cursor-pointer";
                 iconX.className = "w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
                 badgeX.className = "px-2.5 py-1 rounded-lg bg-cyan-500 text-slate-950 font-display font-bold text-xs shrink-0";
 
-                tabXI.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all";
+                tabXI.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all cursor-pointer";
                 iconXI.className = "w-10 h-10 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
                 badgeXI.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-display font-bold text-xs shrink-0";
 
@@ -1125,11 +1446,11 @@
                 tabX.setAttribute('aria-selected', 'false');
                 tabXI.setAttribute('aria-selected', 'true');
 
-                tabXI.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-600/15 border border-amber-500/50 text-left transition-all shadow-lg shadow-amber-500/10";
+                tabXI.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-600/15 border border-amber-500/50 text-left transition-all shadow-lg shadow-amber-500/10 cursor-pointer";
                 iconXI.className = "w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
                 badgeXI.className = "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-display font-bold text-xs shrink-0";
 
-                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all";
+                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all cursor-pointer";
                 iconX.className = "w-10 h-10 rounded-xl bg-slate-800 text-cyan-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
                 badgeX.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-display font-bold text-xs shrink-0";
 
@@ -1184,8 +1505,8 @@
                 mod.subtitle,
                 mod.desc,
                 mod.classLabel,
-                ...mod.badges,
-                ...mod.topics
+                ...(mod.badges || []),
+                ...(mod.topics || [])
             ].join(' ').toLowerCase();
             return haystack.includes(query);
         }
@@ -1195,7 +1516,6 @@
             const xiItems = modulesData.filter(m => m.group === 'xi-tkr' && matchesQuery(m, currentSearch));
             const simItems = modulesData.filter(m => m.group === 'simulasi' && matchesQuery(m, currentSearch));
 
-            // Update Hero Stats dynamically
             const totalMateriCount = modulesData.filter(m => m.section === 'materi').length;
             const totalSimCount = modulesData.filter(m => m.section === 'simulasi').length;
             const statModulesEl = document.getElementById('stat-modules');
@@ -1300,11 +1620,11 @@
 
                 const primaryActionHtml = mod.actionType === 'exam-guide'
                     ? (isUserAdmin(currentUser)
-                        ? `<button type="button" onclick="openExamGuideModal()" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition ${palette.btn}">
+                        ? `<button type="button" onclick="openExamGuideModal()" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition cursor-pointer ${palette.btn}">
                                <span>Info PIN & Tata Tertib</span>
                                <i class="fa-solid fa-shield-halved"></i>
                            </button>`
-                        : `<button type="button" onclick="openLoginModal()" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 transition">
+                        : `<button type="button" onclick="openLoginModal()" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 transition cursor-pointer">
                                <i class="fa-solid fa-lock"></i>
                                <span>PIN Khusus Akun Guru</span>
                            </button>`)
@@ -1343,7 +1663,7 @@
                                 </p>
 
                                 <div class="flex flex-wrap items-center gap-1.5">
-                                    ${mod.badges.map(b => `
+                                    ${(mod.badges || []).map(b => `
                                         <span class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-800 text-[11px] text-slate-300">
                                             ${b}
                                         </span>
@@ -1354,7 +1674,7 @@
 
                         <!-- Card Actions -->
                         <div class="p-4 pt-3 border-t border-slate-800/80 bg-slate-950/40 flex items-center gap-2.5">
-                            <button type="button" onclick="openDetailModal('${mod.id}')" class="px-3.5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5" title="Lihat Silabus">
+                            <button type="button" onclick="openDetailModal('${mod.id}')" class="px-3.5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5 cursor-pointer" title="Lihat Silabus">
                                 <i class="fa-solid fa-circle-info text-slate-400"></i>
                                 <span>Silabus</span>
                             </button>
@@ -1388,19 +1708,19 @@
             document.getElementById('md-category-badge').textContent = mod.classLabel;
 
             document.getElementById('md-icon-box').className = `w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 ${iconBoxStyles[mod.badgeColor] || iconBoxStyles.cyan}`;
-            document.getElementById('md-icon').className = `fa-solid ${mod.icon}`;
+            document.getElementById('md-icon').className = `fa-solid ${mod.icon || 'fa-gears'}`;
 
             document.getElementById('md-title').textContent = mod.title;
             document.getElementById('md-desc').textContent = mod.desc;
 
-            document.getElementById('md-highlights').innerHTML = mod.highlights.map(h => `
+            document.getElementById('md-highlights').innerHTML = (mod.highlights || []).map(h => `
                 <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3">
                     <div class="text-[10px] text-slate-400 uppercase tracking-wider">${h.label}</div>
                     <div class="font-display text-xs sm:text-sm font-bold text-white mt-0.5">${h.value}</div>
                 </div>
             `).join('');
 
-            document.getElementById('md-topics').innerHTML = mod.topics.map(t => `
+            document.getElementById('md-topics').innerHTML = (mod.topics || []).map(t => `
                 <li class="flex items-start gap-2">
                     <i class="fa-solid fa-check text-cyan-400 mt-0.5 shrink-0"></i>
                     <span>${t}</span>
@@ -1448,8 +1768,18 @@
 
         function closeDetailModal() {
             const modal = document.getElementById('modal-detail');
+            if (!modal) return;
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+        }
+
+        function openMasterEditorFromDetail() {
+            const modId = activeModalModuleId;
+            closeDetailModal();
+            openMasterDataManagerModal();
+            if (modId) {
+                openMasterFormEditor(modId);
+            }
         }
 
         function saveCustomFilePath() {
@@ -1493,18 +1823,18 @@
                 return;
             }
             const modal = document.getElementById('modal-exam-guide');
+            if (!modal) return;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
 
         function closeExamGuideModal() {
             const modal = document.getElementById('modal-exam-guide');
+            if (!modal) return;
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
 
-        // =====================================================================
-        // MODAL 3: PATH & THUMBNAIL CONFIGURATION HANDLERS (DILINDUNGI ROLE ADMIN)
         // =====================================================================
         // MODAL 3: MANAJEMEN MASTER DATA MODUL (KHUSUS GURU / ADMIN)
         // =====================================================================
@@ -1518,9 +1848,18 @@
             closeMasterFormEditor();
             renderMasterManagerList();
             const modal = document.getElementById('modal-master-manager');
+            if (!modal) return;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
+
+        function closeMasterDataManagerModal() {
+            const modal = document.getElementById('modal-master-manager');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
         function generateModulesDataJsString() {
             const cleanExportData = modulesData.map(mod => {
                 const copy = { ...mod };
@@ -1581,7 +1920,6 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                     statusText.innerHTML = `Terhubung ke repo <code class="text-cyan-300 font-bold">${cfg.owner}/${cfg.repo}</code> (${cfg.branch || 'main'} → <code>${cfg.filepath || 'modules-data.js'}</code>). Klik <strong>Simpan & Push ke GitHub</strong> untuk memperbarui repo langsung.`;
                 }
             } else {
-                // Otomatis deteksi username & nama repo jika diakses via *.github.io/nama-repo/
                 if (window.location.hostname.endsWith('.github.io')) {
                     const detectedOwner = window.location.hostname.split('.')[0];
                     const pathParts = window.location.pathname.split('/').filter(Boolean);
@@ -1694,7 +2032,6 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                     'Content-Type': 'application/json'
                 };
 
-                // 1. Ambil SHA file saat ini (jika file modules-data.js sudah ada di repo)
                 let currentSha = null;
                 const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(cfg.branch || 'main')}`, { headers });
                 if (getRes.ok) {
@@ -1705,7 +2042,6 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                     throw new Error(errJson.message || `Gagal membaca file repo (${getRes.status})`);
                 }
 
-                // 2. Encode isi terbaru modules-data.js ke Base64 UTF-8 dan lakukan commit (PUT)
                 const contentJs = generateModulesDataJsString();
                 const payload = {
                     message: `Update master data modul via Admin Portal (${currentUser?.email || 'Admin'})`,
@@ -1727,7 +2063,6 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                     throw new Error(errPut.message || `Commit gagal (${putRes.status})`);
                 }
 
-                // Sinkronkan juga cache lokal agar selaras dengan repo
                 customPaths = {};
                 customThumbs = {};
                 persistMasterData();
@@ -1772,17 +2107,17 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                     </div>
 
                     <div class="flex items-center gap-1.5 self-end sm:self-center shrink-0">
-                        <button type="button" onclick="moveMasterItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-35 text-slate-300 flex items-center justify-center text-xs transition" title="Geser Naik">
+                        <button type="button" onclick="moveMasterItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-35 text-slate-300 flex items-center justify-center text-xs transition cursor-pointer" title="Geser Naik">
                             <i class="fa-solid fa-arrow-up"></i>
                         </button>
-                        <button type="button" onclick="moveMasterItem(${idx}, 1)" ${idx === modulesData.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-35 text-slate-300 flex items-center justify-center text-xs transition" title="Geser Turun">
+                        <button type="button" onclick="moveMasterItem(${idx}, 1)" ${idx === modulesData.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-35 text-slate-300 flex items-center justify-center text-xs transition cursor-pointer" title="Geser Turun">
                             <i class="fa-solid fa-arrow-down"></i>
                         </button>
-                        <button type="button" onclick="openMasterFormEditor('${mod.id}')" class="px-3 h-8 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold flex items-center gap-1.5 transition">
+                        <button type="button" onclick="openMasterFormEditor('${mod.id}')" class="px-3 h-8 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer">
                             <i class="fa-solid fa-pen"></i>
                             <span>Edit</span>
                         </button>
-                        <button type="button" onclick="deleteMasterItem('${mod.id}')" class="w-8 h-8 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/35 flex items-center justify-center text-xs transition" title="Hapus Modul">
+                        <button type="button" onclick="deleteMasterItem('${mod.id}')" class="w-8 h-8 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/35 flex items-center justify-center text-xs transition cursor-pointer" title="Hapus Modul">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -1809,6 +2144,7 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
         function openMasterFormEditor(modId) {
             const form = document.getElementById('master-item-form');
             const formTitle = document.getElementById('master-form-title');
+            if (!form) return;
             form.classList.remove('hidden');
 
             if (!modId) {
@@ -1956,35 +2292,6 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             renderAllSections();
         }
 
-        function downloadModulesDataJs() {
-            if (!isUserAdmin(currentUser)) return;
-            // Gabungkan kustomisasi path/thumbnail ke objek ekspor agar bersih
-            const cleanExportData = modulesData.map(mod => {
-                const copy = { ...mod };
-                copy.defaultFile = getModuleFile(mod);
-                copy.thumbnail = getModuleThumb(mod);
-                return copy;
-            });
-
-            const fileContent = `// =========================================================================
-// MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: ${new Date().toLocaleString('id-ID')}
-// =========================================================================
-
-window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
-`;
-            const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'modules-data.js';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            showToast('File modules-data.js berhasil diunduh! Siap di-upload ke repo.');
-        }
-
         function handleImportMasterFile(event) {
             if (!isUserAdmin(currentUser)) return;
             const file = event.target.files?.[0];
@@ -1994,7 +2301,6 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             reader.onload = (e) => {
                 try {
                     let text = e.target.result.trim();
-                    // Dukung impor dari file .js (window.OTOLAB_MASTER_DATA = [...]) maupun .json murni
                     const eqIdx = text.indexOf('[');
                     const lastBracketIdx = text.lastIndexOf(']');
                     if (eqIdx !== -1 && lastBracketIdx !== -1) {
@@ -2042,6 +2348,7 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
         let toastTimeout = null;
         function showToast(msg) {
             const toast = document.getElementById('toast-notif');
+            if (!toast) return;
             document.getElementById('toast-message').textContent = msg;
             toast.classList.remove('translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
@@ -2050,7 +2357,7 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             toastTimeout = setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
                 toast.classList.remove('translate-y-0', 'opacity-100');
-            }, 2600);
+            }, 2800);
         }
 
         // Close modals on backdrop click
@@ -2060,6 +2367,39 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             if (e.target.id === 'modal-master-manager') closeMasterDataManagerModal();
             if (e.target.id === 'modal-google-login') closeLoginModal();
         });
+
+        // Explicit Global Scope Registration (Memastikan seluruh tombol onclick selalu aktif)
+        window.openDetailModal = openDetailModal;
+        window.closeDetailModal = closeDetailModal;
+        window.openMasterEditorFromDetail = openMasterEditorFromDetail;
+        window.saveCustomFilePath = saveCustomFilePath;
+        window.copyModuleLink = copyModuleLink;
+        window.openExamGuideModal = openExamGuideModal;
+        window.closeExamGuideModal = closeExamGuideModal;
+        window.openMasterDataManagerModal = openMasterDataManagerModal;
+        window.closeMasterDataManagerModal = closeMasterDataManagerModal;
+        window.openMasterFormEditor = openMasterFormEditor;
+        window.closeMasterFormEditor = closeMasterFormEditor;
+        window.submitMasterItemForm = submitMasterItemForm;
+        window.deleteMasterItem = deleteMasterItem;
+        window.moveMasterItem = moveMasterItem;
+        window.syncFormCategoryDefaults = syncFormCategoryDefaults;
+        window.toggleGithubApiPanel = toggleGithubApiPanel;
+        window.saveGithubApiConfig = saveGithubApiConfig;
+        window.clearGithubApiConfig = clearGithubApiConfig;
+        window.pushMasterDataToGithub = pushMasterDataToGithub;
+        window.downloadModulesDataJs = downloadModulesDataJs;
+        window.handleImportMasterFile = handleImportMasterFile;
+        window.resetMasterDataToRepoDefault = resetMasterDataToRepoDefault;
+        window.openLoginModal = openLoginModal;
+        window.closeLoginModal = closeLoginModal;
+        window.handleLogout = handleLogout;
+        window.switchMainSlide = switchMainSlide;
+        window.navigateToResult = navigateToResult;
+        window.switchClassTab = switchClassTab;
+        window.switchToOtherClassTab = switchToOtherClassTab;
+        window.handleSearchInput = handleSearchInput;
+        window.clearSearch = clearSearch;
     </script>
 </body>
 </html>
