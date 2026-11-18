@@ -1,235 +1,332 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Simpan file ini di folder yang sama dengan file HTML utama Anda.
-// Anda dapat mengedit langsung file ini di repositori GitHub, atau
-// mengunduh hasil edit terbaru melalui menu "Master Data" saat login Admin.
+// Diperbarui pada: 18/11/2026, 19.58.49
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
-    // ================= TAB 1: KELAS X OTO =================
     {
-        id: 'x-common-tools',
-        section: 'materi',
-        group: 'x-oto',
-        classLabel: 'Kelas X OTO',
-        badgeColor: 'cyan',
-        icon: 'fa-wrench',
-        thumbnail: 'https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=900&q=80',
-        title: 'Peralatan Umum Bengkel (Common Tools)',
-        subtitle: 'Hand & Power Tools Lengkap',
-        defaultFile: 'common-tools.html',
-        desc: 'Mengenal secara lengkap berbagai jenis peralatan tangan (Hand Tools) dan peralatan bertenaga (Power Tools) standar bengkel otomotif beserta fungsi, spesifikasi, dan standar keselamatan kerja (K3).',
-        badges: ['28+ Jenis Alat', 'Foto Nyata & K3', 'Kuis Interaktif'],
-        highlights: [
-            { label: 'Total Alat', value: '28+ Jenis' },
-            { label: 'Kategori', value: 'Hand & Power' },
-            { label: 'Evaluasi', value: 'Kuis Interaktif' }
+        "id": "x-common-tools",
+        "section": "materi",
+        "group": "x-oto",
+        "classLabel": "Kelas X OTO",
+        "badgeColor": "cyan",
+        "icon": "fa-wrench",
+        "thumbnail": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=900&q=80",
+        "title": "Peralatan Umum Bengkel (Common Tools)",
+        "subtitle": "Hand & Power Tools Lengkap",
+        "defaultFile": "common-tools.html",
+        "desc": "Mengenal secara lengkap berbagai jenis peralatan tangan (Hand Tools) dan peralatan bertenaga (Power Tools) standar bengkel otomotif beserta fungsi, spesifikasi, dan standar keselamatan kerja (K3).",
+        "badges": [
+            "28+ Jenis Alat",
+            "Foto Nyata & K3",
+            "Kuis Interaktif"
         ],
-        topics: [
-            '6 Jenis Kunci (Pas, Ring, Soket, Nipel, L, Inggris)',
-            '5 Jenis Obeng (Min, Plus, Torx, Pozidriv, Ketok)',
-            '6 Jenis Tang (Kombinasi, Potong, Lancip, Sirklip, Buaya)',
-            '7 Jenis Palu (Konde, Kambing, Godam, Terak, Lunak)',
-            'Power Tools (Bor Tangan, Bor Duduk, Gerinda, Air Impact)',
-            'Prosedur Aspek K3 Penggunaan Peralatan Bengkel'
+        "highlights": [
+            {
+                "label": "Total Alat",
+                "value": "28+ Jenis"
+            },
+            {
+                "label": "Kategori",
+                "value": "Hand & Power"
+            },
+            {
+                "label": "Evaluasi",
+                "value": "Kuis Interaktif"
+            }
         ],
-        hint: 'Pastikan file common-tools.html berada dalam satu direktori yang sama dengan index.html.'
+        "topics": [
+            "6 Jenis Kunci (Pas, Ring, Soket, Nipel, L, Inggris)",
+            "5 Jenis Obeng (Min, Plus, Torx, Pozidriv, Ketok)",
+            "6 Jenis Tang (Kombinasi, Potong, Lancip, Sirklip, Buaya)",
+            "7 Jenis Palu (Konde, Kambing, Godam, Terak, Lunak)",
+            "Power Tools (Bor Tangan, Bor Duduk, Gerinda, Air Impact)",
+            "Prosedur Aspek K3 Penggunaan Peralatan Bengkel"
+        ],
+        "hint": "Pastikan file common-tools.html berada dalam satu direktori yang sama dengan index.html."
     },
     {
-        id: 'x-workshop-equip',
-        section: 'materi',
-        group: 'x-oto',
-        classLabel: 'Kelas X OTO',
-        badgeColor: 'cyan',
-        icon: 'fa-car-burst',
-        thumbnail: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80',
-        title: 'Alat Perlengkapan Bengkel (Workshop Equipment)',
-        subtitle: 'Lifting, Pressing & Supporting Equipment',
-        defaultFile: 'perlengkapan-bengkel.html',
-        desc: 'Mempelajari perlengkapan berat bengkel otomotif mulai dari pengganjal ban, dongkrak, jack stand, empat tipe car lift, bike lift, engine crane, sling, press hidrolik, hingga engine stand.',
-        badges: ['10 Perlengkapan', 'Swipe Galeri', '20 Soal CBT'],
-        highlights: [
-            { label: 'Perlengkapan', value: '10 Unit Utama' },
-            { label: 'Visual', value: 'Swipe Galeri' },
-            { label: 'Evaluasi', value: '20 Soal Exam' }
+        "id": "x-workshop-equip",
+        "section": "materi",
+        "group": "x-oto",
+        "classLabel": "Kelas X OTO",
+        "badgeColor": "cyan",
+        "icon": "fa-car-burst",
+        "thumbnail": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80",
+        "title": "Alat Perlengkapan Bengkel (Workshop Equipment)",
+        "subtitle": "Lifting, Pressing & Supporting Equipment",
+        "defaultFile": "perlengkapan-bengkel.html",
+        "desc": "Mempelajari perlengkapan berat bengkel otomotif mulai dari pengganjal ban, dongkrak, jack stand, empat tipe car lift, bike lift, engine crane, sling, press hidrolik, hingga engine stand.",
+        "badges": [
+            "10 Perlengkapan",
+            "Swipe Galeri",
+            "20 Soal CBT"
         ],
-        topics: [
-            'Wheel Chock, Dongkrak Mekanik & Hidrolik, Jack Stand',
-            'Car Lift (Single Post, Two Post, Four Post & Scissor)',
-            'Bike Lift & Engine Crane (Pengangkat Mesin)',
-            'Sling Rantai/Sintetis & Hydraulic Press',
-            'Engine Stand & Pistol Stamped (Grease Gun)',
-            '20 Soal Pilihan Ganda dengan Secure Exam Browser'
+        "highlights": [
+            {
+                "label": "Perlengkapan",
+                "value": "10 Unit Utama"
+            },
+            {
+                "label": "Visual",
+                "value": "Swipe Galeri"
+            },
+            {
+                "label": "Evaluasi",
+                "value": "20 Soal Exam"
+            }
         ],
-        hint: 'Dilengkapi penguncian layar penuh otomatis & reset token pengawas.'
+        "topics": [
+            "Wheel Chock, Dongkrak Mekanik & Hidrolik, Jack Stand",
+            "Car Lift (Single Post, Two Post, Four Post & Scissor)",
+            "Bike Lift & Engine Crane (Pengangkat Mesin)",
+            "Sling Rantai/Sintetis & Hydraulic Press",
+            "Engine Stand & Pistol Stamped (Grease Gun)",
+            "20 Soal Pilihan Ganda dengan Secure Exam Browser"
+        ],
+        "hint": "Dilengkapi penguncian layar penuh otomatis & reset token pengawas."
     },
     {
-        id: 'x-komponen-oto',
-        section: 'materi',
-        group: 'x-oto',
-        classLabel: 'Kelas X OTO',
-        badgeColor: 'cyan',
-        icon: 'fa-microchip',
-        thumbnail: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80',
-        title: 'Komponen Otomotif Dasar',
-        subtitle: 'Bab 3 Dasar Teknik Otomotif (ICE & EV)',
-        defaultFile: 'materi-komponen-otomotif.html',
-        desc: 'Pemetaan menyeluruh konstruksi kendaraan bermotor berdasarkan kurikulum SMK Kelas X Bab 3: komponen utama motor bakar & motor listrik (EV), perlengkapan mesin, sasis, bodi, kelistrikan, hingga IoV.',
-        badges: ['10 Kelompok Sistem', 'Motor Bakar & EV', '20 Soal CBT'],
-        highlights: [
-            { label: 'Cakupan', value: '10 Sistem Utama' },
-            { label: 'Teknologi', value: 'ICE & EV / IoV' },
-            { label: 'Evaluasi', value: '20 Soal Exam' }
+        "id": "x-komponen-oto",
+        "section": "materi",
+        "group": "x-oto",
+        "classLabel": "Kelas X OTO",
+        "badgeColor": "cyan",
+        "icon": "fa-microchip",
+        "thumbnail": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80",
+        "title": "Komponen Otomotif Dasar",
+        "subtitle": "Bab 3 Dasar Teknik Otomotif (ICE & EV)",
+        "defaultFile": "materi-komponen-otomotif.html",
+        "desc": "Pemetaan menyeluruh konstruksi kendaraan bermotor berdasarkan kurikulum SMK Kelas X Bab 3: komponen utama motor bakar & motor listrik (EV), perlengkapan mesin, sasis, bodi, kelistrikan, hingga IoV.",
+        "badges": [
+            "10 Kelompok Sistem",
+            "Motor Bakar & EV",
+            "20 Soal CBT"
         ],
-        topics: [
-            'Komponen Utama Mesin Motor Bakar (Blok, Piston, Crankshaft)',
-            'Komponen Utama Motor Listrik EV (Stator, Rotor, Inverter)',
-            'Sistem Perlengkapan Mesin (Bahan Bakar, Pelumas, Radiator)',
-            'Pemindah Tenaga, Sasis, Kemudi, Roda & Rem',
-            'Rangka Monocoque/Ladder Frame & Kelistrikan Otomotif',
-            'Komponen Tambahan (Sistem AC, Immobilizer & Internet of Vehicle)'
+        "highlights": [
+            {
+                "label": "Cakupan",
+                "value": "10 Sistem Utama"
+            },
+            {
+                "label": "Teknologi",
+                "value": "ICE & EV / IoV"
+            },
+            {
+                "label": "Evaluasi",
+                "value": "20 Soal Exam"
+            }
         ],
-        hint: 'Mengacu langsung pada buku Dasar-Dasar Teknik Otomotif Semester 2 Bab 3.'
-    },
-
-    // ================= TAB 2: KELAS XI TKR =================
-    {
-        id: 'xi-pemindah-tenaga',
-        section: 'materi',
-        group: 'xi-tkr',
-        classLabel: 'Kelas XI TKR',
-        badgeColor: 'amber',
-        icon: 'fa-gears',
-        thumbnail: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80',
-        title: 'Sistem Pemindah Tenaga',
-        subtitle: '16 Komponen Power Train System',
-        defaultFile: 'materi-pemindah-tenaga.html',
-        desc: 'Pembahasan mendalam 16 unit sistem pemindah tenaga kendaraan ringan mulai dari kopling, transmisi manual/otomatis/CVT, poros propeller, gardan/differensial, LSD, hingga sistem penggerak 4WD.',
-        badges: ['16 Komponen Power Train', 'Prosedur Servis TKR', '20 Soal CBT'],
-        highlights: [
-            { label: 'Unit Materi', value: '16 Komponen' },
-            { label: 'Fokus', value: 'Konstruksi & Servis' },
-            { label: 'Evaluasi', value: '20 Soal Exam' }
+        "topics": [
+            "Komponen Utama Mesin Motor Bakar (Blok, Piston, Crankshaft)",
+            "Komponen Utama Motor Listrik EV (Stator, Rotor, Inverter)",
+            "Sistem Perlengkapan Mesin (Bahan Bakar, Pelumas, Radiator)",
+            "Pemindah Tenaga, Sasis, Kemudi, Roda & Rem",
+            "Rangka Monocoque/Ladder Frame & Kelistrikan Otomotif",
+            "Komponen Tambahan (Sistem AC, Immobilizer & Internet of Vehicle)"
         ],
-        topics: [
-            'Kopling Manual Gesek & Sistem Aktuasi Hidrolik',
-            'Transmisi Manual Synchromesh, Planetary AT & CVT',
-            'Torque Converter, Poros Propeller, U-Joint & Center Bearing',
-            'Gardan / Differensial (Hypoid Gear), LSD & Diff Lock',
-            'Poros Axle Belakang (Rigid) & CV Joint Penggerak Depan',
-            'Tata Letak FR, FF, MR, RR, Transfer Case 4WD & Prosedur DTI'
-        ],
-        hint: 'Disusun khusus sesuai capaian pembelajaran Teknik Kendaraan Ringan (XI-TKR).'
+        "hint": "Mengacu langsung pada buku Dasar-Dasar Teknik Otomotif Semester 2 Bab 3."
     },
     {
-        id: 'xi-sistem-kopling',
-        section: 'materi',
-        group: 'xi-tkr',
-        classLabel: 'Kelas XI TKR',
-        badgeColor: 'amber',
-        icon: 'fa-compact-disc',
-        thumbnail: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=900&q=80',
-        title: 'Sistem Kopling Lengkap',
-        subtitle: '16 Komponen + Mekanisme & Simulator 3D',
-        defaultFile: 'sistem-kopling.html',
-        desc: 'Modul komprehensif sistem kopling kendaraan ringan yang memuat katalog 16 komponen detail, video animasi 3D mekanisme kerja, simulator fisika CAD 3D terintegrasi, serta 20 soal ujian mode aman.',
-        badges: ['16 Komponen Detail', 'Video & CAD 3D', '20 Soal CBT'],
-        highlights: [
-            { label: 'Komponen', value: '16 Bagian Kopling' },
-            { label: 'Lab Virtual', value: 'CAD 3D & Video' },
-            { label: 'Evaluasi', value: '20 Soal Exam' }
+        "id": "xi-pemindah-tenaga",
+        "section": "materi",
+        "group": "xi-tkr",
+        "classLabel": "Kelas XI TKR",
+        "badgeColor": "amber",
+        "icon": "fa-gears",
+        "thumbnail": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80",
+        "title": "Sistem Pemindah Tenaga",
+        "subtitle": "16 Komponen Power Train System",
+        "defaultFile": "materi-pemindah-tenaga.html",
+        "desc": "Pembahasan mendalam 16 unit sistem pemindah tenaga kendaraan ringan mulai dari kopling, transmisi manual/otomatis/CVT, poros propeller, gardan/differensial, LSD, hingga sistem penggerak 4WD.",
+        "badges": [
+            "16 Komponen Power Train",
+            "Prosedur Servis TKR",
+            "20 Soal CBT"
         ],
-        topics: [
-            '16 Komponen Kopling (Flywheel, Clutch Disc, Torsion Damper, Diaphragm)',
-            'Master Cylinder, Slave Cylinder, Release Fork, Release & Pilot Bearing',
-            'Prosedur Pemeriksaan Keausan Paku Keling, Run-out & Free Play Pedal',
-            'Mekanisme Posisi Engaged & Disengaged + Video Animasi 3D',
-            'Simulator Interaktif CAD 3D Kopling Hidrolik & Gearbox',
-            '20 Soal Evaluasi Sistem Kopling dengan Secure Exam Browser'
+        "highlights": [
+            {
+                "label": "Unit Materi",
+                "value": "16 Komponen"
+            },
+            {
+                "label": "Fokus",
+                "value": "Konstruksi & Servis"
+            },
+            {
+                "label": "Evaluasi",
+                "value": "20 Soal Exam"
+            }
         ],
-        hint: 'Gunakan tab "Mekanisme" di dalam modul ini untuk meluncurkan Simulator CAD 3D layar penuh.'
-    },
-
-    // ================= BAGIAN 2: SIMULASI INTERAKTIF =================
-    {
-        id: 'sim-cad-3d',
-        section: 'simulasi',
-        group: 'simulasi',
-        classLabel: 'Simulasi CAD 3D',
-        badgeColor: 'emerald',
-        icon: 'fa-cube',
-        thumbnail: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=900&q=80',
-        title: 'Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan',
-        subtitle: 'Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow',
-        defaultFile: 'sistem-kopling.html#mekanisme',
-        desc: 'Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.',
-        badges: ['8 Mode View', '10 Skenario Kerusakan', 'Three.js WebGL'],
-        highlights: [
-            { label: 'Engine 3D', value: 'Three.js WebGL' },
-            { label: 'Mode View', value: '8 Mode Tampilan' },
-            { label: 'Analisis', value: '10 Fault Scenarios' }
+        "topics": [
+            "Kopling Manual Gesek & Sistem Aktuasi Hidrolik",
+            "Transmisi Manual Synchromesh, Planetary AT & CVT",
+            "Torque Converter, Poros Propeller, U-Joint & Center Bearing",
+            "Gardan / Differensial (Hypoid Gear), LSD & Diff Lock",
+            "Poros Axle Belakang (Rigid) & CV Joint Penggerak Depan",
+            "Tata Letak FR, FF, MR, RR, Transfer Case 4WD & Prosedur DTI"
         ],
-        topics: [
-            'Hukum Pascal Real-Time (Tekanan, Gaya Pedal, Diameter Master/Slave)',
-            'Kinematika Pegas Diafragma, Pressure Plate & Clutch Disc Slip',
-            'Transmisi Manual 5-Percepatan Constant-Mesh + Tuas H-Pattern',
-            '8 Mode View: Normal, Cutaway Hidrolik/Mekanik, Fluid & Torque Flow',
-            'Exploded View & Inspeksi Synchronizer Ring',
-            '10 Skenario Kerusakan (Masuk Angin, Kebocoran Pipa, Kampas Aus, dll)'
-        ],
-        hint: 'Buka modul sistem-kopling.html lalu pilih sub-tab "Mekanisme" untuk meluncurkan Simulator CAD 3D layar penuh.'
+        "hint": "Disusun khusus sesuai capaian pembelajaran Teknik Kendaraan Ringan (XI-TKR)."
     },
     {
-        id: 'sim-katalog-swipe',
-        section: 'simulasi',
-        group: 'simulasi',
-        classLabel: 'Eksplorasi 3D / Swipe',
-        badgeColor: 'emerald',
-        icon: 'fa-hand-pointer',
-        thumbnail: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
-        title: 'Katalog Visual Interaktif 3D/Swipe & Lightbox Inspeksi Komponen',
-        subtitle: 'Interactive Swipeable Deck & High-Res Lightbox Zoom',
-        defaultFile: 'materi-pemindah-tenaga.html',
-        desc: 'Antarmuka eksplorasi visual berbasis kartu geser sentuh (touch/drag carousel) dan lightbox zoom resolusi tinggi untuk mengamati konstruksi detail komponen pemindah tenaga & peralatan bengkel.',
-        badges: ['Swipe Carousel', 'Lightbox Zoom', 'Android & Desktop'],
-        highlights: [
-            { label: 'Navigasi', value: 'Gesture Swipe' },
-            { label: 'Inspeksi', value: 'Lightbox Zoom' },
-            { label: 'Kompatibilitas', value: 'Android & Desktop' }
+        "id": "xi-sistem-kopling",
+        "section": "materi",
+        "group": "xi-tkr",
+        "classLabel": "Kelas XI TKR",
+        "badgeColor": "amber",
+        "icon": "fa-compact-disc",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjq5Ja-87trHXiZLBhRYqY9y2A5UkPIFTzXlX7Rq6bploR4ELaV0_lyXXIeud5nbqhRJ3VirFpvFOigMOMBkbbde5aVLWQM_qfVVJI7J6BngApqHV2YOgibZphvpq_ObwC2E0yD97mvTbP8jrdPBPfLgPQFr1VNOksfQlU9A5Wn63EgKyIBZw8iZZ7_Afw/s1600-rw/1000157481.jpg",
+        "title": "Sistem Kopling Lengkap",
+        "subtitle": "16 Komponen + Mekanisme & Simulator 3D",
+        "defaultFile": "sistem-kopling-manual",
+        "desc": "Modul komprehensif sistem kopling kendaraan ringan yang memuat katalog 16 komponen detail, video animasi 3D mekanisme kerja, simulator fisika CAD 3D terintegrasi, serta 20 soal ujian mode aman.",
+        "badges": [
+            "16 Komponen Detail",
+            "Video & CAD 3D",
+            "20 Soal CBT"
         ],
-        topics: [
-            'Gestur Usap Kiri-Kanan (Swipe Carousel) dengan Indikator Interaktif',
-            'Pencarian Komponen Instan Berdasarkan Nama & Fungsi',
-            'Lightbox Fullscreen Zoom untuk Mengamati Detail Konstruksi',
-            'Struktur Pembelajaran Terstandar: Pengertian, Fungsi, Cara Kerja & Servis'
+        "highlights": [
+            {
+                "label": "Komponen",
+                "value": "16 Bagian Kopling"
+            },
+            {
+                "label": "Lab Virtual",
+                "value": "CAD 3D & Video"
+            },
+            {
+                "label": "Evaluasi",
+                "value": "20 Soal Exam"
+            }
         ],
-        hint: 'Tersedia pada seluruh modul materi Kelas X OTO maupun Kelas XI TKR.'
+        "topics": [
+            "16 Komponen Kopling (Flywheel, Clutch Disc, Torsion Damper, Diaphragm)",
+            "Master Cylinder, Slave Cylinder, Release Fork, Release & Pilot Bearing",
+            "Prosedur Pemeriksaan Keausan Paku Keling, Run-out & Free Play Pedal",
+            "Mekanisme Posisi Engaged & Disengaged + Video Animasi 3D",
+            "Simulator Interaktif CAD 3D Kopling Hidrolik & Gearbox",
+            "20 Soal Evaluasi Sistem Kopling dengan Secure Exam Browser"
+        ],
+        "hint": "Gunakan tab \"Mekanisme\" di dalam modul ini untuk meluncurkan Simulator CAD 3D layar penuh."
     },
     {
-        id: 'sim-exam-browser',
-        section: 'simulasi',
-        group: 'simulasi',
-        classLabel: 'Secure Exam CBT',
-        badgeColor: 'emerald',
-        icon: 'fa-shield-halved',
-        thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
-        title: 'Portal Evaluasi & Simulasi Ujian Aman (Secure Exam Browser Mode)',
-        subtitle: 'PIN Otorisasi Guru • Anti-Tab Switch & Pengacakan Soal',
-        defaultFile: 'sistem-kopling.html',
-        actionType: 'exam-guide',
-        desc: 'Lingkungan evaluasi mandiri dan ulangan harian berbasis web dengan penguncian layar penuh otomatis, deteksi perpindahan aplikasi/tab, pengacakan soal per siswa, serta otorisasi PIN guru.',
-        badges: ['PIN Pengawas', 'Anti-Tab Switch (3x)', 'Pengacakan Soal'],
-        highlights: [
-            { label: 'Batas Pelanggaran', value: 'Maks. 3 Kali' },
-            { label: 'Auto-Lock', value: 'Mode CBT Aman' },
-            { label: 'Otorisasi', value: 'Akun Guru / Admin' }
+        "id": "sim-cad-3d",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Simulasi CAD 3D",
+        "badgeColor": "emerald",
+        "icon": "fa-cube",
+        "thumbnail": "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=900&q=80",
+        "title": "Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan",
+        "subtitle": "Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow",
+        "defaultFile": "sistem-kopling.html#mekanisme",
+        "desc": "Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.",
+        "badges": [
+            "8 Mode View",
+            "10 Skenario Kerusakan",
+            "Three.js WebGL"
         ],
-        topics: [
-            'Penguncian Tab Soal dengan PIN Akses Guru',
-            'Paksa Mode Layar Penuh (Fullscreen) Otomatis Saat Masuk & Refresh',
-            'Deteksi Kecurangan Pindah Tab / Split Screen di HP Android',
-            'Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas'
+        "highlights": [
+            {
+                "label": "Engine 3D",
+                "value": "Three.js WebGL"
+            },
+            {
+                "label": "Mode View",
+                "value": "8 Mode Tampilan"
+            },
+            {
+                "label": "Analisis",
+                "value": "10 Fault Scenarios"
+            }
         ],
-        hint: 'Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian.'
+        "topics": [
+            "Hukum Pascal Real-Time (Tekanan, Gaya Pedal, Diameter Master/Slave)",
+            "Kinematika Pegas Diafragma, Pressure Plate & Clutch Disc Slip",
+            "Transmisi Manual 5-Percepatan Constant-Mesh + Tuas H-Pattern",
+            "8 Mode View: Normal, Cutaway Hidrolik/Mekanik, Fluid & Torque Flow",
+            "Exploded View & Inspeksi Synchronizer Ring",
+            "10 Skenario Kerusakan (Masuk Angin, Kebocoran Pipa, Kampas Aus, dll)"
+        ],
+        "hint": "Buka modul sistem-kopling.html lalu pilih sub-tab \"Mekanisme\" untuk meluncurkan Simulator CAD 3D layar penuh."
+    },
+    {
+        "id": "sim-katalog-swipe",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Eksplorasi 3D / Swipe",
+        "badgeColor": "emerald",
+        "icon": "fa-hand-pointer",
+        "thumbnail": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+        "title": "Katalog Visual Interaktif 3D/Swipe & Lightbox Inspeksi Komponen",
+        "subtitle": "Interactive Swipeable Deck & High-Res Lightbox Zoom",
+        "defaultFile": "materi-pemindah-tenaga.html",
+        "desc": "Antarmuka eksplorasi visual berbasis kartu geser sentuh (touch/drag carousel) dan lightbox zoom resolusi tinggi untuk mengamati konstruksi detail komponen pemindah tenaga & peralatan bengkel.",
+        "badges": [
+            "Swipe Carousel",
+            "Lightbox Zoom",
+            "Android & Desktop"
+        ],
+        "highlights": [
+            {
+                "label": "Navigasi",
+                "value": "Gesture Swipe"
+            },
+            {
+                "label": "Inspeksi",
+                "value": "Lightbox Zoom"
+            },
+            {
+                "label": "Kompatibilitas",
+                "value": "Android & Desktop"
+            }
+        ],
+        "topics": [
+            "Gestur Usap Kiri-Kanan (Swipe Carousel) dengan Indikator Interaktif",
+            "Pencarian Komponen Instan Berdasarkan Nama & Fungsi",
+            "Lightbox Fullscreen Zoom untuk Mengamati Detail Konstruksi",
+            "Struktur Pembelajaran Terstandar: Pengertian, Fungsi, Cara Kerja & Servis"
+        ],
+        "hint": "Tersedia pada seluruh modul materi Kelas X OTO maupun Kelas XI TKR."
+    },
+    {
+        "id": "sim-exam-browser",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Secure Exam CBT",
+        "badgeColor": "emerald",
+        "icon": "fa-shield-halved",
+        "thumbnail": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
+        "title": "Portal Evaluasi & Simulasi Ujian Aman (Secure Exam Browser Mode)",
+        "subtitle": "PIN Otorisasi Guru • Anti-Tab Switch & Pengacakan Soal",
+        "defaultFile": "sistem-kopling.html",
+        "actionType": "exam-guide",
+        "desc": "Lingkungan evaluasi mandiri dan ulangan harian berbasis web dengan penguncian layar penuh otomatis, deteksi perpindahan aplikasi/tab, pengacakan soal per siswa, serta otorisasi PIN guru.",
+        "badges": [
+            "PIN Pengawas",
+            "Anti-Tab Switch (3x)",
+            "Pengacakan Soal"
+        ],
+        "highlights": [
+            {
+                "label": "Batas Pelanggaran",
+                "value": "Maks. 3 Kali"
+            },
+            {
+                "label": "Auto-Lock",
+                "value": "Mode CBT Aman"
+            },
+            {
+                "label": "Otorisasi",
+                "value": "Akun Guru / Admin"
+            }
+        ],
+        "topics": [
+            "Penguncian Tab Soal dengan PIN Akses Guru",
+            "Paksa Mode Layar Penuh (Fullscreen) Otomatis Saat Masuk & Refresh",
+            "Deteksi Kecurangan Pindah Tab / Split Screen di HP Android",
+            "Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas"
+        ],
+        "hint": "Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian."
     }
 ];
