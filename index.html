@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pembelajaran Interaktif | Teknik Otomotif SMK</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Orbitron & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Identity Services (OAuth 2.0 Client-Side) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e32',
+                            900: '#0f172a',
+                            950: '#080d1a',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #080d1a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .bg-tech-grid {
+            background-size: 36px 36px;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(51, 65, 85, 0.65);
+        }
+        .module-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+        }
+        .glow-cyan:hover {
+            box-shadow: 0 14px 32px -10px rgba(6, 182, 212, 0.3);
+            border-color: rgba(6, 182, 212, 0.55);
+        }
+        .glow-amber:hover {
+            box-shadow: 0 14px 32px -10px rgba(245, 158, 11, 0.3);
+            border-color: rgba(245, 158, 11, 0.55);
+        }
+        .glow-emerald:hover {
+            box-shadow: 0 14px 32px -10px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.55);
+        }
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-tab-panel {
+            animation: tabFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        /* Primary Slide Track (Materi vs Simulasi) */
+        .main-slide-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .main-slide-track {
+            display: flex;
+            width: 200%;
+            transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+            align-items: flex-start;
+        }
+        .main-slide-pane {
+            width: 50%;
+            flex-shrink: 0;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080d1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-tech-grid bg-grid-pattern selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 border border-cyan-400/30 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-gears text-slate-950 text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-display font-bold text-base sm:text-lg tracking-wider text-white">OTO<span class="text-cyan-400">LAB</span></span>
+                        <span class="hidden sm:inline-block text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">SMK/MAK</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 hidden sm:block">Portal Modul Materi & Simulasi Teknik Otomotif</p>
+                </div>
+            </a>
+
+            <!-- Right Quick Actions & Google Auth Profile -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Admin-Only Controls (Hanya muncul untuk email terdaftar di ADMIN_EMAILS) -->
+                <div id="admin-only-actions" class="hidden items-center gap-2">
+                    <button type="button" onclick="openExamGuideModal()" class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-2 transition">
+                        <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                        <span class="hidden lg:inline">Info PIN & Exam Mode</span>
+                        <span class="lg:hidden">PIN</span>
+                    </button>
+                    <button type="button" onclick="openPathConfigModal()" class="px-3 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-medium flex items-center gap-2 transition" title="Atur Tautan File HTML">
+                        <i class="fa-solid fa-link"></i>
+                        <span class="hidden lg:inline">Atur Tautan</span>
+                    </button>
+                </div>
+
+                <!-- Guest State: Tombol Login Google -->
+                <div id="auth-logged-out" class="flex items-center gap-2">
+                    <button type="button" onclick="openLoginModal()" class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-xs flex items-center gap-2 shadow-md transition">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-4 h-4">
+                        <span>Masuk Google</span>
+                    </button>
+                </div>
+
+                <!-- Authenticated State: Profil Nama & Email -->
+                <div id="auth-logged-in" class="hidden items-center gap-2.5 pl-2.5 pr-1.5 py-1 rounded-2xl bg-slate-900/90 border border-slate-700/90">
+                    <img id="user-avatar" src="" alt="Avatar" class="w-7 h-7 rounded-full border border-cyan-500/50 object-cover">
+                    <div class="text-left leading-tight max-w-[130px] sm:max-w-[190px]">
+                        <div class="flex items-center gap-1.5">
+                            <span id="user-name" class="text-xs font-bold text-white truncate">Nama Pengguna</span>
+                            <span id="user-role-badge" class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 shrink-0">Siswa</span>
+                        </div>
+                        <p id="user-email" class="text-[10px] text-slate-400 truncate">email@gmail.com</p>
+                    </div>
+                    <button type="button" onclick="handleLogout()" class="w-7 h-7 rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 flex items-center justify-center transition shrink-0" title="Keluar Akun">
+                        <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full">
+
+        <!-- Hero Section -->
+        <section class="relative rounded-3xl glass-panel p-6 sm:p-8 lg:p-10 mb-8 overflow-hidden border border-slate-800">
+            <!-- Decorative ambient glow -->
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700 text-xs font-medium text-cyan-400 mb-4">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Media Pembelajaran Digital & Laboratorium Virtual</span>
+                    </div>
+                    <h1 class="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-3">
+                        Portal Modul Pembelajaran Interaktif <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-300">Teknik Otomotif</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Akses terpusat bahan ajar interaktif <strong>Kelas X Dasar-Dasar Teknik Otomotif</strong> dan <strong>Kelas XI Teknik Kendaraan Ringan (TKR)</strong>, dilengkapi katalog visual komponen, simulator fisika CAD 3D, serta evaluasi berbasis <em>Secure Exam Browser</em>.
+                    </p>
+                </div>
+
+                <!-- Compact Stats Grid -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-4 shrink-0">
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 sm:p-4 text-center">
+                        <div class="w-9 h-9 mx-auto mb-2 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div class="font-display text-xl sm:text-2xl font-bold text-white" id="stat-modules">5</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Modul Materi</div>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 sm:p-4 text-center">
+                        <div class="w-9 h-9 mx-auto mb-2 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                            <i class="fa-solid fa-cube"></i>
+                        </div>
+                        <div class="font-display text-xl sm:text-2xl font-bold text-white" id="stat-sims">3</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Simulasi 3D & Lab</div>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 sm:p-4 text-center">
+                        <div class="w-9 h-9 mx-auto mb-2 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                            <i class="fa-solid fa-user-lock"></i>
+                        </div>
+                        <div class="font-display text-xl sm:text-2xl font-bold text-white">85+</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Bank Soal CBT</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Live Search & Quick Jump Bar -->
+        <section class="glass-panel rounded-2xl p-4 sm:p-5 mb-8 border border-slate-800 space-y-4">
+            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xs sm:text-sm font-bold text-white">Navigasi Slide Utama & Pencarian Terpadu</h2>
+                        <p class="text-[11px] text-slate-400">Geser slide antara Materi & Simulasi, atau ketik kata kunci untuk melihat jumlah hasil di tiap tab.</p>
+                    </div>
+                </div>
+
+                <!-- Live Search Input -->
+                <div class="relative w-full md:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="live-search" oninput="handleSearchInput()" placeholder="Cari komponen, sistem, alat, atau simulasi..." class="w-full pl-10 pr-9 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition">
+                    <button type="button" id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs" title="Hapus pencarian">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRIMARY SLIDE SWITCHER (SLIDE 1: MATERI vs SLIDE 2: SIMULASI INTERAKTIF) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
+                <!-- Slide 1 Trigger: Materi Pembelajaran -->
+                <button type="button" id="main-slide-btn-materi" onclick="switchMainSlide('materi')" class="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border-2 border-cyan-500/60 text-left transition-all shadow-lg shadow-cyan-500/10">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div id="main-slide-icon-materi" class="w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center shrink-0 transition">
+                            <i class="fa-solid fa-book-open-reader text-base"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <div class="font-display font-bold text-xs sm:text-sm text-white tracking-wide">
+                                SLIDE 1 • MATERI PEMBELAJARAN
+                            </div>
+                            <p class="text-[11px] text-cyan-200/80 truncate mt-0.5">Tab Kelas X OTO & Kelas XI TKR</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <span class="px-2 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-display font-bold text-[11px]" title="Hasil pencarian Kelas X OTO">
+                            X: <span id="global-count-x">3</span>
+                        </span>
+                        <span class="px-2 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-display font-bold text-[11px]" title="Hasil pencarian Kelas XI TKR">
+                            XI: <span id="global-count-xi">2</span>
+                        </span>
+                    </div>
+                </button>
+
+                <!-- Slide 2 Trigger: Simulasi Interaktif -->
+                <button type="button" id="main-slide-btn-simulasi" onclick="switchMainSlide('simulasi')" class="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-emerald-500/50 text-left transition-all">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div id="main-slide-icon-simulasi" class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 transition">
+                            <i class="fa-solid fa-cube text-base"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <div class="font-display font-bold text-xs sm:text-sm text-white tracking-wide">
+                                SLIDE 2 • SIMULASI INTERAKTIF
+                            </div>
+                            <p class="text-[11px] text-slate-400 truncate mt-0.5">Lab CAD 3D, Eksplorasi & Exam CBT</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 font-display font-bold text-[11px]" title="Hasil pencarian Simulasi Interaktif">
+                            Simulasi: <span id="global-count-sim">3</span>
+                        </span>
+                        <i class="fa-solid fa-arrow-right text-xs text-emerald-400 hidden sm:inline ml-0.5"></i>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Live Search Breakdown Bar (Muncul otomatis saat mengetik pencarian) -->
+            <div id="search-results-breakdown" class="hidden pt-3 border-t border-slate-800/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div class="flex items-center gap-2 text-slate-300">
+                    <i class="fa-solid fa-filter text-cyan-400"></i>
+                    <span>Hasil pencarian <strong id="search-term-display" class="text-white">""</strong> pada setiap tab:</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" onclick="navigateToResult('materi', 'x-oto')" class="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 font-semibold transition">
+                        Kelas X OTO: <strong id="breakdown-count-x" class="text-white">3</strong>
+                    </button>
+                    <button type="button" onclick="navigateToResult('materi', 'xi-tkr')" class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35 font-semibold transition">
+                        Kelas XI TKR: <strong id="breakdown-count-xi" class="text-white">2</strong>
+                    </button>
+                    <button type="button" onclick="navigateToResult('simulasi', null)" class="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 font-semibold transition">
+                        Simulasi Interaktif: <strong id="breakdown-count-sim" class="text-white">3</strong>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Empty State (Shown when search yields no match across both slides) -->
+        <div id="empty-search-state" class="hidden glass-panel rounded-3xl p-12 text-center border border-dashed border-slate-700 mb-10">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-400 text-2xl">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3 class="font-display text-lg font-bold text-white mb-1">Modul atau Simulasi Tidak Ditemukan</h3>
+            <p class="text-sm text-slate-400 max-w-md mx-auto mb-5">Tidak ada modul pembelajaran atau simulasi yang cocok dengan kata kunci pencarian Anda.</p>
+            <button type="button" onclick="clearSearch()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-sm transition">
+                Reset Pencarian
+            </button>
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- MAIN SLIDE VIEWPORT: SLIDE 1 (MATERI) vs SLIDE 2 (SIMULASI)           -->
+        <!-- ===================================================================== -->
+        <div class="main-slide-viewport" id="main-slide-viewport">
+            <div class="main-slide-track" id="main-slide-track">
+
+                <!-- ===================================================================== -->
+                <!-- SLIDE 1: MODUL MATERI PEMBELAJARAN INTERAKTIF (TAB KELAS X vs XI TKR) -->
+                <!-- ===================================================================== -->
+                <section id="section-materi-wrapper" class="main-slide-pane pr-0 md:pr-2 space-y-6">
+
+                    <!-- Header Bagian 1 -->
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-4 gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Slide 01 • Bahan Ajar Digital</span>
+                            <h2 class="font-display text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2.5">
+                                <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
+                                <span>Modul Materi Pembelajaran Interaktif</span>
+                            </h2>
+                        </div>
+                        <button type="button" onclick="switchMainSlide('simulasi')" class="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 text-xs font-semibold flex items-center gap-2 transition">
+                            <span>Geser ke Simulasi Interaktif</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- TAB NAVIGATION KELAS (X OTO vs XI TKR) -->
+                    <div class="glass-panel rounded-2xl p-2 border border-slate-800/90 grid grid-cols-1 sm:grid-cols-2 gap-2" role="tablist" aria-label="Pilih Kelas Materi">
+                        <!-- Tab 1: Kelas X OTO -->
+                        <button type="button" role="tab" aria-selected="true" id="class-tab-x-oto" onclick="switchClassTab('x-oto')" class="class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border border-cyan-500/50 text-left transition-all shadow-lg shadow-cyan-500/10">
+                            <div class="flex items-center gap-3">
+                                <div id="tab-icon-x-oto" class="w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition">
+                                    X
+                                </div>
+                                <div>
+                                    <div class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-cyan-200 transition">
+                                        Kelas X OTO
+                                    </div>
+                                    <div class="text-[11px] text-cyan-300/90">Dasar-Dasar Teknik Otomotif</div>
+                                </div>
+                            </div>
+                            <span id="count-badge-x-oto" class="px-2.5 py-1 rounded-lg bg-cyan-500 text-slate-950 font-display font-bold text-xs shrink-0">
+                                3 Modul
+                            </span>
+                        </button>
+
+                        <!-- Tab 2: Kelas XI TKR -->
+                        <button type="button" role="tab" aria-selected="false" id="class-tab-xi-tkr" onclick="switchClassTab('xi-tkr')" class="class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all">
+                            <div class="flex items-center gap-3">
+                                <div id="tab-icon-xi-tkr" class="w-10 h-10 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition">
+                                    XI
+                                </div>
+                                <div>
+                                    <div class="font-display font-bold text-xs sm:text-sm text-slate-200 group-hover:text-amber-300 transition">
+                                        Kelas XI TKR
+                                    </div>
+                                    <div class="text-[11px] text-slate-400">Teknik Kendaraan Ringan</div>
+                                </div>
+                            </div>
+                            <span id="count-badge-xi-tkr" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-display font-bold text-xs shrink-0">
+                                2 Modul
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- Active Tab Banner Info -->
+                    <div id="active-class-banner" class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/75 border border-cyan-500/25 rounded-2xl px-4 py-3 transition-all">
+                        <div class="flex items-center gap-3">
+                            <i id="banner-icon" class="fa-solid fa-wrench text-cyan-400 text-base"></i>
+                            <div>
+                                <h3 id="banner-title" class="font-display font-bold text-sm sm:text-base text-white">Kelas X OTO (Dasar-Dasar Teknik Otomotif)</h3>
+                                <p id="banner-subtitle" class="text-xs text-slate-400">Kurikulum Merdeka Fase E • Pengenalan Peralatan Bengkel & Konstruksi Dasar Kendaraan</p>
+                            </div>
+                        </div>
+                        <span id="banner-pill" class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                            Fase E • SMK/MAK
+                        </span>
+                    </div>
+
+                    <!-- Tab Content Container (Grid Kartu Materi dengan Thumbnail) -->
+                    <div id="materi-tab-panel" class="animate-tab-panel">
+                        <div id="grid-materi-active" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Rendered dynamically via JS -->
+                        </div>
+
+                        <!-- Empty state khusus jika tab aktif kosong akibat filter pencarian -->
+                        <div id="empty-tab-search" class="hidden glass-panel rounded-2xl p-8 text-center border border-slate-800">
+                            <p class="text-sm text-slate-300 mb-3">Tidak ada modul pada tab kelas ini yang cocok dengan pencarian Anda.</p>
+                            <div class="flex flex-wrap items-center justify-center gap-2">
+                                <button type="button" id="switch-other-tab-btn" onclick="switchToOtherClassTab()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-xs font-semibold transition">
+                                    Cek Tab Kelas Lainnya
+                                </button>
+                                <button type="button" onclick="switchMainSlide('simulasi')" class="px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35 text-xs font-semibold transition">
+                                    Cek Slide Simulasi Interaktif
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- ===================================================================== -->
+                <!-- SLIDE 2: SIMULASI INTERAKTIF (TEREKSPOS LANGSUNG SAAT DIPILIH)        -->
+                <!-- ===================================================================== -->
+                <section id="section-simulasi-wrapper" class="main-slide-pane pl-0 md:pl-2 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-4 gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Slide 02 • Laboratorium Virtual & Praktikum Terpadu</span>
+                            <h2 class="font-display text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2.5">
+                                <i class="fa-solid fa-cube text-emerald-400"></i>
+                                <span>Simulasi Interaktif & Praktikum Virtual</span>
+                            </h2>
+                        </div>
+                        <button type="button" onclick="switchMainSlide('materi')" class="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold flex items-center gap-2 transition">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Kembali ke Materi Pembelajaran</span>
+                        </button>
+                    </div>
+
+                    <!-- Grid Kartu Simulasi (3 Kartu Lengkap dengan Thumbnail) -->
+                    <div id="grid-simulasi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Rendered dynamically via JS -->
+                    </div>
+
+                    <!-- Empty state khusus jika slide simulasi kosong akibat filter pencarian -->
+                    <div id="empty-simulasi-search" class="hidden glass-panel rounded-2xl p-8 text-center border border-slate-800">
+                        <p class="text-sm text-slate-300 mb-3">Tidak ada simulasi interaktif yang cocok dengan pencarian Anda.</p>
+                        <button type="button" onclick="switchMainSlide('materi')" class="px-4 py-2 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-xs font-semibold transition">
+                            Lihat Hasil di Slide Materi Pembelajaran
+                        </button>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950/90 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-wrench text-cyan-400"></i>
+                <span>Portal Pembelajaran Interaktif Teknik Otomotif — Kelas X OTO & XI TKR</span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-4 text-[11px]">
+                <span class="flex items-center gap-1.5 text-slate-400"><i class="fa-solid fa-mobile-screen-button text-cyan-400"></i> Responsif Desktop & Android</span>
+                <span class="flex items-center gap-1.5 text-slate-400"><i class="fa-solid fa-shield-halved text-amber-400"></i> Secure Exam Mode Ready</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 1: PREVIEW SILABUS & DETAIL MODUL                               -->
+    <!-- ===================================================================== -->
+    <div id="modal-detail" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl transform transition-all">
+            <!-- Top Header Modal -->
+            <div class="p-6 border-b border-slate-800 flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                    <div id="md-icon-box" class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0">
+                        <i id="md-icon" class="fa-solid fa-gears"></i>
+                    </div>
+                    <div>
+                        <span id="md-category-badge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full"></span>
+                        <h3 id="md-title" class="font-display text-lg sm:text-xl font-bold text-white mt-1"></h3>
+                    </div>
+                </div>
+                <button type="button" onclick="closeDetailModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition shrink-0">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-5 text-sm">
+                <p id="md-desc" class="text-slate-300 leading-relaxed"></p>
+
+                <!-- Highlight Stats -->
+                <div id="md-highlights" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <!-- Filled via JS -->
+                </div>
+
+                <!-- Daftar Topik / Kompetensi -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+                    <h4 class="font-semibold text-white text-xs uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-cyan-400"></i>
+                        <span>Cakupan Materi & Fitur Interaktif</span>
+                    </h4>
+                    <ul id="md-topics" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                        <!-- Filled via JS -->
+                    </ul>
+                </div>
+
+                <!-- File Path & Thumbnail Editor (Hanya aktif untuk Admin) -->
+                <div id="md-admin-editor" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
+                    <div>
+                        <label for="md-thumb-input" class="text-xs font-semibold text-slate-300 flex items-center gap-1.5 mb-1.5">
+                            <i class="fa-regular fa-image text-cyan-400"></i>
+                            <span>URL Gambar Thumbnail Kartu (Khusus Guru/Admin):</span>
+                        </label>
+                        <input type="text" id="md-thumb-input" placeholder="https://images.unsplash.com/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500">
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label for="md-file-input" class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-code text-amber-400"></i>
+                                <span>Target File HTML Modul:</span>
+                            </label>
+                            <button type="button" onclick="copyModuleLink()" class="text-xs text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1">
+                                <i class="fa-regular fa-copy"></i> <span id="copy-btn-text">Salin Nama File</span>
+                            </button>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="md-file-input" class="flex-grow bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
+                            <button type="button" onclick="saveCustomFilePath()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                    <p id="md-hint" class="text-[11px] text-slate-400"></p>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="p-6 border-t border-slate-800 bg-slate-900/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <button type="button" onclick="closeDetailModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+                    Tutup Preview
+                </button>
+                <a id="md-launch-btn" href="#" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 transition">
+                    <span>Buka Modul Pembelajaran</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: INFORMASI PIN & SECURE EXAM BROWSER                          -->
+    <!-- ===================================================================== -->
+    <div id="modal-exam-guide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="glass-panel rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-base sm:text-lg font-bold text-white">Panduan Secure Exam Mode</h3>
+                        <p class="text-xs text-slate-400">Sistem Keamanan Evaluasi & PIN Akses</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeExamGuideModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4 text-xs sm:text-sm text-slate-300">
+                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
+                    <div class="font-bold text-amber-300 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-key"></i> PIN Default Pembuka & Reset Guru:
+                    </div>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        Tab <strong>Soal Latihan</strong> pada modul terkunci secara default agar siswa mempelajari materi terlebih dahulu. Gunakan PIN standar berikut saat praktikum/evaluasi:
+                    </p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-950 border border-amber-500/40 font-mono text-amber-300 font-bold">PIN Akses: 1234 / 4646</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-950 border border-cyan-500/40 font-mono text-cyan-300 font-bold">PIN Pengawas: 4570</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5">
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider">Mekanisme Perlindungan Ujian:</h4>
+                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-expand text-cyan-400 mt-0.5"></i>
+                        <div>
+                            <strong class="text-white block">Auto Fullscreen Lock</strong>
+                            <span class="text-xs text-slate-400">Memaksa layar penuh saat masuk tab kuis, termasuk saat halaman di-refresh oleh siswa.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-eye-slash text-rose-400 mt-0.5"></i>
+                        <div>
+                            <strong class="text-white block">Anti-Tab Switch & Split Screen</strong>
+                            <span class="text-xs text-slate-400">Mendeteksi perpindahan tab/aplikasi. Maksimal 3 kali pelanggaran sebelum ujian dikunci otomatis.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-shuffle text-emerald-400 mt-0.5"></i>
+                        <div>
+                            <strong class="text-white block">Pengacakan Soal & Opsi Jawaban</strong>
+                            <span class="text-xs text-slate-400">Urutan 20 soal dan pilihan A–D diacak unik untuk setiap sesi pengerjaan siswa.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-5 border-t border-slate-800 text-right">
+                <button type="button" onclick="closeExamGuideModal()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition">
+                    Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 3: PENGATURAN NAMA FILE / TAUTAN MODUL                          -->
+    <!-- ===================================================================== -->
+    <div id="modal-path-config" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div>
+                    <h3 class="font-display text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-folder-tree text-cyan-400"></i> Konfigurasi Tautan File HTML
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Sesuaikan path/nama file HTML apabila berada di sub-folder berbeda.</p>
+                </div>
+                <button type="button" onclick="closePathConfigModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="path-config-list" class="p-6 space-y-3 max-h-[55vh] overflow-y-auto">
+                <!-- Inputs rendered via JS -->
+            </div>
+
+            <div class="p-5 border-t border-slate-800 bg-slate-900/50 flex flex-wrap items-center justify-between gap-3">
+                <button type="button" onclick="resetDefaultPaths()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-300 border border-slate-700 text-xs font-semibold transition">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Reset Default
+                </button>
+                <div class="flex gap-2">
+                    <button type="button" onclick="closePathConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+                        Batal
+                    </button>
+                    <button type="button" onclick="saveAllPaths()" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 4: LOGIN GOOGLE OAUTH & SIMULASI HAK AKSES                      -->
+    <!-- ===================================================================== -->
+    <div id="modal-google-login" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="glass-panel rounded-3xl max-w-md w-full border border-slate-700 shadow-2xl overflow-hidden">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">
+                    </div>
+                    <div>
+                        <h3 class="font-display text-base font-bold text-white">Autentikasi Akun Google</h3>
+                        <p class="text-xs text-slate-400">Identitas Profil & Hak Akses Pengelola</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeLoginModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4 text-xs text-slate-300">
+                <p class="leading-relaxed">
+                    Semua akun Google dapat masuk untuk menampilkan <strong>Nama & Email</strong> pada profil. Fitur <strong>Info PIN Ujian</strong> dan <strong>Atur Tautan</strong> hanya terbuka bagi email pengajar yang terdaftar.
+                </p>
+
+                <!-- Tombol Resmi Google Identity Services -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center gap-2">
+                    <div id="google-signin-button-container" class="min-h-[40px] flex items-center justify-center"></div>
+                    <p id="gsi-status-note" class="text-[11px] text-slate-400 text-center">
+                        Menggunakan Google OAuth 2.0 (Client-Side)
+                    </p>
+                </div>
+
+                <!-- Simulasi Uji Coba Role (Berguna saat preview lokal sebelum Client ID diisi) -->
+                <div class="border-t border-slate-800 pt-4 space-y-2">
+                    <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Simulasi Uji Coba Hak Akses (Preview):</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="simulateGoogleLogin('admin')" class="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35 font-semibold text-left transition">
+                            <div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-user-tie"></i> Akun Guru</div>
+                            <div class="text-[10px] opacity-80 truncate">Akses PIN & Tautan</div>
+                        </button>
+                        <button type="button" onclick="simulateGoogleLogin('student')" class="px-3 py-2.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 font-semibold text-left transition">
+                            <div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-user-graduate"></i> Akun Siswa</div>
+                            <div class="text-[10px] opacity-80 truncate">Materi & Simulasi</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notif" class="fixed bottom-5 right-5 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 border border-cyan-500/40 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs font-medium">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toast-message">Perubahan berhasil disimpan!</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // =========================================================================
+        // KONFIGURASI GOOGLE OAUTH 2.0 & DAFTAR EMAIL PENGAJAR (ADMIN)
+        // =========================================================================
+        const GOOGLE_CLIENT_ID = "560888404639-vn5frvv3l3eripdtq05vljao8521po3v.apps.googleusercontent.com";
+
+        const ADMIN_EMAILS = [
+            "astohuwawei@gmail.com",
+            "admin@tahupost.net"
+        ];
+
+        const AUTH_STORAGE_KEY = "otolab_google_user_v1";
+        let currentUser = null;
+
+        // =========================================================================
+        // MASTER DATA MODUL MATERI & SIMULASI INTERAKTIF
+        // =========================================================================
+        const modulesData = [
+            // ================= TAB 1: KELAS X OTO =================
+            {
+                id: 'x-common-tools',
+                section: 'materi',
+                group: 'x-oto',
+                classLabel: 'Kelas X OTO',
+                badgeColor: 'cyan',
+                icon: 'fa-wrench',
+                thumbnail: 'https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=900&q=80',
+                title: 'Peralatan Umum Bengkel (Common Tools)',
+                subtitle: 'Hand & Power Tools Lengkap',
+                defaultFile: 'common-tools.html',
+                desc: 'Mengenal secara lengkap berbagai jenis peralatan tangan (Hand Tools) dan peralatan bertenaga (Power Tools) standar bengkel otomotif beserta fungsi, spesifikasi, dan standar keselamatan kerja (K3).',
+                badges: ['28+ Jenis Alat', 'Foto Nyata & K3', 'Kuis Interaktif'],
+                highlights: [
+                    { label: 'Total Alat', value: '28+ Jenis' },
+                    { label: 'Kategori', value: 'Hand & Power' },
+                    { label: 'Evaluasi', value: 'Kuis Interaktif' }
+                ],
+                topics: [
+                    '6 Jenis Kunci (Pas, Ring, Soket, Nipel, L, Inggris)',
+                    '5 Jenis Obeng (Min, Plus, Torx, Pozidriv, Ketok)',
+                    '6 Jenis Tang (Kombinasi, Potong, Lancip, Sirklip, Buaya)',
+                    '7 Jenis Palu (Konde, Kambing, Godam, Terak, Lunak)',
+                    'Power Tools (Bor Tangan, Bor Duduk, Gerinda, Air Impact)',
+                    'Prosedur Aspek K3 Penggunaan Peralatan Bengkel'
+                ],
+                hint: 'Pastikan file common-tools.html berada dalam satu direktori yang sama dengan index.html.'
+            },
+            {
+                id: 'x-workshop-equip',
+                section: 'materi',
+                group: 'x-oto',
+                classLabel: 'Kelas X OTO',
+                badgeColor: 'cyan',
+                icon: 'fa-car-burst',
+                thumbnail: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80',
+                title: 'Alat Perlengkapan Bengkel (Workshop Equipment)',
+                subtitle: 'Lifting, Pressing & Supporting Equipment',
+                defaultFile: 'perlengkapan-bengkel.html',
+                desc: 'Mempelajari perlengkapan berat bengkel otomotif mulai dari pengganjal ban, dongkrak, jack stand, empat tipe car lift, bike lift, engine crane, sling, press hidrolik, hingga engine stand.',
+                badges: ['10 Perlengkapan', 'Swipe Galeri', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Perlengkapan', value: '10 Unit Utama' },
+                    { label: 'Visual', value: 'Swipe Galeri' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    'Wheel Chock, Dongkrak Mekanik & Hidrolik, Jack Stand',
+                    'Car Lift (Single Post, Two Post, Four Post & Scissor)',
+                    'Bike Lift & Engine Crane (Pengangkat Mesin)',
+                    'Sling Rantai/Sintetis & Hydraulic Press',
+                    'Engine Stand & Pistol Stamped (Grease Gun)',
+                    '20 Soal Pilihan Ganda dengan Secure Exam Browser'
+                ],
+                hint: 'Dilengkapi penguncian layar penuh otomatis & reset token pengawas.'
+            },
+            {
+                id: 'x-komponen-oto',
+                section: 'materi',
+                group: 'x-oto',
+                classLabel: 'Kelas X OTO',
+                badgeColor: 'cyan',
+                icon: 'fa-microchip',
+                thumbnail: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80',
+                title: 'Komponen Otomotif Dasar',
+                subtitle: 'Bab 3 Dasar Teknik Otomotif (ICE & EV)',
+                defaultFile: 'materi-komponen-otomotif.html',
+                desc: 'Pemetaan menyeluruh konstruksi kendaraan bermotor berdasarkan kurikulum SMK Kelas X Bab 3: komponen utama motor bakar & motor listrik (EV), perlengkapan mesin, sasis, bodi, kelistrikan, hingga IoV.',
+                badges: ['10 Kelompok Sistem', 'Motor Bakar & EV', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Cakupan', value: '10 Sistem Utama' },
+                    { label: 'Teknologi', value: 'ICE & EV / IoV' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    'Komponen Utama Mesin Motor Bakar (Blok, Piston, Crankshaft)',
+                    'Komponen Utama Motor Listrik EV (Stator, Rotor, Inverter)',
+                    'Sistem Perlengkapan Mesin (Bahan Bakar, Pelumas, Radiator)',
+                    'Pemindah Tenaga, Sasis, Kemudi, Roda & Rem',
+                    'Rangka Monocoque/Ladder Frame & Kelistrikan Otomotif',
+                    'Komponen Tambahan (Sistem AC, Immobilizer & Internet of Vehicle)'
+                ],
+                hint: 'Mengacu langsung pada buku Dasar-Dasar Teknik Otomotif Semester 2 Bab 3.'
+            },
+
+            // ================= TAB 2: KELAS XI TKR =================
+            {
+                id: 'xi-pemindah-tenaga',
+                section: 'materi',
+                group: 'xi-tkr',
+                classLabel: 'Kelas XI TKR',
+                badgeColor: 'amber',
+                icon: 'fa-gears',
+                thumbnail: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80',
+                title: 'Sistem Pemindah Tenaga',
+                subtitle: '16 Komponen Power Train System',
+                defaultFile: 'materi-pemindah-tenaga.html',
+                desc: 'Pembahasan mendalam 16 unit sistem pemindah tenaga kendaraan ringan mulai dari kopling, transmisi manual/otomatis/CVT, poros propeller, gardan/differensial, LSD, hingga sistem penggerak 4WD.',
+                badges: ['16 Komponen Power Train', 'Prosedur Servis TKR', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Unit Materi', value: '16 Komponen' },
+                    { label: 'Fokus', value: 'Konstruksi & Servis' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    'Kopling Manual Gesek & Sistem Aktuasi Hidrolik',
+                    'Transmisi Manual Synchromesh, Planetary AT & CVT',
+                    'Torque Converter, Poros Propeller, U-Joint & Center Bearing',
+                    'Gardan / Differensial (Hypoid Gear), LSD & Diff Lock',
+                    'Poros Axle Belakang (Rigid) & CV Joint Penggerak Depan',
+                    'Tata Letak FR, FF, MR, RR, Transfer Case 4WD & Prosedur DTI'
+                ],
+                hint: 'Disusun khusus sesuai capaian pembelajaran Teknik Kendaraan Ringan (XI-TKR).'
+            },
+            {
+                id: 'xi-sistem-kopling',
+                section: 'materi',
+                group: 'xi-tkr',
+                classLabel: 'Kelas XI TKR',
+                badgeColor: 'amber',
+                icon: 'fa-compact-disc',
+                thumbnail: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=900&q=80',
+                title: 'Sistem Kopling Lengkap',
+                subtitle: '16 Komponen + Mekanisme & Simulator 3D',
+                defaultFile: 'sistem-kopling.html',
+                desc: 'Modul komprehensif sistem kopling kendaraan ringan yang memuat katalog 16 komponen detail, video animasi 3D mekanisme kerja, simulator fisika CAD 3D terintegrasi, serta 20 soal ujian mode aman.',
+                badges: ['16 Komponen Detail', 'Video & CAD 3D', '20 Soal CBT'],
+                highlights: [
+                    { label: 'Komponen', value: '16 Bagian Kopling' },
+                    { label: 'Lab Virtual', value: 'CAD 3D & Video' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ],
+                topics: [
+                    '16 Komponen Kopling (Flywheel, Clutch Disc, Torsion Damper, Diaphragm)',
+                    'Master Cylinder, Slave Cylinder, Release Fork, Release & Pilot Bearing',
+                    'Prosedur Pemeriksaan Keausan Paku Keling, Run-out & Free Play Pedal',
+                    'Mekanisme Posisi Engaged & Disengaged + Video Animasi 3D',
+                    'Simulator Interaktif CAD 3D Kopling Hidrolik & Gearbox',
+                    '20 Soal Evaluasi Sistem Kopling dengan Secure Exam Browser'
+                ],
+                hint: 'Gunakan tab "Mekanisme" di dalam modul ini untuk meluncurkan Simulator CAD 3D layar penuh.'
+            },
+
+            // ================= BAGIAN 2: SIMULASI INTERAKTIF =================
+            {
+                id: 'sim-cad-3d',
+                section: 'simulasi',
+                group: 'simulasi',
+                classLabel: 'Simulasi CAD 3D',
+                badgeColor: 'emerald',
+                icon: 'fa-cube',
+                thumbnail: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=900&q=80',
+                title: 'Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan',
+                subtitle: 'Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow',
+                defaultFile: 'sistem-kopling.html#mekanisme',
+                desc: 'Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.',
+                badges: ['8 Mode View', '10 Skenario Kerusakan', 'Three.js WebGL'],
+                highlights: [
+                    { label: 'Engine 3D', value: 'Three.js WebGL' },
+                    { label: 'Mode View', value: '8 Mode Tampilan' },
+                    { label: 'Analisis', value: '10 Fault Scenarios' }
+                ],
+                topics: [
+                    'Hukum Pascal Real-Time (Tekanan, Gaya Pedal, Diameter Master/Slave)',
+                    'Kinematika Pegas Diafragma, Pressure Plate & Clutch Disc Slip',
+                    'Transmisi Manual 5-Percepatan Constant-Mesh + Tuas H-Pattern',
+                    '8 Mode View: Normal, Cutaway Hidrolik/Mekanik, Fluid & Torque Flow',
+                    'Exploded View & Inspeksi Synchronizer Ring',
+                    '10 Skenario Kerusakan (Masuk Angin, Kebocoran Pipa, Kampas Aus, dll)'
+                ],
+                hint: 'Buka modul sistem-kopling.html lalu pilih sub-tab "Mekanisme" untuk meluncurkan Simulator CAD 3D layar penuh.'
+            },
+            {
+                id: 'sim-katalog-swipe',
+                section: 'simulasi',
+                group: 'simulasi',
+                classLabel: 'Eksplorasi 3D / Swipe',
+                badgeColor: 'emerald',
+                icon: 'fa-hand-pointer',
+                thumbnail: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
+                title: 'Katalog Visual Interaktif 3D/Swipe & Lightbox Inspeksi Komponen',
+                subtitle: 'Interactive Swipeable Deck & High-Res Lightbox Zoom',
+                defaultFile: 'materi-pemindah-tenaga.html',
+                desc: 'Antarmuka eksplorasi visual berbasis kartu geser sentuh (touch/drag carousel) dan lightbox zoom resolusi tinggi untuk mengamati konstruksi detail komponen pemindah tenaga & peralatan bengkel.',
+                badges: ['Swipe Carousel', 'Lightbox Zoom', 'Android & Desktop'],
+                highlights: [
+                    { label: 'Navigasi', value: 'Gesture Swipe' },
+                    { label: 'Inspeksi', value: 'Lightbox Zoom' },
+                    { label: 'Kompatibilitas', value: 'Android & Desktop' }
+                ],
+                topics: [
+                    'Gestur Usap Kiri-Kanan (Swipe Carousel) dengan Indikator Interaktif',
+                    'Pencarian Komponen Instan Berdasarkan Nama & Fungsi',
+                    'Lightbox Fullscreen Zoom untuk Mengamati Detail Konstruksi',
+                    'Struktur Pembelajaran Terstandar: Pengertian, Fungsi, Cara Kerja & Servis'
+                ],
+                hint: 'Tersedia pada seluruh modul materi Kelas X OTO maupun Kelas XI TKR.'
+            },
+            {
+                id: 'sim-exam-browser',
+                section: 'simulasi',
+                group: 'simulasi',
+                classLabel: 'Secure Exam CBT',
+                badgeColor: 'emerald',
+                icon: 'fa-shield-halved',
+                thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
+                title: 'Portal Evaluasi & Simulasi Ujian Aman (Secure Exam Browser Mode)',
+                subtitle: 'PIN Otorisasi Guru • Anti-Tab Switch & Pengacakan Soal',
+                defaultFile: 'sistem-kopling.html',
+                actionType: 'exam-guide',
+                desc: 'Lingkungan evaluasi mandiri dan ulangan harian berbasis web dengan penguncian layar penuh otomatis, deteksi perpindahan aplikasi/tab, pengacakan soal per siswa, serta otorisasi PIN guru.',
+                badges: ['PIN Pengawas', 'Anti-Tab Switch (3x)', 'Pengacakan Soal'],
+                highlights: [
+                    { label: 'Batas Pelanggaran', value: 'Maks. 3 Kali' },
+                    { label: 'Auto-Lock', value: 'Mode CBT Aman' },
+                    { label: 'Otorisasi', value: 'Akun Guru / Admin' }
+                ],
+                topics: [
+                    'Penguncian Tab Soal dengan PIN Akses Guru',
+                    'Paksa Mode Layar Penuh (Fullscreen) Otomatis Saat Masuk & Refresh',
+                    'Deteksi Kecurangan Pindah Tab / Split Screen di HP Android',
+                    'Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas'
+                ],
+                hint: 'Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian.'
+            }
+        ];
+
+        // State Management
+        let customPaths = {};
+        let customThumbs = {};
+        let activeMainSlide = 'materi'; // 'materi' | 'simulasi'
+        let activeClassTab = 'x-oto';   // 'x-oto' | 'xi-tkr'
+        let currentSearch = '';
+        let activeModalModuleId = null;
+
+        function loadSavedSettings() {
+            try {
+                const savedPaths = localStorage.getItem('otolab_custom_paths_v2');
+                if (savedPaths) customPaths = JSON.parse(savedPaths);
+
+                const savedThumbs = localStorage.getItem('otolab_custom_thumbs_v2');
+                if (savedThumbs) customThumbs = JSON.parse(savedThumbs);
+            } catch (e) {
+                console.warn('Gagal membaca localStorage:', e);
+            }
+        }
+
+        function getModuleFile(mod) {
+            return customPaths[mod.id] ? customPaths[mod.id] : mod.defaultFile;
+        }
+
+        function getModuleThumb(mod) {
+            return customThumbs[mod.id] ? customThumbs[mod.id] : mod.thumbnail;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedSettings();
+            loadAuthSession();
+            initGoogleOAuth();
+            renderAllSections();
+        });
+
+        // =========================================================================
+        // GOOGLE OAUTH 2.0 CLIENT-SIDE HANDLERS
+        // =========================================================================
+        function initGoogleOAuth() {
+            const noteEl = document.getElementById('gsi-status-note');
+            if (!GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID.startsWith("MASUKKAN_")) {
+                if (noteEl) {
+                    noteEl.innerHTML = 'Ganti <code class="text-cyan-400">GOOGLE_CLIENT_ID</code> di kode JS untuk mengaktifkan tombol Google asli, atau gunakan tombol simulasi di bawah.';
+                }
+                return;
+            }
+
+            const checkGsi = setInterval(() => {
+                if (window.google && google.accounts && google.accounts.id) {
+                    clearInterval(checkGsi);
+                    google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleGoogleCredentialResponse
+                    });
+                    const btnContainer = document.getElementById('google-signin-button-container');
+                    if (btnContainer) {
+                        google.accounts.id.renderButton(btnContainer, {
+                            theme: "outline",
+                            size: "large",
+                            shape: "pill",
+                            text: "signin_with"
+                        });
+                    }
+                }
+            }, 300);
+        }
+
+        function decodeJwtPayload(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(
+                atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+            );
+            return JSON.parse(jsonPayload);
+        }
+
+        function handleGoogleCredentialResponse(response) {
+            try {
+                const payload = decodeJwtPayload(response.credential);
+                const userObj = {
+                    name: payload.name || "Pengguna Google",
+                    email: (payload.email || "").toLowerCase(),
+                    picture: payload.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(payload.name || 'User')}&background=06b6d4&color=0f172a`
+                };
+                setAuthenticatedUser(userObj);
+                closeLoginModal();
+                showToast(`Selamat datang, ${userObj.name}!`);
+            } catch (err) {
+                showToast("Gagal memverifikasi token Google.");
+            }
+        }
+
+        function simulateGoogleLogin(role) {
+            const demoUser = role === 'admin'
+                ? {
+                    name: "Guru Teknik Otomotif",
+                    email: ADMIN_EMAILS[0],
+                    picture: "https://ui-avatars.com/api/?name=Guru+Otomotif&background=f59e0b&color=0f172a&bold=true"
+                }
+                : {
+                    name: "Siswa XI TKR 01",
+                    email: "siswa.xitkr01@gmail.com",
+                    picture: "https://ui-avatars.com/api/?name=Siswa+TKR&background=06b6d4&color=0f172a&bold=true"
+                };
+            setAuthenticatedUser(demoUser);
+            closeLoginModal();
+            showToast(`Masuk sebagai ${demoUser.name}`);
+        }
+
+        function isUserAdmin(user) {
+            if (!user || !user.email) return false;
+            return ADMIN_EMAILS.map(e => e.toLowerCase().trim()).includes(user.email.toLowerCase().trim());
+        }
+
+        function setAuthenticatedUser(userObj) {
+            currentUser = userObj;
+            try {
+                localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userObj));
+            } catch (e) {}
+            updateAuthUI();
+            renderAllSections();
+        }
+
+        function loadAuthSession() {
+            try {
+                const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+                if (raw) currentUser = JSON.parse(raw);
+            } catch (e) {
+                currentUser = null;
+            }
+            updateAuthUI();
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            try {
+                localStorage.removeItem(AUTH_STORAGE_KEY);
+            } catch (e) {}
+            if (window.google && google.accounts && google.accounts.id) {
+                google.accounts.id.disableAutoSelect();
+            }
+            updateAuthUI();
+            renderAllSections();
+            showToast("Anda telah keluar dari akun.");
+        }
+
+        function updateAuthUI() {
+            const loggedOutBox = document.getElementById('auth-logged-out');
+            const loggedInBox = document.getElementById('auth-logged-in');
+            const adminActions = document.getElementById('admin-only-actions');
+
+            if (!currentUser) {
+                loggedOutBox.classList.remove('hidden');
+                loggedInBox.classList.add('hidden');
+                loggedInBox.classList.remove('flex');
+                adminActions.classList.add('hidden');
+                adminActions.classList.remove('flex');
+                return;
+            }
+
+            loggedOutBox.classList.add('hidden');
+            loggedInBox.classList.remove('hidden');
+            loggedInBox.classList.add('flex');
+
+            document.getElementById('user-avatar').src = currentUser.picture;
+            document.getElementById('user-name').textContent = currentUser.name;
+            document.getElementById('user-email').textContent = currentUser.email;
+
+            const admin = isUserAdmin(currentUser);
+            const roleBadge = document.getElementById('user-role-badge');
+            if (admin) {
+                roleBadge.textContent = "Guru / Admin";
+                roleBadge.className = "text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0";
+                adminActions.classList.remove('hidden');
+                adminActions.classList.add('flex');
+            } else {
+                roleBadge.textContent = "Siswa";
+                roleBadge.className = "text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shrink-0";
+                adminActions.classList.add('hidden');
+                adminActions.classList.remove('flex');
+            }
+        }
+
+        function openLoginModal() {
+            const modal = document.getElementById('modal-google-login');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('modal-google-login');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // =========================================================================
+        // SLIDE & CLASS TAB NAVIGATION
+        // =========================================================================
+        function switchMainSlide(slideKey) {
+            activeMainSlide = slideKey;
+            const track = document.getElementById('main-slide-track');
+            const btnMateri = document.getElementById('main-slide-btn-materi');
+            const btnSim = document.getElementById('main-slide-btn-simulasi');
+            const iconMateri = document.getElementById('main-slide-icon-materi');
+            const iconSim = document.getElementById('main-slide-icon-simulasi');
+
+            if (slideKey === 'materi') {
+                track.style.transform = 'translateX(0%)';
+                btnMateri.className = "group flex items-center justify-between gap-3 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border-2 border-cyan-500/60 text-left transition-all shadow-lg shadow-cyan-500/10";
+                iconMateri.className = "w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center shrink-0 transition";
+
+                btnSim.className = "group flex items-center justify-between gap-3 px-4 py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-emerald-500/50 text-left transition-all";
+                iconSim.className = "w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 transition";
+            } else {
+                track.style.transform = 'translateX(-50%)';
+                btnSim.className = "group flex items-center justify-between gap-3 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-600/15 border-2 border-emerald-500/60 text-left transition-all shadow-lg shadow-emerald-500/10";
+                iconSim.className = "w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0 transition";
+
+                btnMateri.className = "group flex items-center justify-between gap-3 px-4 py-3.5 rounded-2xl bg-slate-900/75 hover:bg-slate-800/85 border-2 border-slate-800 hover:border-cyan-500/50 text-left transition-all";
+                iconMateri.className = "w-10 h-10 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0 transition";
+            }
+        }
+
+        function navigateToResult(slideKey, classTabKey) {
+            switchMainSlide(slideKey);
+            if (slideKey === 'materi' && classTabKey) {
+                switchClassTab(classTabKey);
+            }
+        }
+
+        function switchClassTab(tabKey) {
+            activeClassTab = tabKey;
+
+            const tabX = document.getElementById('class-tab-x-oto');
+            const tabXI = document.getElementById('class-tab-xi-tkr');
+            const iconX = document.getElementById('tab-icon-x-oto');
+            const iconXI = document.getElementById('tab-icon-xi-tkr');
+            const badgeX = document.getElementById('count-badge-x-oto');
+            const badgeXI = document.getElementById('count-badge-xi-tkr');
+
+            const banner = document.getElementById('active-class-banner');
+            const bannerIcon = document.getElementById('banner-icon');
+            const bannerTitle = document.getElementById('banner-title');
+            const bannerSubtitle = document.getElementById('banner-subtitle');
+            const bannerPill = document.getElementById('banner-pill');
+
+            if (tabKey === 'x-oto') {
+                tabX.setAttribute('aria-selected', 'true');
+                tabXI.setAttribute('aria-selected', 'false');
+
+                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/15 border border-cyan-500/50 text-left transition-all shadow-lg shadow-cyan-500/10";
+                iconX.className = "w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
+                badgeX.className = "px-2.5 py-1 rounded-lg bg-cyan-500 text-slate-950 font-display font-bold text-xs shrink-0";
+
+                tabXI.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all";
+                iconXI.className = "w-10 h-10 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
+                badgeXI.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-display font-bold text-xs shrink-0";
+
+                banner.className = "flex flex-wrap items-center justify-between gap-3 bg-slate-900/75 border border-cyan-500/25 rounded-2xl px-4 py-3 transition-all";
+                bannerIcon.className = "fa-solid fa-wrench text-cyan-400 text-base";
+                bannerTitle.textContent = "Kelas X OTO (Dasar-Dasar Teknik Otomotif)";
+                bannerSubtitle.textContent = "Kurikulum Merdeka Fase E • Pengenalan Peralatan Bengkel & Konstruksi Dasar Kendaraan";
+                bannerPill.className = "text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30";
+                bannerPill.textContent = "Fase E • SMK/MAK";
+            } else {
+                tabX.setAttribute('aria-selected', 'false');
+                tabXI.setAttribute('aria-selected', 'true');
+
+                tabXI.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-600/15 border border-amber-500/50 text-left transition-all shadow-lg shadow-amber-500/10";
+                iconXI.className = "w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
+                badgeXI.className = "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-display font-bold text-xs shrink-0";
+
+                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all";
+                iconX.className = "w-10 h-10 rounded-xl bg-slate-800 text-cyan-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
+                badgeX.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-display font-bold text-xs shrink-0";
+
+                banner.className = "flex flex-wrap items-center justify-between gap-3 bg-slate-900/75 border border-amber-500/25 rounded-2xl px-4 py-3 transition-all";
+                bannerIcon.className = "fa-solid fa-car-side text-amber-400 text-base";
+                bannerTitle.textContent = "Kelas XI TKR (Teknik Kendaraan Ringan)";
+                bannerSubtitle.textContent = "Kurikulum Merdeka Fase F • Pemeliharaan Sasis & Pemindah Tenaga Kendaraan Ringan";
+                bannerPill.className = "text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30";
+                bannerPill.textContent = "Fase F • Spesialis TKR";
+            }
+
+            const panel = document.getElementById('materi-tab-panel');
+            panel.classList.remove('animate-tab-panel');
+            void panel.offsetWidth;
+            panel.classList.add('animate-tab-panel');
+
+            renderAllSections();
+        }
+
+        function switchToOtherClassTab() {
+            switchClassTab(activeClassTab === 'x-oto' ? 'xi-tkr' : 'x-oto');
+        }
+
+        // =========================================================================
+        // LIVE SEARCH & GRID RENDERING
+        // =========================================================================
+        function handleSearchInput() {
+            const input = document.getElementById('live-search');
+            const clearBtn = document.getElementById('clear-search-btn');
+            currentSearch = input.value.trim().toLowerCase();
+
+            if (currentSearch.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            renderAllSections();
+        }
+
+        function clearSearch() {
+            document.getElementById('live-search').value = '';
+            currentSearch = '';
+            document.getElementById('clear-search-btn').classList.add('hidden');
+            renderAllSections();
+        }
+
+        function matchesQuery(mod, query) {
+            if (!query) return true;
+            const haystack = [
+                mod.title,
+                mod.subtitle,
+                mod.desc,
+                mod.classLabel,
+                ...mod.badges,
+                ...mod.topics
+            ].join(' ').toLowerCase();
+            return haystack.includes(query);
+        }
+
+        function renderAllSections() {
+            const xItems = modulesData.filter(m => m.group === 'x-oto' && matchesQuery(m, currentSearch));
+            const xiItems = modulesData.filter(m => m.group === 'xi-tkr' && matchesQuery(m, currentSearch));
+            const simItems = modulesData.filter(m => m.group === 'simulasi' && matchesQuery(m, currentSearch));
+
+            document.getElementById('count-badge-x-oto').textContent = `${xItems.length} Modul`;
+            document.getElementById('count-badge-xi-tkr').textContent = `${xiItems.length} Modul`;
+
+            document.getElementById('global-count-x').textContent = xItems.length;
+            document.getElementById('global-count-xi').textContent = xiItems.length;
+            document.getElementById('global-count-sim').textContent = simItems.length;
+
+            document.getElementById('breakdown-count-x').textContent = xItems.length;
+            document.getElementById('breakdown-count-xi').textContent = xiItems.length;
+            document.getElementById('breakdown-count-sim').textContent = simItems.length;
+
+            const breakdownBar = document.getElementById('search-results-breakdown');
+            const rawSearchVal = document.getElementById('live-search').value.trim();
+            if (currentSearch.length > 0) {
+                breakdownBar.classList.remove('hidden');
+                document.getElementById('search-term-display').textContent = `"${rawSearchVal}"`;
+            } else {
+                breakdownBar.classList.add('hidden');
+            }
+
+            const activeMateriItems = activeClassTab === 'x-oto' ? xItems : xiItems;
+            const totalMateriMatches = xItems.length + xiItems.length;
+
+            const slideViewport = document.getElementById('main-slide-viewport');
+            const emptyTabSearch = document.getElementById('empty-tab-search');
+            const gridMateriActive = document.getElementById('grid-materi-active');
+            const gridSimulasi = document.getElementById('grid-simulasi');
+            const emptySimSearch = document.getElementById('empty-simulasi-search');
+            const emptyGlobalState = document.getElementById('empty-search-state');
+
+            const hasAny = totalMateriMatches > 0 || simItems.length > 0;
+            emptyGlobalState.classList.toggle('hidden', hasAny);
+            slideViewport.classList.toggle('hidden', !hasAny);
+
+            if (activeMateriItems.length === 0) {
+                gridMateriActive.classList.add('hidden');
+                emptyTabSearch.classList.remove('hidden');
+                const otherLabel = activeClassTab === 'x-oto' ? 'Kelas XI TKR' : 'Kelas X OTO';
+                const otherCount = activeClassTab === 'x-oto' ? xiItems.length : xItems.length;
+                document.getElementById('switch-other-tab-btn').textContent = `Lihat Tab ${otherLabel} (${otherCount} hasil)`;
+            } else {
+                emptyTabSearch.classList.add('hidden');
+                gridMateriActive.classList.remove('hidden');
+                renderCardGrid('grid-materi-active', activeMateriItems);
+            }
+
+            if (simItems.length === 0) {
+                gridSimulasi.classList.add('hidden');
+                emptySimSearch.classList.remove('hidden');
+            } else {
+                emptySimSearch.classList.add('hidden');
+                gridSimulasi.classList.remove('hidden');
+                renderCardGrid('grid-simulasi', simItems);
+            }
+        }
+
+        function renderCardGrid(containerId, items) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = items.map(mod => {
+                const targetUrl = getModuleFile(mod);
+                const thumbUrl = getModuleThumb(mod);
+                const fallbackUrl = `https://placehold.co/800x450/0f172a/38bdf8?text=${encodeURIComponent(mod.classLabel)}`;
+
+                const palette = {
+                    cyan: {
+                        glow: 'glow-cyan',
+                        badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+                        subtitle: 'text-cyan-400',
+                        icon: 'text-cyan-400',
+                        btn: 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/20'
+                    },
+                    amber: {
+                        glow: 'glow-amber',
+                        badge: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+                        subtitle: 'text-amber-400',
+                        icon: 'text-amber-400',
+                        btn: 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 shadow-amber-500/20'
+                    },
+                    emerald: {
+                        glow: 'glow-emerald',
+                        badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+                        subtitle: 'text-emerald-400',
+                        icon: 'text-emerald-400',
+                        btn: 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/20'
+                    }
+                }[mod.badgeColor] || {
+                    glow: 'glow-cyan',
+                    badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+                    subtitle: 'text-cyan-400',
+                    icon: 'text-cyan-400',
+                    btn: 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950'
+                };
+
+                const primaryActionHtml = mod.actionType === 'exam-guide'
+                    ? (isUserAdmin(currentUser)
+                        ? `<button type="button" onclick="openExamGuideModal()" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition ${palette.btn}">
+                               <span>Info PIN & Tata Tertib</span>
+                               <i class="fa-solid fa-shield-halved"></i>
+                           </button>`
+                        : `<button type="button" onclick="openLoginModal()" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 transition">
+                               <i class="fa-solid fa-lock"></i>
+                               <span>PIN Khusus Akun Guru</span>
+                           </button>`)
+                    : `<a href="${targetUrl}" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition ${palette.btn}">
+                           <span>${mod.section === 'simulasi' ? 'Buka Simulasi' : 'Buka Modul'}</span>
+                           <i class="fa-solid fa-arrow-right"></i>
+                       </a>`;
+
+                return `
+                    <article class="module-card ${palette.glow} glass-panel rounded-2xl overflow-hidden flex flex-col justify-between group border border-slate-800/90">
+                        <div>
+                            <!-- Thumbnail Header -->
+                            <div class="relative h-44 w-full overflow-hidden bg-slate-950 border-b border-slate-800/80">
+                                <img src="${thumbUrl}" alt="${mod.title}" onerror="this.onerror=null;this.src='${fallbackUrl}';" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent"></div>
+
+                                <div class="absolute top-3 left-3">
+                                    <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold border backdrop-blur-md ${palette.badge}">
+                                        ${mod.classLabel}
+                                    </span>
+                                </div>
+
+                                <div class="absolute bottom-3 right-3 w-9 h-9 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700 flex items-center justify-center ${palette.icon} shadow-lg">
+                                    <i class="fa-solid ${mod.icon} text-sm"></i>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-5 pb-3">
+                                <h3 class="font-display text-base sm:text-lg font-bold text-white leading-snug mb-1.5 group-hover:text-cyan-300 transition">
+                                    ${mod.title}
+                                </h3>
+                                <p class="text-xs font-medium ${palette.subtitle} mb-2.5">${mod.subtitle}</p>
+                                <p class="text-xs text-slate-300 leading-relaxed line-clamp-3 mb-4">
+                                    ${mod.desc}
+                                </p>
+
+                                <div class="flex flex-wrap items-center gap-1.5">
+                                    ${mod.badges.map(b => `
+                                        <span class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-800 text-[11px] text-slate-300">
+                                            ${b}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Actions -->
+                        <div class="p-4 pt-3 border-t border-slate-800/80 bg-slate-950/40 flex items-center gap-2.5">
+                            <button type="button" onclick="openDetailModal('${mod.id}')" class="px-3.5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5" title="Lihat Silabus">
+                                <i class="fa-solid fa-circle-info text-slate-400"></i>
+                                <span>Silabus</span>
+                            </button>
+                            ${primaryActionHtml}
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // =====================================================================
+        // MODAL 1: SILABUS & DETAIL MODUL
+        // =====================================================================
+        function openDetailModal(modId) {
+            const mod = modulesData.find(m => m.id === modId);
+            if (!mod) return;
+            activeModalModuleId = mod.id;
+
+            const badgeStyles = {
+                cyan: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40',
+                amber: 'bg-amber-500/20 text-amber-300 border border-amber-500/40',
+                emerald: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+            };
+            const iconBoxStyles = {
+                cyan: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30',
+                amber: 'bg-amber-500/15 text-amber-400 border border-amber-500/30',
+                emerald: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+            };
+
+            document.getElementById('md-category-badge').className = `text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${badgeStyles[mod.badgeColor] || badgeStyles.cyan}`;
+            document.getElementById('md-category-badge').textContent = mod.classLabel;
+
+            document.getElementById('md-icon-box').className = `w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 ${iconBoxStyles[mod.badgeColor] || iconBoxStyles.cyan}`;
+            document.getElementById('md-icon').className = `fa-solid ${mod.icon}`;
+
+            document.getElementById('md-title').textContent = mod.title;
+            document.getElementById('md-desc').textContent = mod.desc;
+
+            document.getElementById('md-highlights').innerHTML = mod.highlights.map(h => `
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3">
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider">${h.label}</div>
+                    <div class="font-display text-xs sm:text-sm font-bold text-white mt-0.5">${h.value}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('md-topics').innerHTML = mod.topics.map(t => `
+                <li class="flex items-start gap-2">
+                    <i class="fa-solid fa-check text-cyan-400 mt-0.5 shrink-0"></i>
+                    <span>${t}</span>
+                </li>
+            `).join('');
+
+            const adminEditor = document.getElementById('md-admin-editor');
+            if (isUserAdmin(currentUser)) {
+                adminEditor.classList.remove('hidden');
+                document.getElementById('md-thumb-input').value = getModuleThumb(mod);
+                document.getElementById('md-file-input').value = getModuleFile(mod);
+                document.getElementById('md-hint').textContent = mod.hint || '';
+            } else {
+                adminEditor.classList.add('hidden');
+            }
+
+            const launchBtn = document.getElementById('md-launch-btn');
+            if (mod.actionType === 'exam-guide') {
+                launchBtn.href = "#";
+                launchBtn.onclick = (e) => {
+                    e.preventDefault();
+                    closeDetailModal();
+                    openExamGuideModal();
+                };
+                launchBtn.querySelector('span').textContent = isUserAdmin(currentUser) ? "Buka Panduan PIN Ujian" : "Masuk Akun Guru untuk PIN";
+            } else {
+                launchBtn.onclick = null;
+                launchBtn.href = getModuleFile(mod);
+                launchBtn.querySelector('span').textContent = mod.section === 'simulasi' ? "Buka Simulasi Sekarang" : "Buka Modul Pembelajaran";
+            }
+
+            const modal = document.getElementById('modal-detail');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDetailModal() {
+            const modal = document.getElementById('modal-detail');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveCustomFilePath() {
+            if (!isUserAdmin(currentUser) || !activeModalModuleId) return;
+            const fileVal = document.getElementById('md-file-input').value.trim();
+            const thumbVal = document.getElementById('md-thumb-input').value.trim();
+
+            if (fileVal) customPaths[activeModalModuleId] = fileVal;
+            if (thumbVal) customThumbs[activeModalModuleId] = thumbVal;
+
+            try {
+                localStorage.setItem('otolab_custom_paths_v2', JSON.stringify(customPaths));
+                localStorage.setItem('otolab_custom_thumbs_v2', JSON.stringify(customThumbs));
+            } catch (e) {}
+
+            document.getElementById('md-launch-btn').href = fileVal;
+            renderAllSections();
+            showToast('Pengaturan modul berhasil disimpan!');
+        }
+
+        function copyModuleLink() {
+            const input = document.getElementById('md-file-input');
+            if (!input) return;
+            input.select();
+            input.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast('Nama file disalin ke clipboard!');
+            } catch (e) {
+                showToast('Gagal menyalin nama file.');
+            }
+        }
+
+        // =====================================================================
+        // MODAL 2: EXAM GUIDE HANDLERS (DILINDUNGI ROLE ADMIN)
+        // =====================================================================
+        function openExamGuideModal() {
+            if (!isUserAdmin(currentUser)) {
+                showToast("Akses ditolak: Hanya akun guru terdaftar yang dapat melihat PIN.");
+                openLoginModal();
+                return;
+            }
+            const modal = document.getElementById('modal-exam-guide');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeExamGuideModal() {
+            const modal = document.getElementById('modal-exam-guide');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // =====================================================================
+        // MODAL 3: PATH & THUMBNAIL CONFIGURATION HANDLERS (DILINDUNGI ROLE ADMIN)
+        // =====================================================================
+        function openPathConfigModal() {
+            if (!isUserAdmin(currentUser)) {
+                showToast("Akses ditolak: Hanya akun guru terdaftar yang dapat mengatur tautan.");
+                openLoginModal();
+                return;
+            }
+            const list = document.getElementById('path-config-list');
+            list.innerHTML = modulesData.map(mod => `
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-xs font-bold text-white">${mod.title}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 shrink-0">${mod.classLabel}</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] text-slate-400 block mb-1">File HTML Tujuan</label>
+                            <input type="text" data-mod-id="${mod.id}" value="${getModuleFile(mod)}" class="path-config-input w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400 block mb-1">URL Gambar Thumbnail</label>
+                            <input type="text" data-thumb-id="${mod.id}" value="${getModuleThumb(mod)}" class="thumb-config-input w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const modal = document.getElementById('modal-path-config');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePathConfigModal() {
+            const modal = document.getElementById('modal-path-config');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveAllPaths() {
+            const pathInputs = document.querySelectorAll('.path-config-input');
+            pathInputs.forEach(inp => {
+                const id = inp.getAttribute('data-mod-id');
+                const val = inp.value.trim();
+                if (val) customPaths[id] = val;
+            });
+
+            const thumbInputs = document.querySelectorAll('.thumb-config-input');
+            thumbInputs.forEach(inp => {
+                const id = inp.getAttribute('data-thumb-id');
+                const val = inp.value.trim();
+                if (val) customThumbs[id] = val;
+            });
+
+            try {
+                localStorage.setItem('otolab_custom_paths_v2', JSON.stringify(customPaths));
+                localStorage.setItem('otolab_custom_thumbs_v2', JSON.stringify(customThumbs));
+            } catch (e) {}
+
+            renderAllSections();
+            closePathConfigModal();
+            showToast('Semua tautan & thumbnail berhasil disimpan!');
+        }
+
+        function resetDefaultPaths() {
+            customPaths = {};
+            customThumbs = {};
+            try {
+                localStorage.removeItem('otolab_custom_paths_v2');
+                localStorage.removeItem('otolab_custom_thumbs_v2');
+            } catch (e) {}
+
+            openPathConfigModal();
+            renderAllSections();
+            showToast('Tautan & thumbnail dikembalikan ke default');
+        }
+
+        // Toast Helper
+        let toastTimeout = null;
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notif');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 2600);
+        }
+
+        // Close modals on backdrop click
+        window.addEventListener('click', (e) => {
+            if (e.target.id === 'modal-detail') closeDetailModal();
+            if (e.target.id === 'modal-exam-guide') closeExamGuideModal();
+            if (e.target.id === 'modal-path-config') closePathConfigModal();
+            if (e.target.id === 'modal-google-login') closeLoginModal();
+        });
+    </script>
+</body>
+</html>
