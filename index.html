@@ -106,7 +106,17 @@
             width: 50%;
             flex-shrink: 0;
         }
-        /* Custom scrollbar */
+        /* Sembunyikan seluruh scrollbar pada pop-up modal agar bersih & rapi */
+        .modal-no-scrollbar {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE & Edge lama */
+        }
+        .modal-no-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+            width: 0;
+            height: 0;
+        }
+        /* Custom scrollbar halaman utama */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -164,16 +174,18 @@
                     </button>
                 </div>
 
-                <!-- Authenticated State: Kapsul Profil Ringkas & Anti-Overflow -->
-                <div id="auth-logged-in" class="hidden items-center gap-1.5 sm:gap-2 pl-1.5 pr-1 py-1 rounded-xl sm:rounded-2xl bg-slate-900/95 border border-slate-700/90 min-w-0 max-w-[165px] xs:max-w-[200px] sm:max-w-[260px]">
-                    <img id="user-avatar" src="" alt="Avatar" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-cyan-500/50 object-cover shrink-0">
-                    <div class="text-left leading-tight min-w-0 flex-1">
-                        <div class="flex items-center gap-1 min-w-0">
-                            <span id="user-name" class="text-[11px] sm:text-xs font-bold text-white truncate">Nama Pengguna</span>
-                            <span id="user-role-badge" class="text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 shrink-0">Siswa</span>
+                <!-- Authenticated State: Kapsul Profil Klik-untuk-Detail & Anti-Overflow -->
+                <div id="auth-logged-in" class="hidden items-center gap-1.5 sm:gap-2 pl-1.5 pr-1 py-1 rounded-xl sm:rounded-2xl bg-slate-900/95 hover:bg-slate-800/95 border border-slate-700/90 hover:border-cyan-500/50 transition min-w-0 max-w-[175px] xs:max-w-[210px] sm:max-w-[270px]">
+                    <button type="button" onclick="openUserProfileModal()" class="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 text-left cursor-pointer group" title="Lihat Detail Profil Akun Google">
+                        <img id="user-avatar" src="" alt="Avatar" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-cyan-500/50 group-hover:border-cyan-400 object-cover shrink-0 transition">
+                        <div class="text-left leading-tight min-w-0 flex-1">
+                            <div class="flex items-center gap-1 min-w-0">
+                                <span id="user-name" class="text-[11px] sm:text-xs font-bold text-white group-hover:text-cyan-300 truncate transition">Nama Pengguna</span>
+                                <span id="user-role-badge" class="text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 shrink-0">Siswa</span>
+                            </div>
+                            <p id="user-email" class="hidden sm:block text-[10px] text-slate-400 truncate">email@gmail.com</p>
                         </div>
-                        <p id="user-email" class="hidden sm:block text-[10px] text-slate-400 truncate">email@gmail.com</p>
-                    </div>
+                    </button>
                     <button type="button" onclick="handleLogout()" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg sm:rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 flex items-center justify-center transition shrink-0 cursor-pointer" title="Keluar Akun">
                         <i class="fa-solid fa-right-from-bracket text-[11px] sm:text-xs"></i>
                     </button>
@@ -487,10 +499,10 @@
     </footer>
 
     <!-- ===================================================================== -->
-    <!-- MODAL 1: PREVIEW SILABUS & DETAIL MODUL                               -->
+    <!-- MODAL 1: PREVIEW SILABUS & DETAIL MODUL (NO SCROLLBAR)                -->
     <!-- ===================================================================== -->
     <div id="modal-detail" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
-        <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl transform transition-all">
+        <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl transform transition-all">
             <!-- Top Header Modal -->
             <div class="p-5 sm:p-6 border-b border-slate-800 flex items-start justify-between gap-4">
                 <div class="flex items-center gap-3.5">
@@ -578,10 +590,10 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- MODAL 2: INFORMASI PIN & SECURE EXAM BROWSER                          -->
+    <!-- MODAL 2: INFORMASI PIN & SECURE EXAM BROWSER (NO SCROLLBAR)           -->
     <!-- ===================================================================== -->
     <div id="modal-exam-guide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
-        <div class="glass-panel rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
+        <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
             <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
@@ -646,7 +658,7 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- MODAL 3: MANAJEMEN MASTER DATA MODUL & GITHUB API (KHUSUS ADMIN)      -->
+    <!-- MODAL 3: MANAJEMEN MASTER DATA MODUL & GITHUB API (NO SCROLLBAR)      -->
     <!-- ===================================================================== -->
     <div id="modal-master-manager" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-3 sm:p-4">
         <div class="glass-panel rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col border border-slate-700 shadow-2xl overflow-hidden">
@@ -658,7 +670,7 @@
                     </div>
                     <div class="min-w-0">
                         <h3 class="font-display text-sm sm:text-lg font-bold text-white truncate">Manajemen Master Data Modul</h3>
-                        <p class="text-[11px] sm:text-xs text-slate-400 truncate">Kelola daftar modul, simulasi, dan sinkronisasi langsung ke <code class="text-cyan-400">modules-data.js</code></p>
+                        <p class="text-[11px] sm:text-xs text-slate-400 truncate">Kelola daftar modul, highlights, simulasi, dan sinkronisasi ke <code class="text-cyan-400">modules-data.js</code></p>
                     </div>
                 </div>
                 <button type="button" onclick="closeMasterDataManagerModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center shrink-0 cursor-pointer">
@@ -698,8 +710,8 @@
                 </button>
             </div>
 
-            <!-- Body: Panel Konfigurasi GitHub API, Daftar Item, atau Form Tambah/Edit -->
-            <div class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
+            <!-- Body: Panel Konfigurasi GitHub API, Daftar Item, atau Form Tambah/Edit (NO SCROLLBAR) -->
+            <div class="p-4 sm:p-6 overflow-y-auto modal-no-scrollbar flex-1 space-y-4">
                 <!-- PANEL KONFIGURASI GITHUB REST API (Tersimpan lokal di perangkat Admin saja) -->
                 <div id="github-api-config-panel" class="hidden bg-slate-950/95 border border-slate-700 rounded-2xl p-4 sm:p-5 space-y-3.5">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
@@ -833,6 +845,24 @@
                         <textarea id="mf-desc" rows="2" required placeholder="Jelaskan ringkasan materi atau simulasi yang dipelajari..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"></textarea>
                     </div>
 
+                    <!-- EDITOR HIGHLIGHTS (Label & Value untuk modules-data.js) -->
+                    <div class="bg-slate-950/90 border border-slate-800 rounded-2xl p-3.5 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <label class="text-[11px] font-semibold text-cyan-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-sparkles text-amber-400"></i>
+                                <span>Statistik Sorotan (Highlights pada Modal Silabus)</span>
+                            </label>
+                            <button type="button" onclick="addHighlightEditorRow()" class="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
+                                <span>Tambah Highlight</span>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-400">Menampilkan kotak ringkasan metrik di modal silabus (contoh Label: <code>Total Alat</code>, Value: <code>28+ Jenis</code>).</p>
+                        <div id="mf-highlights-list" class="space-y-2">
+                            <!-- Baris input label & value dirender via JS -->
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tag / Lencana Fitur (pisahkan dengan koma)</label>
@@ -876,10 +906,10 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- MODAL 4: LOGIN GOOGLE OAUTH                                           -->
+    <!-- MODAL 4: LOGIN GOOGLE OAUTH (NO SCROLLBAR)                            -->
     <!-- ===================================================================== -->
     <div id="modal-google-login" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
-        <div class="glass-panel rounded-3xl max-w-md w-full border border-slate-700 shadow-2xl overflow-hidden">
+        <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
             <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow shrink-0">
@@ -907,6 +937,110 @@
                         Autentikasi aman menggunakan Google OAuth 2.0
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 5: PROFIL LENGKAP PENGGUNA GOOGLE OAUTH (NO SCROLLBAR)          -->
+    <!-- ===================================================================== -->
+    <div id="modal-user-profile" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-4">
+        <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
+            <!-- Header Banner & Avatar -->
+            <div class="relative bg-gradient-to-r from-cyan-600/25 via-blue-600/20 to-amber-500/20 border-b border-slate-800 p-5 sm:p-6">
+                <button type="button" onclick="closeUserProfileModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 border border-slate-700 flex items-center justify-center transition cursor-pointer" title="Tutup Profil">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                    <div class="relative shrink-0">
+                        <img id="prof-avatar" src="" alt="Foto Profil Google" class="w-20 h-20 rounded-2xl border-2 border-cyan-400/70 shadow-xl object-cover bg-slate-900">
+                        <span id="prof-verified-dot" class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center text-xs border-2 border-slate-900 shadow" title="Email Terverifikasi Google">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                            <span id="prof-role-pill" class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                                Peserta Didik (Siswa)
+                            </span>
+                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-900/90 text-slate-300 border border-slate-700 flex items-center gap-1">
+                                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-3 h-3">
+                                Google OAuth 2.0
+                            </span>
+                        </div>
+                        <h3 id="prof-full-name" class="font-display text-lg sm:text-xl font-bold text-white break-words">Nama Lengkap</h3>
+                        <p id="prof-email-sub" class="text-xs text-cyan-300 break-all mt-0.5">user@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Metadata Google OAuth -->
+            <div class="p-5 sm:p-6 space-y-3.5 text-xs">
+                <h4 class="font-bold text-slate-300 uppercase tracking-wider text-[11px] flex items-center gap-2">
+                    <i class="fa-solid fa-id-card text-cyan-400"></i>
+                    <span>Informasi Identitas Akun Google</span>
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Nama Depan (Given Name)</span>
+                        <span id="prof-given-name" class="text-white font-semibold mt-0.5 block">-</span>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Nama Belakang (Family Name)</span>
+                        <span id="prof-family-name" class="text-white font-semibold mt-0.5 block">-</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Alamat Email Terdaftar</span>
+                        <span id="prof-email-detail" class="text-white font-mono text-xs break-all mt-0.5 block">-</span>
+                    </div>
+                    <button type="button" onclick="copyProfileField('email')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-[11px] font-semibold shrink-0 transition cursor-pointer" title="Salin Email">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Google Account ID (Subject / Sub)</span>
+                        <span id="prof-google-sub" class="text-slate-300 font-mono text-[11px] break-all mt-0.5 block">-</span>
+                    </div>
+                    <button type="button" onclick="copyProfileField('sub')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-[11px] font-semibold shrink-0 transition cursor-pointer" title="Salin Google ID">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Status Verifikasi Email</span>
+                        <span id="prof-email-verified" class="text-emerald-400 font-semibold mt-0.5 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Terverifikasi
+                        </span>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Sesi Masuk Terakhir</span>
+                        <span id="prof-login-time" class="text-slate-200 font-medium mt-0.5 block">-</span>
+                    </div>
+                </div>
+
+                <!-- Ringkasan Hak Akses -->
+                <div id="prof-access-box" class="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-3.5 text-slate-300 leading-relaxed">
+                    <!-- Diisi dinamis sesuai role Guru / Siswa -->
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="p-4 sm:px-6 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between gap-3">
+                <button type="button" onclick="handleLogoutFromProfile()" class="px-4 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/35 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Keluar Akun</span>
+                </button>
+                <button type="button" onclick="closeUserProfileModal()" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition cursor-pointer">
+                    Tutup Profil
+                </button>
             </div>
         </div>
     </div>
@@ -1229,7 +1363,7 @@
         });
 
         // =========================================================================
-        // GOOGLE OAUTH 2.0 CLIENT-SIDE HANDLERS
+        // GOOGLE OAUTH 2.0 CLIENT-SIDE HANDLERS & PROFIL LENGKAP PENGGUNA
         // =========================================================================
         function initGoogleOAuth() {
             const noteEl = document.getElementById('gsi-status-note');
@@ -1272,10 +1406,24 @@
         function handleGoogleCredentialResponse(response) {
             try {
                 const payload = decodeJwtPayload(response.credential);
+                const fullName = payload.name || "Pengguna Google";
+                const nameParts = fullName.trim().split(/\s+/);
                 const userObj = {
-                    name: payload.name || "Pengguna Google",
+                    sub: payload.sub || "-",
+                    name: fullName,
+                    given_name: payload.given_name || nameParts[0] || "-",
+                    family_name: payload.family_name || (nameParts.length > 1 ? nameParts.slice(1).join(' ') : "-"),
                     email: (payload.email || "").toLowerCase(),
-                    picture: payload.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(payload.name || 'User')}&background=06b6d4&color=0f172a`
+                    email_verified: payload.email_verified !== false,
+                    picture: payload.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=06b6d4&color=0f172a`,
+                    locale: payload.locale || "id",
+                    loginAt: new Date().toLocaleString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
                 };
                 setAuthenticatedUser(userObj);
                 closeLoginModal();
@@ -1317,9 +1465,14 @@
             if (window.google && google.accounts && google.accounts.id) {
                 google.accounts.id.disableAutoSelect();
             }
+            closeUserProfileModal();
             updateAuthUI();
             renderAllSections();
             showToast("Anda telah keluar dari akun.");
+        }
+
+        function handleLogoutFromProfile() {
+            handleLogout();
         }
 
         function updateAuthUI() {
@@ -1356,6 +1509,86 @@
                 roleBadge.className = "text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shrink-0";
                 adminActions.classList.add('hidden');
                 adminActions.classList.remove('flex');
+            }
+        }
+
+        function openUserProfileModal() {
+            if (!currentUser) {
+                openLoginModal();
+                return;
+            }
+
+            const admin = isUserAdmin(currentUser);
+            const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name || 'User')}&background=06b6d4&color=0f172a`;
+            const avatarEl = document.getElementById('prof-avatar');
+            avatarEl.src = currentUser.picture || fallbackAvatar;
+            avatarEl.onerror = () => { avatarEl.src = fallbackAvatar; };
+
+            document.getElementById('prof-full-name').textContent = currentUser.name || "-";
+            document.getElementById('prof-email-sub').textContent = currentUser.email || "-";
+            document.getElementById('prof-given-name').textContent = currentUser.given_name || (currentUser.name ? currentUser.name.split(' ')[0] : "-");
+            document.getElementById('prof-family-name').textContent = currentUser.family_name || "-";
+            document.getElementById('prof-email-detail').textContent = currentUser.email || "-";
+            document.getElementById('prof-google-sub').textContent = currentUser.sub || "Tidak tersedia (Sesi Lama)";
+            document.getElementById('prof-login-time').textContent = currentUser.loginAt || "Sesi Aktif";
+
+            const verifiedEl = document.getElementById('prof-email-verified');
+            const verifiedDot = document.getElementById('prof-verified-dot');
+            if (currentUser.email_verified !== false) {
+                verifiedEl.className = "text-emerald-400 font-semibold mt-0.5 flex items-center gap-1.5";
+                verifiedEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Email Terverifikasi Google';
+                if (verifiedDot) verifiedDot.classList.remove('hidden');
+            } else {
+                verifiedEl.className = "text-amber-400 font-semibold mt-0.5 flex items-center gap-1.5";
+                verifiedEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Belum Terverifikasi';
+                if (verifiedDot) verifiedDot.classList.add('hidden');
+            }
+
+            const rolePill = document.getElementById('prof-role-pill');
+            const accessBox = document.getElementById('prof-access-box');
+            if (admin) {
+                rolePill.textContent = "Guru / Administrator";
+                rolePill.className = "text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40";
+                accessBox.className = "bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3.5 text-slate-200 leading-relaxed";
+                accessBox.innerHTML = `
+                    <div class="font-bold text-amber-300 mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-crown"></i> Hak Akses Pengelola Aktif
+                    </div>
+                    <p class="text-[11px] text-slate-300">Akun Anda terdaftar sebagai <strong>Guru/Admin</strong>. Anda memiliki akses penuh untuk mengelola <strong>Master Data Modul</strong>, melakukan <strong>Push ke GitHub</strong>, serta melihat <strong>PIN Secure Exam Mode</strong>.</p>
+                `;
+            } else {
+                rolePill.textContent = "Peserta Didik (Siswa)";
+                rolePill.className = "text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40";
+                accessBox.className = "bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-3.5 text-slate-200 leading-relaxed";
+                accessBox.innerHTML = `
+                    <div class="font-bold text-cyan-300 mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-graduate"></i> Hak Akses Pembelajaran Siswa
+                    </div>
+                    <p class="text-[11px] text-slate-300">Anda masuk sebagai <strong>Peserta Didik</strong>. Seluruh modul materi Kelas X OTO, Kelas XI TKR, dan Simulator CAD 3D terbuka penuh untuk kegiatan belajar dan praktikum.</p>
+                `;
+            }
+
+            const modal = document.getElementById('modal-user-profile');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeUserProfileModal() {
+            const modal = document.getElementById('modal-user-profile');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyProfileField(field) {
+            if (!currentUser) return;
+            const value = field === 'email' ? currentUser.email : currentUser.sub;
+            if (!value) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(value).then(() => {
+                    showToast(field === 'email' ? 'Alamat email disalin!' : 'Google ID disalin!');
+                }).catch(() => showToast('Gagal menyalin teks.'));
             }
         }
 
@@ -1450,7 +1683,7 @@
                 iconXI.className = "w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
                 badgeXI.className = "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-display font-bold text-xs shrink-0";
 
-                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-800 text-left transition-all cursor-pointer";
+                tabX.className = "class-tab-btn group relative flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 border border-slate-80 text-left transition-all cursor-pointer";
                 iconX.className = "w-10 h-10 rounded-xl bg-slate-800 text-cyan-400 border border-slate-700 flex items-center justify-center font-display font-extrabold text-sm shrink-0 transition";
                 badgeX.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-display font-bold text-xs shrink-0";
 
@@ -1836,7 +2069,7 @@
         }
 
         // =====================================================================
-        // MODAL 3: MANAJEMEN MASTER DATA MODUL (KHUSUS GURU / ADMIN)
+        // MODAL 3: MANAJEMEN MASTER DATA MODUL & EDITOR HIGHLIGHTS
         // =====================================================================
         function openMasterDataManagerModal() {
             if (!isUserAdmin(currentUser)) {
@@ -2125,6 +2358,94 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             `).join('');
         }
 
+        // =========================================================================
+        // HELPER BARIS HIGHLIGHTS (LABEL & VALUE) DI EDITOR MASTER DATA
+        // =========================================================================
+        function escapeHtmlAttr(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function renderHighlightEditorRows(highlightsArray) {
+            const container = document.getElementById('mf-highlights-list');
+            if (!container) return;
+            const list = Array.isArray(highlightsArray) && highlightsArray.length > 0
+                ? highlightsArray
+                : [
+                    { label: 'Total Alat / Unit', value: '' },
+                    { label: 'Kategori', value: '' },
+                    { label: 'Evaluasi', value: '20 Soal Exam' }
+                ];
+
+            container.innerHTML = list.map(item => `
+                <div class="highlight-editor-row grid grid-cols-12 gap-2 items-center">
+                    <div class="col-span-5">
+                        <input type="text" class="hl-label-input w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500" placeholder="Label (mis: Total Alat)" value="${escapeHtmlAttr(item.label)}">
+                    </div>
+                    <div class="col-span-6">
+                        <input type="text" class="hl-value-input w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500" placeholder="Value (mis: 28+ Jenis)" value="${escapeHtmlAttr(item.value)}">
+                    </div>
+                    <div class="col-span-1 flex justify-end">
+                        <button type="button" onclick="removeHighlightEditorRow(this)" class="w-8 h-8 rounded-xl bg-slate-900 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-slate-800 flex items-center justify-center text-xs transition cursor-pointer" title="Hapus Baris Highlight">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addHighlightEditorRow(label = '', value = '') {
+            const container = document.getElementById('mf-highlights-list');
+            if (!container) return;
+            const row = document.createElement('div');
+            row.className = 'highlight-editor-row grid grid-cols-12 gap-2 items-center';
+            row.innerHTML = `
+                <div class="col-span-5">
+                    <input type="text" class="hl-label-input w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500" placeholder="Label (mis: Kategori)" value="${escapeHtmlAttr(label)}">
+                </div>
+                <div class="col-span-6">
+                    <input type="text" class="hl-value-input w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500" placeholder="Value (mis: Hand & Power)" value="${escapeHtmlAttr(value)}">
+                </div>
+                <div class="col-span-1 flex justify-end">
+                    <button type="button" onclick="removeHighlightEditorRow(this)" class="w-8 h-8 rounded-xl bg-slate-900 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-slate-800 flex items-center justify-center text-xs transition cursor-pointer" title="Hapus Baris Highlight">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeHighlightEditorRow(btn) {
+            const container = document.getElementById('mf-highlights-list');
+            const row = btn.closest('.highlight-editor-row');
+            if (!container || !row) return;
+            if (container.querySelectorAll('.highlight-editor-row').length <= 1) {
+                row.querySelector('.hl-label-input').value = '';
+                row.querySelector('.hl-value-input').value = '';
+                return;
+            }
+            row.remove();
+        }
+
+        function collectHighlightsFromEditor() {
+            const rows = document.querySelectorAll('#mf-highlights-list .highlight-editor-row');
+            const result = [];
+            rows.forEach(row => {
+                const label = row.querySelector('.hl-label-input')?.value.trim() || '';
+                const value = row.querySelector('.hl-value-input')?.value.trim() || '';
+                if (label || value) {
+                    result.push({
+                        label: label || 'Info',
+                        value: value || '-'
+                    });
+                }
+            });
+            return result;
+        }
+
         function syncFormCategoryDefaults() {
             const grp = document.getElementById('mf-group').value;
             const labelInp = document.getElementById('mf-classLabel');
@@ -2163,6 +2484,11 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                 document.getElementById('mf-badges').value = 'Materi Interaktif, Visual Komponen, 20 Soal CBT';
                 document.getElementById('mf-hint').value = '';
                 document.getElementById('mf-topics').value = '';
+                renderHighlightEditorRows([
+                    { label: 'Kategori', value: 'Kelas X OTO' },
+                    { label: 'Format', value: 'Modul Interaktif' },
+                    { label: 'Evaluasi', value: '20 Soal CBT' }
+                ]);
             } else {
                 const mod = modulesData.find(m => m.id === modId);
                 if (!mod) return;
@@ -2181,6 +2507,7 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                 document.getElementById('mf-badges').value = (mod.badges || []).join(', ');
                 document.getElementById('mf-hint').value = mod.hint || '';
                 document.getElementById('mf-topics').value = (mod.topics || []).join('\n');
+                renderHighlightEditorRows(mod.highlights || []);
             }
 
             form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -2219,9 +2546,10 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                 .map(s => s.trim())
                 .filter(Boolean);
 
+            const editedHighlights = collectHighlightsFromEditor();
+
             const generatedId = origId || `${group}-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 24)}-${Date.now().toString().slice(-4)}`;
 
-            const existingMod = origId ? modulesData.find(m => m.id === origId) : null;
             const itemPayload = {
                 id: generatedId,
                 section,
@@ -2235,7 +2563,7 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
                 defaultFile,
                 desc,
                 badges: badges.length > 0 ? badges : ['Modul Interaktif'],
-                highlights: existingMod?.highlights || [
+                highlights: editedHighlights.length > 0 ? editedHighlights : [
                     { label: 'Kategori', value: classLabel },
                     { label: 'Topik', value: `${topics.length || 6} Materi` },
                     { label: 'Format', value: section === 'simulasi' ? 'Lab Virtual' : 'Web Interaktif' }
@@ -2266,7 +2594,7 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             closeMasterFormEditor();
             renderMasterManagerList();
             renderAllSections();
-            showToast(origId ? 'Data modul berhasil diperbarui!' : 'Modul baru berhasil ditambahkan!');
+            showToast(origId ? 'Data modul & highlights berhasil diperbarui!' : 'Modul baru berhasil ditambahkan!');
         }
 
         function deleteMasterItem(modId) {
@@ -2360,15 +2688,26 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
             }, 2800);
         }
 
-        // Close modals on backdrop click
+        // Close modals on backdrop click or ESC key
         window.addEventListener('click', (e) => {
             if (e.target.id === 'modal-detail') closeDetailModal();
             if (e.target.id === 'modal-exam-guide') closeExamGuideModal();
             if (e.target.id === 'modal-master-manager') closeMasterDataManagerModal();
             if (e.target.id === 'modal-google-login') closeLoginModal();
+            if (e.target.id === 'modal-user-profile') closeUserProfileModal();
         });
 
-        // Explicit Global Scope Registration (Memastikan seluruh tombol onclick selalu aktif)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDetailModal();
+                closeExamGuideModal();
+                closeMasterDataManagerModal();
+                closeLoginModal();
+                closeUserProfileModal();
+            }
+        });
+
+        // Explicit Global Scope Registration
         window.openDetailModal = openDetailModal;
         window.closeDetailModal = closeDetailModal;
         window.openMasterEditorFromDetail = openMasterEditorFromDetail;
@@ -2380,6 +2719,8 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
         window.closeMasterDataManagerModal = closeMasterDataManagerModal;
         window.openMasterFormEditor = openMasterFormEditor;
         window.closeMasterFormEditor = closeMasterFormEditor;
+        window.addHighlightEditorRow = addHighlightEditorRow;
+        window.removeHighlightEditorRow = removeHighlightEditorRow;
         window.submitMasterItemForm = submitMasterItemForm;
         window.deleteMasterItem = deleteMasterItem;
         window.moveMasterItem = moveMasterItem;
@@ -2393,7 +2734,11 @@ window.OTOLAB_MASTER_DATA = ${JSON.stringify(cleanExportData, null, 4)};
         window.resetMasterDataToRepoDefault = resetMasterDataToRepoDefault;
         window.openLoginModal = openLoginModal;
         window.closeLoginModal = closeLoginModal;
+        window.openUserProfileModal = openUserProfileModal;
+        window.closeUserProfileModal = closeUserProfileModal;
+        window.copyProfileField = copyProfileField;
         window.handleLogout = handleLogout;
+        window.handleLogoutFromProfile = handleLogoutFromProfile;
         window.switchMainSlide = switchMainSlide;
         window.navigateToResult = navigateToResult;
         window.switchClassTab = switchClassTab;
