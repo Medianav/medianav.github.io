@@ -110,11 +110,21 @@
         .modal-no-scrollbar {
             scrollbar-width: none; /* Firefox */
             -ms-overflow-style: none; /* IE & Edge lama */
+            overscroll-behavior: contain; /* Cegah scroll chaining ke halaman utama */
+            -webkit-overflow-scrolling: touch;
         }
         .modal-no-scrollbar::-webkit-scrollbar {
             display: none; /* Chrome, Safari, Opera */
             width: 0;
             height: 0;
+        }
+        /* Anti scroll-chaining pada backdrop modal & penguncian scroll halaman belakang */
+        .modal-backdrop-lock {
+            overscroll-behavior: contain;
+        }
+        body.modal-open {
+            overflow: hidden;
+            overscroll-behavior: none;
         }
         /* Custom scrollbar halaman utama */
         ::-webkit-scrollbar {
@@ -501,7 +511,7 @@
     <!-- ===================================================================== -->
     <!-- MODAL 1: PREVIEW SILABUS & DETAIL MODUL (NO SCROLLBAR)                -->
     <!-- ===================================================================== -->
-    <div id="modal-detail" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+    <div id="modal-detail" class="modal-backdrop-lock fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
         <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl transform transition-all">
             <!-- Top Header Modal -->
             <div class="p-5 sm:p-6 border-b border-slate-800 flex items-start justify-between gap-4">
@@ -592,7 +602,7 @@
     <!-- ===================================================================== -->
     <!-- MODAL 2: INFORMASI PIN & SECURE EXAM BROWSER (NO SCROLLBAR)           -->
     <!-- ===================================================================== -->
-    <div id="modal-exam-guide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+    <div id="modal-exam-guide" class="modal-backdrop-lock fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
         <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
             <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -660,7 +670,7 @@
     <!-- ===================================================================== -->
     <!-- MODAL 3: MANAJEMEN MASTER DATA MODUL & GITHUB API (NO SCROLLBAR)      -->
     <!-- ===================================================================== -->
-    <div id="modal-master-manager" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-3 sm:p-4">
+    <div id="modal-master-manager" class="modal-backdrop-lock fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-3 sm:p-4">
         <div class="glass-panel rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col border border-slate-700 shadow-2xl overflow-hidden">
             <!-- Header Modal -->
             <div class="p-4 sm:p-6 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
@@ -908,7 +918,7 @@
     <!-- ===================================================================== -->
     <!-- MODAL 4: LOGIN GOOGLE OAUTH (NO SCROLLBAR)                            -->
     <!-- ===================================================================== -->
-    <div id="modal-google-login" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+    <div id="modal-google-login" class="modal-backdrop-lock fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
         <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
             <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -944,7 +954,7 @@
     <!-- ===================================================================== -->
     <!-- MODAL 5: PROFIL LENGKAP PENGGUNA GOOGLE OAUTH (NO SCROLLBAR)          -->
     <!-- ===================================================================== -->
-    <div id="modal-user-profile" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-4">
+    <div id="modal-user-profile" class="modal-backdrop-lock fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-md p-4">
         <div class="glass-panel modal-no-scrollbar rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
             <!-- Header Banner & Avatar -->
             <div class="relative bg-gradient-to-r from-cyan-600/25 via-blue-600/20 to-amber-500/20 border-b border-slate-800 p-5 sm:p-6">
@@ -1304,6 +1314,22 @@
         let currentSearch = '';
         let activeModalModuleId = null;
 
+        // Sinkronisasi penguncian scroll halaman belakang (Anti Scroll-Chaining)
+        function syncBodyScrollLock() {
+            const modalIds = [
+                'modal-detail',
+                'modal-exam-guide',
+                'modal-master-manager',
+                'modal-google-login',
+                'modal-user-profile'
+            ];
+            const anyModalOpen = modalIds.some(id => {
+                const el = document.getElementById(id);
+                return el && !el.classList.contains('hidden');
+            });
+            document.body.classList.toggle('modal-open', anyModalOpen);
+        }
+
         function getRepoBaseMasterData() {
             if (Array.isArray(window.OTOLAB_MASTER_DATA) && window.OTOLAB_MASTER_DATA.length > 0) {
                 return JSON.parse(JSON.stringify(window.OTOLAB_MASTER_DATA));
@@ -1572,6 +1598,15 @@
             if (!modal) return;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            syncBodyScrollLock();
+        }
+
+        function closeUserProfileModal() {
+            const modal = document.getElementById('modal-user-profile');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            syncBodyScrollLock();
         }
 
         function closeUserProfileModal() {
@@ -1597,6 +1632,15 @@
             if (!modal) return;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            syncBodyScrollLock();
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('modal-google-login');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            syncBodyScrollLock();
         }
 
         function closeLoginModal() {
@@ -1997,6 +2041,15 @@
             const modal = document.getElementById('modal-detail');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            syncBodyScrollLock();
+        }
+
+        function closeDetailModal() {
+            const modal = document.getElementById('modal-detail');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            syncBodyScrollLock();
         }
 
         function closeDetailModal() {
@@ -2059,6 +2112,42 @@
             if (!modal) return;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            syncBodyScrollLock();
+        }
+
+        function closeExamGuideModal() {
+            const modal = document.getElementById('modal-exam-guide');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            syncBodyScrollLock();
+        }
+
+        // =====================================================================
+        // MODAL 3: MANAJEMEN MASTER DATA MODUL & EDITOR HIGHLIGHTS
+        // =====================================================================
+        function openMasterDataManagerModal() {
+            if (!isUserAdmin(currentUser)) {
+                showToast("Akses ditolak: Hanya akun guru terdaftar yang dapat mengelola master data.");
+                openLoginModal();
+                return;
+            }
+            loadGithubApiConfig();
+            closeMasterFormEditor();
+            renderMasterManagerList();
+            const modal = document.getElementById('modal-master-manager');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            syncBodyScrollLock();
+        }
+
+        function closeMasterDataManagerModal() {
+            const modal = document.getElementById('modal-master-manager');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            syncBodyScrollLock();
         }
 
         function closeExamGuideModal() {
