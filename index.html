@@ -1609,13 +1609,6 @@
             syncBodyScrollLock();
         }
 
-        function closeUserProfileModal() {
-            const modal = document.getElementById('modal-user-profile');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
         function copyProfileField(field) {
             if (!currentUser) return;
             const value = field === 'email' ? currentUser.email : currentUser.sub;
@@ -1641,13 +1634,6 @@
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             syncBodyScrollLock();
-        }
-
-        function closeLoginModal() {
-            const modal = document.getElementById('modal-google-login');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
         }
 
         // =========================================================================
@@ -2052,13 +2038,6 @@
             syncBodyScrollLock();
         }
 
-        function closeDetailModal() {
-            const modal = document.getElementById('modal-detail');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
         function openMasterEditorFromDetail() {
             const modId = activeModalModuleId;
             closeDetailModal();
@@ -2148,38 +2127,6 @@
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             syncBodyScrollLock();
-        }
-
-        function closeExamGuideModal() {
-            const modal = document.getElementById('modal-exam-guide');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        // =====================================================================
-        // MODAL 3: MANAJEMEN MASTER DATA MODUL & EDITOR HIGHLIGHTS
-        // =====================================================================
-        function openMasterDataManagerModal() {
-            if (!isUserAdmin(currentUser)) {
-                showToast("Akses ditolak: Hanya akun guru terdaftar yang dapat mengelola master data.");
-                openLoginModal();
-                return;
-            }
-            loadGithubApiConfig();
-            closeMasterFormEditor();
-            renderMasterManagerList();
-            const modal = document.getElementById('modal-master-manager');
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeMasterDataManagerModal() {
-            const modal = document.getElementById('modal-master-manager');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
         }
 
         function generateModulesDataJsString() {
