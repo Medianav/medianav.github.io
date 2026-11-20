@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 20/11/2026, 08.55.10
+// Diperbarui pada: 20/11/2026, 08.57.22
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -224,7 +224,8 @@ window.OTOLAB_MASTER_DATA = [
         "badges": [
             "8 Mode View",
             "10 Skenario Kerusakan",
-            "Three.js WebGL"
+            "Three.js WebGL",
+            "Dark Mode"
         ],
         "highlights": [
             {
