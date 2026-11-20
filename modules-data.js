@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 18/11/2026, 19.58.49
+// Diperbarui pada: 20/11/2026, 08.54.13
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -216,10 +216,10 @@ window.OTOLAB_MASTER_DATA = [
         "classLabel": "Simulasi CAD 3D",
         "badgeColor": "emerald",
         "icon": "fa-cube",
-        "thumbnail": "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=900&q=80",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSqqqKukJSzXOQ0LeR1rHBrNg72AmG1vlaDCy8OLiZP2EcLIfb2118bH3BoAhBRB9zsQcCys55wf7aI7FOyLY07nkihqDF6nmZJfrVidQukDlHwK79xUlpn1BLnWxwqXlVcTpUwGLXsSeK-Q4EAc39n6rdoY6yi8keo1fYVH_f-sU_Rudenp78GJiBFFM/s1600/Screenshot%202026-11-20%20084755.png",
         "title": "Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan",
         "subtitle": "Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow",
-        "defaultFile": "sistem-kopling.html#mekanisme",
+        "defaultFile": "simulasi-kopling-dan-transmisi-manual",
         "desc": "Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.",
         "badges": [
             "8 Mode View",
