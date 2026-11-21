@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 21/11/2026, 09.18.18
+// Diperbarui pada: 21/11/2026, 21.58.40
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -258,7 +258,7 @@ window.OTOLAB_MASTER_DATA = [
         "classLabel": "Simulasi Interaktif",
         "badgeColor": "emerald",
         "icon": "fa-database",
-        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEis8oJ1KP8p7JAgwH9n0tAewaumivX7Vl1WlEHc71ZpRHFYpli2HVHFXa4S6gkT7TdXicN0rqWZoib57bDAIaJixsWrOOiXwvzjC-bndftnk2-lQnkb7lriU_WDGS9OXrxym9IvIgN0O3_K-1IgFC3rZ98CHVjrumIsF4PAWLOWN_87W9R9c6W9h-V-248/s1600/Screenshot%202026-11-21%20090513.png",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQd8NX5QqKA2oo28uzLPMPVu3xa1LzvOeMfLF-iti7MyXly4wz1-LFlLyF8eM-ury_5MlPMW1jD2Ih9wXFprxMKSgJSg53779mzlV0pen4qzmvLuxPi3TSmmwhSJgRVWgb0cdOIUSrtL6Ro2_SXhR6gN-DsK8rpIQptxEU0Mqq2SOtH2VXZPwUyj1jW4k/s1600/Screenshot%202026-11-21%20215630.png",
         "title": "Simulasi 3D CAD: Perbandingan Mesin 2 Tak vs 4 Tak",
         "subtitle": "Analisis Mekanisme Slider-Crank, Port Timing, Valvetrain & Telemetri Fisika",
         "defaultFile": "2-tak-vs-4-tak",
