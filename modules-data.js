@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 21/11/2026, 09.12.20
+// Diperbarui pada: 21/11/2026, 09.15.40
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -264,28 +264,12 @@ window.OTOLAB_MASTER_DATA = [
         "defaultFile": "2-tak-vs-4-tak",
         "desc": "Laboratorium virtual 3D interaktif yang membandingkan secara berdampingan mekanisme dan kinematika mesin 2-Stroke (siklus 360°) dan 4-Stroke (siklus 720°), dilengkapi mode Cutaway, Transparan, Exploded View, aliran gas/pembilasan, percikan busi, serta grafik telemetri fisika real-time.",
         "badges": [
-            "3D CAD",
-            "Simulasi Interaktif",
-            "2 tak",
-            "4 tak",
-            "2 stroke",
-            "4 stroke",
-            "mesin",
-            "engine",
-            "piston",
-            "crankshaft",
-            "camshaft",
-            "noken as",
-            "klep",
-            "katup",
-            "saluran bilas",
-            "transfer port",
-            "tma",
-            "tmb",
-            "kompresi",
-            "cad 3d",
-            "kinematika",
-            "telemetri"
+            "Mesin 2 Tak",
+            "Mesin 4 Tak",
+            "Kinematika Mesin",
+            "Slider-Crank",
+            "Siklus Kerja Mesin",
+            "Simulasi 3D CAD"
         ],
         "highlights": [
             {
@@ -302,7 +286,11 @@ window.OTOLAB_MASTER_DATA = [
             },
             {
                 "label": "Skenario Lab",
-                "value": "Custom Bore & Stroke serta 10 Eksperimen & 6 Gangguan"
+                "value": "10 Eksperimen & 6 Gangguan"
+            },
+            {
+                "label": "Custom",
+                "value": "Bore Up & Stroke Up"
             }
         ],
         "topics": [
