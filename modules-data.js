@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 20/11/2026, 08.57.22
+// Diperbarui pada: 21/11/2026, 09.12.20
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -250,6 +250,69 @@ window.OTOLAB_MASTER_DATA = [
             "10 Skenario Kerusakan (Masuk Angin, Kebocoran Pipa, Kampas Aus, dll)"
         ],
         "hint": "Buka modul sistem-kopling.html lalu pilih sub-tab \"Mekanisme\" untuk meluncurkan Simulator CAD 3D layar penuh."
+    },
+    {
+        "id": "simulasi-simulasi-3d-cad-perbandi-2312",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Simulasi Interaktif",
+        "badgeColor": "emerald",
+        "icon": "fa-database",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEis8oJ1KP8p7JAgwH9n0tAewaumivX7Vl1WlEHc71ZpRHFYpli2HVHFXa4S6gkT7TdXicN0rqWZoib57bDAIaJixsWrOOiXwvzjC-bndftnk2-lQnkb7lriU_WDGS9OXrxym9IvIgN0O3_K-1IgFC3rZ98CHVjrumIsF4PAWLOWN_87W9R9c6W9h-V-248/s1600/Screenshot%202026-11-21%20090513.png",
+        "title": "Simulasi 3D CAD: Perbandingan Mesin 2 Tak vs 4 Tak",
+        "subtitle": "Analisis Mekanisme Slider-Crank, Port Timing, Valvetrain & Telemetri Fisika",
+        "defaultFile": "2-tak-vs-4-tak",
+        "desc": "Laboratorium virtual 3D interaktif yang membandingkan secara berdampingan mekanisme dan kinematika mesin 2-Stroke (siklus 360°) dan 4-Stroke (siklus 720°), dilengkapi mode Cutaway, Transparan, Exploded View, aliran gas/pembilasan, percikan busi, serta grafik telemetri fisika real-time.",
+        "badges": [
+            "3D CAD",
+            "Simulasi Interaktif",
+            "2 tak",
+            "4 tak",
+            "2 stroke",
+            "4 stroke",
+            "mesin",
+            "engine",
+            "piston",
+            "crankshaft",
+            "camshaft",
+            "noken as",
+            "klep",
+            "katup",
+            "saluran bilas",
+            "transfer port",
+            "tma",
+            "tmb",
+            "kompresi",
+            "cad 3d",
+            "kinematika",
+            "telemetri"
+        ],
+        "highlights": [
+            {
+                "label": "Siklus Kerja",
+                "value": "360° (2T) vs 720° (4T)"
+            },
+            {
+                "label": "Format",
+                "value": "Simulasi Interaktif"
+            },
+            {
+                "label": "Mode Tampilan",
+                "value": "9 Mode CAD 3D"
+            },
+            {
+                "label": "Skenario Lab",
+                "value": "Custom Bore & Stroke serta 10 Eksperimen & 6 Gangguan"
+            }
+        ],
+        "topics": [
+            "Mekanisme Slider-Crank & Kinematika Piston (TMA–TMB)",
+            "Sistem Pembilasan (Scavenging) & Saluran Bilas Mesin 2-Tak",
+            "Mekanisme Katup (Valvetrain), Profil Noken & Rasio Camshaft 1:2",
+            "Simulasi Perubahan Geometri Bore, Stroke & Compression Ratio",
+            "Grafik Telemetri Fisika Real-Time & 6 Skenario Gangguan Mesin"
+        ],
+        "hint": ""
     },
     {
         "id": "sim-katalog-swipe",
