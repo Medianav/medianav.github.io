@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 21/11/2026, 21.58.40
+// Diperbarui pada: 22/11/2026, 14.29.11
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -255,11 +255,11 @@ window.OTOLAB_MASTER_DATA = [
         "id": "simulasi-simulasi-3d-cad-perbandi-2312",
         "section": "simulasi",
         "group": "simulasi",
-        "classLabel": "Simulasi Interaktif",
+        "classLabel": "Simulasi CAD 3D",
         "badgeColor": "emerald",
-        "icon": "fa-database",
+        "icon": "fa-cube",
         "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQd8NX5QqKA2oo28uzLPMPVu3xa1LzvOeMfLF-iti7MyXly4wz1-LFlLyF8eM-ury_5MlPMW1jD2Ih9wXFprxMKSgJSg53779mzlV0pen4qzmvLuxPi3TSmmwhSJgRVWgb0cdOIUSrtL6Ro2_SXhR6gN-DsK8rpIQptxEU0Mqq2SOtH2VXZPwUyj1jW4k/s1600/Screenshot%202026-11-21%20215630.png",
-        "title": "Simulasi 3D CAD: Perbandingan Mesin 2 Tak vs 4 Tak",
+        "title": "Simulasi 3D CAD Perbandingan Mesin 2 Tak vs 4 Tak",
         "subtitle": "Analisis Mekanisme Slider-Crank, Port Timing, Valvetrain & Telemetri Fisika",
         "defaultFile": "2-tak-vs-4-tak",
         "desc": "Laboratorium virtual 3D interaktif yang membandingkan secara berdampingan mekanisme dan kinematika mesin 2-Stroke (siklus 360°) dan 4-Stroke (siklus 720°), dilengkapi mode Cutaway, Transparan, Exploded View, aliran gas/pembilasan, percikan busi, serta grafik telemetri fisika real-time.",
