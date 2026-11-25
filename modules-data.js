@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 22/11/2026, 18.16.33
+// Diperbarui pada: 25/11/2026, 13.47.43
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -216,8 +216,8 @@ window.OTOLAB_MASTER_DATA = [
         "classLabel": "Simulasi CAD 3D",
         "badgeColor": "emerald",
         "icon": "fa-cube",
-        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSqqqKukJSzXOQ0LeR1rHBrNg72AmG1vlaDCy8OLiZP2EcLIfb2118bH3BoAhBRB9zsQcCys55wf7aI7FOyLY07nkihqDF6nmZJfrVidQukDlHwK79xUlpn1BLnWxwqXlVcTpUwGLXsSeK-Q4EAc39n6rdoY6yi8keo1fYVH_f-sU_Rudenp78GJiBFFM/s1600/Screenshot%202026-11-20%20084755.png",
-        "title": "Simulator CAD 3D Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcHefC3hnj0OwZsLf5TiFZl-9U16QnHO1L4uXtFeIBujDePX8NfYiMN8t7c3FJIpOp-6214tsTfQzFkiOhdhKNyQs1K9MVKEikr87JgwL4nofXXamb5WVFwEWQMVuLxPsJWJLIjnK4YzXpyxJ8LSpmjxvvCm81uiy98vyCApXM7joLuy0M-GySMMQbg30/s1600/Screenshot%202026-11-25%20133857.png",
+        "title": "Sistem Kopling Hidrolik & Transmisi Manual 5-Percepatan",
         "subtitle": "Three.js WebGL • Hukum Pascal, Synchronizer & Torque Flow",
         "defaultFile": "simulasi-kopling-dan-transmisi-manual",
         "desc": "Laboratorium virtual 3D interaktif berstandar CAD teknik otomotif. Mensimulasikan injakan pedal kopling, aliran fluida Hukum Pascal, synchronizer ring, hingga perpindahan gigi H-Pattern 5-percepatan.",
@@ -258,8 +258,8 @@ window.OTOLAB_MASTER_DATA = [
         "classLabel": "Simulasi CAD 3D",
         "badgeColor": "emerald",
         "icon": "fa-cube",
-        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQd8NX5QqKA2oo28uzLPMPVu3xa1LzvOeMfLF-iti7MyXly4wz1-LFlLyF8eM-ury_5MlPMW1jD2Ih9wXFprxMKSgJSg53779mzlV0pen4qzmvLuxPi3TSmmwhSJgRVWgb0cdOIUSrtL6Ro2_SXhR6gN-DsK8rpIQptxEU0Mqq2SOtH2VXZPwUyj1jW4k/s1600/Screenshot%202026-11-21%20215630.png",
-        "title": "Simulasi CAD 3D Perbandingan Mesin 2 Tak vs 4 Tak",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiN9_-yVJTk5DCLdvLQ4bXVDcguan4QqTfBy2CIWrTpvStuxMuEodVnDsQ3JLv9M5BawaMhoFOIcZbjkNcN3PxWCg9lZEgXXqaJ34ndsG1T9IkseJbCrzGCKJ6qQK7nNhR41RkmidKdGTlNkv1yGplUnLcZEDLiMQa-dhRL98jIOP6EfCTdyEM3H7YhbMk/s1600/Screenshot%202026-11-25%20134526.png",
+        "title": "Perbandingan Mesin 2 Tak vs 4 Tak",
         "subtitle": "Analisis Mekanisme Slider-Crank, Port Timing, Valvetrain & Telemetri Fisika",
         "defaultFile": "2-tak-vs-4-tak",
         "desc": "Laboratorium virtual 3D interaktif yang membandingkan secara berdampingan mekanisme dan kinematika mesin 2-Stroke (siklus 360°) dan 4-Stroke (siklus 720°), dilengkapi mode Cutaway, Transparan, Exploded View, aliran gas/pembilasan, percikan busi, serta grafik telemetri fisika real-time.",
