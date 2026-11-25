@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 25/11/2026, 13.47.43
+// Diperbarui pada: 25/11/2026, 13.58.10
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -380,5 +380,48 @@ window.OTOLAB_MASTER_DATA = [
             "Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas"
         ],
         "hint": "Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian."
+    },
+    {
+        "id": "simulasi-simulasi-sistem-suspensi-6323",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Simulasi Interaktif",
+        "badgeColor": "emerald",
+        "icon": "fa-shapes",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-JSy1ztXQcLKi_hlDMjFtiGj0L3zqTg2vltoOWv8IraSsAnnfDJAe3827xkxngTl5z5_fem95KFyYgBWHOaHuOvphjD6SoaYeHMuSnnNweWKeLoc-8Ac68LAglCNWu_vUsZvKqGQSxby_M9REaqie2_tgT8WGC3jG-6xry9fRBN6DqWJhH9De2QUaJPs/s1600/Screenshot%202026-11-25%20135111.png",
+        "title": "Simulasi Sistem Suspensi Elektronik (Electronic Controlled Suspension)",
+        "subtitle": "Analisis Kontrol Redaman Adaptif, Air Suspension, Sensor Ketinggian & Dinamika Kendaraan",
+        "defaultFile": "sistem-suspensi-elektronik",
+        "desc": "Simulator interaktif sistem suspensi elektronik kendaraan (ECS & Air Suspension) untuk menganalisis cara kerja ECU suspensi, sensor percepatan/ketinggian (height sensor), aktuator katup peredam (damper solenoid), serta respons redaman terhadap variasi kondisi jalan dan kecepatan secara real-time.",
+        "badges": [
+            "Suspensi Elektronik",
+            "Air Suspension",
+            "Sistem Chassis",
+            "Damping Control",
+            "Sensor Suspensi",
+            "Simulasi Otomotif"
+        ],
+        "highlights": [
+            {
+                "label": "Mode Kendara",
+                "value": "Comfort, Normal & Sport"
+            },
+            {
+                "label": "Komponen Utama",
+                "value": "ECU, Sensor & Aktuator Damper"
+            },
+            {
+                "label": "Pengujian",
+                "value": "Simulasi Kontur Jalan & Kecepatan"
+            }
+        ],
+        "topics": [
+            "Prinsip Kerja Electronic Controlled Suspension (ECS) & Air Suspension",
+            "Fungsi Sensor Ketinggian (Height Sensor), G-Sensor & Steering Angle Sensor",
+            "Pengaturan Karakteristik Peredaman (Soft, Medium, Hard) oleh Aktuator Solenoid",
+            "Analisis Respons Suspensi Terhadap Kontur Jalan, Pengereman (Anti-Dive) & Akselerasi (Anti-Squat)",
+            "Diagnosa Gangguan Sistem Suspensi Elektronik & Pembacaan Parameter Real-Time"
+        ],
+        "hint": ""
     }
 ];
