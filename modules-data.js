@@ -1,6 +1,6 @@
 // =========================================================================
 // MASTER DATA EKSTERNAL PORTAL OTOLAB SMK
-// Diperbarui pada: 25/11/2026, 13.58.10
+// Diperbarui pada: 25/11/2026, 14.26.22
 // =========================================================================
 
 window.OTOLAB_MASTER_DATA = [
@@ -303,83 +303,47 @@ window.OTOLAB_MASTER_DATA = [
         "hint": ""
     },
     {
-        "id": "sim-katalog-swipe",
+        "id": "simulasi-simulasi-sistem-bahan-ba-5932",
         "section": "simulasi",
         "group": "simulasi",
-        "classLabel": "Eksplorasi 3D / Swipe",
+        "classLabel": "Simulasi Interaktif",
         "badgeColor": "emerald",
-        "icon": "fa-hand-pointer",
-        "thumbnail": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
-        "title": "Katalog Visual Interaktif 3D/Swipe & Lightbox Inspeksi Komponen",
-        "subtitle": "Interactive Swipeable Deck & High-Res Lightbox Zoom",
-        "defaultFile": "materi-pemindah-tenaga.html",
-        "desc": "Antarmuka eksplorasi visual berbasis kartu geser sentuh (touch/drag carousel) dan lightbox zoom resolusi tinggi untuk mengamati konstruksi detail komponen pemindah tenaga & peralatan bengkel.",
+        "icon": "fa-shapes",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3lURttODY98GUBq3qw9bJxyVhX5JW8U1crqetbAHOICNBPXLun6U9yQuz1BqHeYOlqiJ7T0j4YU7wtRvlk6wqZGJ8uEXCar47JFdpjJhtKe9Kz4qtkEw7eESLCPim09-23UehVE29yewXBVa9MN5NbPjUOU7AAYCkpBt5O4WZlTxy_Awjk8ueSLc7-sw/s1600/Screenshot%202026-11-25%20140118.png",
+        "title": "Simulasi Sistem Bahan Bakar Injeksi (Electronic Fuel Injection)",
+        "subtitle": "Analisis Aliran Bahan Bakar, Sensor EFI, Durasi Injeksi & Diagnosa Gangguan Sistem",
+        "defaultFile": "simulasi-sistem-bahan-bakar-injeksi",
+        "desc": "Simulator interaktif sistem bahan bakar injeksi elektronik (EFI) untuk mempelajari sirkuit aliran bahan bakar bertekanan, pembacaan sensor mesin (MAP/MAF, TPS, CKP, O2, ECT), pengaturan durasi penyemprotan injektor oleh ECU, serta simulasi gejala kerusakan komponen secara real-time.",
         "badges": [
-            "Swipe Carousel",
-            "Lightbox Zoom",
-            "Android & Desktop"
+            "Sistem Bahan Bakar Injeksi",
+            "Electronic Fuel Injection",
+            "Sensor EFI",
+            "Injektor",
+            "Fuel Pump",
+            "Simulasi Otomotif"
         ],
         "highlights": [
             {
-                "label": "Navigasi",
-                "value": "Gesture Swipe"
+                "label": "Sistem Utama",
+                "value": "Tangki, Pompa, Fuel Rail & Injektor"
             },
             {
-                "label": "Inspeksi",
-                "value": "Lightbox Zoom"
+                "label": "Input Kontrol",
+                "value": "Sensor ECT, TPS, CKP & O2"
             },
             {
-                "label": "Kompatibilitas",
-                "value": "Android & Desktop"
+                "label": "Pengujian",
+                "value": "RPM, Feedback Sensor Oksigen, ECT, dll"
             }
         ],
         "topics": [
-            "Gestur Usap Kiri-Kanan (Swipe Carousel) dengan Indikator Interaktif",
-            "Pencarian Komponen Instan Berdasarkan Nama & Fungsi",
-            "Lightbox Fullscreen Zoom untuk Mengamati Detail Konstruksi",
-            "Struktur Pembelajaran Terstandar: Pengertian, Fungsi, Cara Kerja & Servis"
+            "Prinsip Kerja Sistem Bahan Bakar Injeksi Elektronik (EFI)",
+            "Aliran Bahan Bakar dari Tangki, Fuel Pump, Filter, Fuel Rail hingga Injektor",
+            "Fungsi Sensor Utama EFI (TPS, MAP/MAF, CKP, ECT, dan Oxygen Sensor)",
+            "Pengaturan Lebar Pulsa Injeksi (Injector Pulse Width) Berdasarkan Beban & RPM",
+            "Diagnosa Gangguan Sistem Injeksi (Tekanan Bahan Bakar Drop, Injektor Tersumbat, Sensor Rusak)"
         ],
-        "hint": "Tersedia pada seluruh modul materi Kelas X OTO maupun Kelas XI TKR."
-    },
-    {
-        "id": "sim-exam-browser",
-        "section": "simulasi",
-        "group": "simulasi",
-        "classLabel": "Secure Exam CBT",
-        "badgeColor": "emerald",
-        "icon": "fa-shield-halved",
-        "thumbnail": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
-        "title": "Portal Evaluasi & Simulasi Ujian Aman (Secure Exam Browser Mode)",
-        "subtitle": "PIN Otorisasi Guru • Anti-Tab Switch & Pengacakan Soal",
-        "defaultFile": "sistem-kopling.html",
-        "actionType": "exam-guide",
-        "desc": "Lingkungan evaluasi mandiri dan ulangan harian berbasis web dengan penguncian layar penuh otomatis, deteksi perpindahan aplikasi/tab, pengacakan soal per siswa, serta otorisasi PIN guru.",
-        "badges": [
-            "PIN Pengawas",
-            "Anti-Tab Switch (3x)",
-            "Pengacakan Soal"
-        ],
-        "highlights": [
-            {
-                "label": "Batas Pelanggaran",
-                "value": "Maks. 3 Kali"
-            },
-            {
-                "label": "Auto-Lock",
-                "value": "Mode CBT Aman"
-            },
-            {
-                "label": "Otorisasi",
-                "value": "Akun Guru / Admin"
-            }
-        ],
-        "topics": [
-            "Penguncian Tab Soal dengan PIN Akses Guru",
-            "Paksa Mode Layar Penuh (Fullscreen) Otomatis Saat Masuk & Refresh",
-            "Deteksi Kecurangan Pindah Tab / Split Screen di HP Android",
-            "Reset Pelanggaran & Reset Kuis Instan dengan PIN Pengawas"
-        ],
-        "hint": "Login dengan akun Google pengajar untuk melihat rincian PIN & tata tertib ujian."
+        "hint": ""
     },
     {
         "id": "simulasi-simulasi-sistem-suspensi-6323",
@@ -421,6 +385,92 @@ window.OTOLAB_MASTER_DATA = [
             "Pengaturan Karakteristik Peredaman (Soft, Medium, Hard) oleh Aktuator Solenoid",
             "Analisis Respons Suspensi Terhadap Kontur Jalan, Pengereman (Anti-Dive) & Akselerasi (Anti-Squat)",
             "Diagnosa Gangguan Sistem Suspensi Elektronik & Pembacaan Parameter Real-Time"
+        ],
+        "hint": ""
+    },
+    {
+        "id": "simulasi-simulasi-sistem-electric-8774",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Simulasi Interaktif",
+        "badgeColor": "emerald",
+        "icon": "fa-shapes",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhMjTnInDIvnbC0P1Tg8yPCY2RTy7UBogyIGCjg0UfXcmKsU1XJVJourM6Pik2nPBNlBTf50IYzemygjLnDK8nTW3utMJZc9adYwLI3rjgN0cyabA-f8WALCw4LbGO7WmScCRk05bhe0nKTYRHhbgLyknc3s6YiZmwRAwtfPDPbFaivaWN6Xo8nKwkc9w0/s1600/Screenshot%202026-11-25%20141129.png",
+        "title": "Simulasi Sistem Electric Power Steering (EPS)",
+        "subtitle": "Analisis Sensor Torsi, Kecepatan Kendaraan, Arus Motor EPS & Diagnosa Sistem Kemudi",
+        "defaultFile": "simulasi-sistem-electric-power-steering",
+        "desc": "Simulator interaktif sistem kemudi Electric Power Steering (EPS) untuk mempelajari prinsip kerja bantuan gaya kemudi berbasis motor listrik, pembacaan Torque Sensor dan Vehicle Speed Sensor (VSS) oleh EPS Control Module, pengaturan arus bantuan (assist current) sesuai kecepatan kendaraan, serta simulasi skenario gangguan dan diagnosa DTC.",
+        "badges": [
+            "Electric Power Steering",
+            "Sistem Kemudi",
+            "Torque Sensor",
+            "Motor EPS",
+            "Sistem Chassis",
+            "Simulasi Otomotif"
+        ],
+        "highlights": [
+            {
+                "label": "Komponen Utama",
+                "value": "Torque Sensor, ECU EPS & Motor DC"
+            },
+            {
+                "label": "Parameter Uji",
+                "value": "Sudut Kemudi, Kecepatan & Arus Motor"
+            },
+            {
+                "label": "Pengujian",
+                "value": "Simulasi Parkir, Kecepatan Tinggi & DTC"
+            }
+        ],
+        "topics": [
+            "Prinsip Kerja Electric Power Steering (Column-Type, Pinion-Type & Rack-Type)",
+            "Fungsi Torque Sensor, Steering Angle Sensor & Vehicle Speed Sensor (VSS)",
+            "Karakteristik Bantuan Daya Kemudi (Assist Map) pada Kecepatan Rendah vs Tinggi",
+            "Kerja Motor Listrik EPS, Clutch & Mekanisme Reduction Gear",
+            "Diagnosa Gangguan Sistem EPS (Fail-Safe Mode, Sensor Rusak & Indikator EPS Menyala)"
+        ],
+        "hint": ""
+    },
+    {
+        "id": "simulasi-simulasi-sistem-kopling--7847",
+        "section": "simulasi",
+        "group": "simulasi",
+        "classLabel": "Simulasi Interaktif",
+        "badgeColor": "emerald",
+        "icon": "fa-shapes",
+        "thumbnail": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggjfGbvgBYFMxqKJigRqxSQhjkhNCneDyrGE-j43_GFTlyBGvarviSoGqZQOqbZJAcs7sjld1ZTcEiwbxf35xzxbZM0q0xSCpxQuc7NMIEuNZ81p4cXKDkvshYJRCoOnSJsnAKT392FRM0sg1josaZc1Zcqxpaa4z5aT9DeZwj17OcaOm0sWwfBLPhKvc/s1600/Screenshot%202026-11-25%20141914.png",
+        "title": "Simulasi Sistem Kopling Manual & Transmisi 2D",
+        "subtitle": "Analisis Aliran Tenaga, Kondisi Setengah Kopling (Slipping), Rasio Gigi & Telemetri Gearbox",
+        "defaultFile": "simulasi-kopling-manual-2d",
+        "desc": "Simulator interaktif 2D sistem kopling mekanis/hidrolis dan Multi-Gear Manual Transmission Box untuk mempelajari aliran tenaga dari crankshaft hingga output shaft, simulasi tekanan pedal kopling (lepas, setengah kopling/slipping, hingga terputus penuh), perpindahan gigi R dan 1–5, serta telemetri RPM, gaya jepit diaphragm spring, dan suhu friksi kopling secara real-time.",
+        "badges": [
+            "Kopling Manual",
+            "Transmisi Manual",
+            "Sistem Pemindah Tenaga",
+            "Diaphragm Spring",
+            "Rasio Gigi",
+            "Simulasi Otomotif"
+        ],
+        "highlights": [
+            {
+                "label": "Posisi Gigi",
+                "value": "R, N & 1 – 5 Percepatan"
+            },
+            {
+                "label": "Status Kopling",
+                "value": "Terhubung, Slipping & Terputus"
+            },
+            {
+                "label": "Telemetri",
+                "value": "RPM, Gaya Jepit & Suhu Friksi"
+            }
+        ],
+        "topics": [
+            "Prinsip Kerja Sistem Penggerak Kopling Hidrolis (Master Cylinder, Slave Cylinder & Release Fork)",
+            "Fungsi Flywheel, Clutch Disc, Pressure Plate & Gaya Jepit Diaphragm Spring",
+            "Analisis Kondisi Setengah Kopling (Slipping), Selip Gesekan Parsial & Kenaikan Suhu Friksi",
+            "Aliran Tenaga (Power Flow) pada Multi-Gear Manual Transmission Box (Gigi R, N, dan 1–5)",
+            "Pembacaan Telemetri Putaran Mesin (Flywheel RPM), Input Shaft, Output Shaft & Rasio Gigi Aktif"
         ],
         "hint": ""
     }
